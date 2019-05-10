@@ -15,7 +15,7 @@
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet">
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.servletContext.contextPath}/js/utils/base64.js"></script>
+    <%--<script src="${pageContext.servletContext.contextPath}/js/utils/base64.js"></script>--%>
     <script src="${pageContext.servletContext.contextPath}/js/utils/core.js"></script>
 </head>
 <body class="h-100">
@@ -340,12 +340,29 @@
       });
     });
 
-    $('.toggle-avatar').on('click', function (e) {
+    $('.toggle-avatar').on('click', function () {
       $('.avatar-hook').click();
     });
 
-    $('.avatar-hook').on('change', function (e) {
-      new Base64('.avatar-hook', '.toggle-avatar'); // <%-- TODO base64.js待修改 --%>
+    $('.avatar-hook').on('change', function () {
+      var img = $('.avatar-hook')[0];
+      var ele = $('.toggle-avatar');
+      var pattern = /(\.*.jpg$)|(\.*.png$)|(\.*.jpeg$)|(\.*.gif$)|(\.*.bmp$)|(\.*.webp$)/;
+      if (!pattern.test(img.value.toLowerCase())) {
+        alert("请上传jpg/jpeg/png/gif/bmp/webp格式的照片！");
+        img.focus();
+      } else {
+        if (img.files[0] > 20 * 1024 * 1024) {
+          alert("照片超过20M，请重新选择");
+        } else {
+          var url = URL.createObjectURL(img.files[0]);
+          ele.attr('src', url);
+          /*ele.on('load', function () {
+            URL.revokeObjectURL(url);
+          });*/
+        }
+      }
+      <%--new Base64('.avatar-hook', '.toggle-avatar'); // &lt;%&ndash; base64.js待修改 &ndash;%&gt;--%>
     });
 
     $('.update').on('click', function (e) { // <%-- TODO 待续 --%>
@@ -433,7 +450,7 @@
             url: '${pageContext.servletContext.contextPath}/user_updatePhone',
             type: 'POST',
             data: 'user.userPass=' + password + '&user.userPhone=' + phone + '&oldPhone=' + oldPhone,
-            success:  $success.bind(null, index)
+            success: $success.bind(null, index)
           });
           break;
         default:
