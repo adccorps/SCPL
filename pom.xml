@@ -18,8 +18,8 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
 
-    <struts.version>2.5.14.1</struts.version>
-    <spring.version>5.0.6.RELEASE</spring.version>
+    <struts.version>2.5.20</struts.version>
+    <spring.version>5.0.7.RELEASE</spring.version>
   </properties>
 
   <dependencies>
@@ -133,13 +133,6 @@
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>5.1.38</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
-    <dependency>
-      <groupId>com.mchange</groupId>
-      <artifactId>c3p0</artifactId>
-      <version>0.9.5.1</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
