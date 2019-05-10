@@ -1,7 +1,7 @@
 # SCPL 校园信息平台系统
 
 项目使用IDEA构建  
-使用Struts2 + Spring + Mybatis + Maven  
+使用`Struts2` + `Spring` + `Mybatis` + `Maven`
 
 ## 环境搭建
 1. File -> Project from Version Control -> Git
