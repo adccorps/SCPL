@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.sontan.dao.UserDao">
+  <resultMap id="userMap" type="user">
+    <id property="userId" column="user_id"/>
+    <result property="userPass" column="user_pass"/>
+    <result property="userName" column="user_name"/>
+    <result property="userAddress" column="user_address"/>
+    <result property="userAvatar" column="user_avatar"/>
+    <result property="userPhone" column="user_phone"/>
+  </resultMap>
+
+  <insert id="saveUser">
+    INSERT INTO xy_user(user_id,user_name,user_pass,user_address,user_avatar,user_phone) VALUES (#{user.userId}, #{user.userName}, #{user.userPass}, #{user.userAddress}, #{user.userAvatar}, #{user.userPhone})
+  </insert>
+
+  <insert id="saveUserSelective">
+    INSERT INTO xy_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="user.userId != null">
+        user_id,
+      </if>
+      <if test="user.userName != null">
+        user_name,
+      </if>
+      <if test="user.userPass != null">
+        user_pass,
+      </if>
+      <if test="user.userAvatar != null">
+        user_avatar,
+      </if>
+      <if test="user.userAddress != null">
+        user_address,
+      </if>
+      <if test="user.userPhone != null">
+        user_phone,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+      <if test="user.userId != null">
+        #{user.userId},
+      </if>
+      <if test="user.userName != null">
+        #{user.userName},
+      </if>
+      <if test="user.userPass != null">
+        #{user.userPass},
+      </if>
+      <if test="user.userAvatar != null">
+        #{user.userAvatar},
+      </if>
+      <if test="user.userAddress != null">
+        #{user.userAddress},
+      </if>
+      <if test="user.userPhone != null">
+        #{user.userPhone},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateUserSelective">
+    UPDATE xy_user
+    <set>
+      <if test="user.userName != null">
+        user_name = #{user.userName},
+      </if>
+      <if test="user.userPass != null">
+        user_pass = #{user.userPass},
+      </if>
+      <if test="user.userAvatar != null">
+        user_avatar = #{user.userAvatar},
+      </if>
+      <if test="user.userAddress != null">
+        user_address = #{user.userAddress},
+      </if>
+      <if test="user.userPhone != null">
+        user_phone = #{user.userPhone},
+      </if>
+    </set>
+    WHERE user_id=#{user.userId}
+  </update>
+
+  <select id="findAll" resultMap="userMap">
+    SELECT * FROM xy_user
+  </select>
+
+  <select id="findById" resultMap="userMap">
+    SELECT * FROM xy_user WHERE user_id=#{userId}
+  </select>
+
+  <select id="findByPhoneAndPass" resultMap="userMap">
+    SELECT * FROM xy_user WHERE user_phone=#{userPhone} AND user_pass=#{userPass}
+  </select>
+
+  <select id="findByPhone" resultMap="userMap">
+    SELECT * FROM xy_user WHERE user_phone=#{userPhone}
+  </select>
+</mapper>

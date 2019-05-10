@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd"
+>
+  <context:component-scan base-package="web.sontan"/>
+
+  <context:property-placeholder location="classpath:jdbc.properties"/>
+
+  <!--<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <property name="driverClass" value="${mysql.driverClassName}"/>
+    <property name="jdbcUrl" value="${mysql.url}"/>
+    <property name="user" value="${mysql.username}"/>
+    <property name="password" value="${mysql.password}"/>
+
+    <property name="maxPoolSize" value="50"/>
+    <property name="minPoolSize" value="5"/>
+    <property name="initialPoolSize" value="5"/>
+    <property name="maxIdleTime" value="20"/>
+    <property name="maxStatements" value="50"/>
+    <property name="acquireIncrement" value="20"/>
+  </bean> &lt;!&ndash; c3p0 &ndash;&gt;-->
+
+  <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"> <!-- Hikari -->
+    <property name="driverClassName" value="${mysql.driverClassName}"/>
+    <property name="jdbcUrl" value="${mysql.url}"/>
+    <property name="username" value="${mysql.username}"/>
+    <property name="password" value="${mysql.password}"/>
+
+    <property name="maxLifetime" value="1800000"/>
+    <property name="maximumPoolSize" value="50"/>
+    <property name="minimumIdle" value="5"/>
+    <property name="autoCommit" value="true"/>
+  </bean>
+
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="configLocation" value="classpath:SqlMapConfig.xml"/>
+    <property name="mapperLocations" value="classpath:web/sontan/dao/**/*.xml" />
+  </bean>
+
+  <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    <property name="basePackage" value="web.sontan.dao"/>
+  </bean>
+
+  <!-- 用注解来实现事务管理 -->
+  <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"/>
+  </bean>
+  <tx:annotation-driven transaction-manager="txManager"/>
+</beans>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <settings>
+    <setting name="lazyLoadingEnabled" value="true"/>
+    <setting name="aggressiveLazyLoading" value="false"/>
+  </settings>
+
+  <typeAliases> <!-- 为model配置别名，这样就不用在Mapper里面写全限定类名（包名.类名），别名不区分大小写 -->
+    <package name="web.sontan.model"/>
+  </typeAliases>
+
+  <mappers>
+    <package name="example.snoopyaquarius.dao"/>
+  </mappers>
+</configuration>

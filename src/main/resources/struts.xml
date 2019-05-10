@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+  <constant name="struts.objectFactory" value="spring"/>
+
+  <package name="default" namespace="/" strict-method-invocation="false" extends="json-default">
+    <interceptors>
+      <interceptor name="interceptor" class="web.sontan.interceptor.Logined"/>
+      <interceptor-stack name="myStack">
+        <interceptor-ref name="defaultStack"/>
+        <interceptor-ref name="interceptor"/>
+      </interceptor-stack>
+    </interceptors>
+
+    <default-interceptor-ref name="myStack"/>
+
+    <global-results>
+      <result name="index" type="redirect">/</result>
+      <result name="login" type="json"/>
+      <result name="register" type="json"/>
+      <result name="update" type="json"/>
+    </global-results>
+
+    <action name="index">
+      <result>/WEB-INF/index.jsp</result>
+    </action>
+
+    <action name="login">
+      <result>/WEB-INF/login.jsp</result>
+    </action>
+
+    <action name="register">
+      <result>/WEB-INF/register.jsp</result>
+    </action>
+
+    <action name="user_*" class="userAction" method="{1}">
+      <result name="success">/WEB-INF/index.jsp</result>
+      <result name="error">/WEB-INF/404.jsp</result>
+    </action>
+  </package>
+
+  <package name="test" namespace="/test" strict-method-invocation="false" extends="struts-default">
+    <action name="test_*" class="testAction" method="{1}"/>
+  </package>
+
+  <package name="user" namespace="/user" strict-method-invocation="false" extends="struts-default">
+    <interceptors>
+      <interceptor name="interceptor" class="web.sontan.interceptor.NoLogin"/>
+      <interceptor-stack name="myStack">
+        <interceptor-ref name="defaultStack"/>
+        <interceptor-ref name="interceptor"/>
+      </interceptor-stack>
+    </interceptors>
+
+    <default-interceptor-ref name="myStack"/>
+
+    <global-results>
+      <result name="index" type="redirect">/login?error=-1</result>
+    </global-results>
+
+    <action name="profile">
+      <result>/WEB-INF/user/profile.jsp</result>
+    </action>
+  </package>
+</struts>
