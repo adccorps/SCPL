@@ -540,7 +540,7 @@
       }
     });
 
-    $('.modal:not(#tip-modal)').on('hidden.bs.modal', function (e) {
+    $('.modal:not(#tip-modal):not(#avatar-modal)').on('hidden.bs.modal', function (e) {
       $(this).find('input').each(function (index, target) {
         $(target).val('');
         $default($(target).next(), $(target));
