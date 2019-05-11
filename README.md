@@ -5,8 +5,8 @@
 
 ## 环境搭建
 - **1** 数据库搭建
-    + **1.1**  导入xy.sql  
-    + **1.2**  导入shm.sql
+    + **1.1**  导入sql/xy.sql  
+    + **1.2**  导入sql/shm.sql
 - **2** 项目搭建
     + **2.1**  File -> Project from Version Control -> Git  
     ![2.1](img/2.1.png)
