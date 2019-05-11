@@ -6,7 +6,7 @@
 ## 环境搭建
 - **1** 数据库搭建
     + **1.1**  导入xy.sql  
-    + **1.1**  导入shm.sql
+    + **1.2**  导入shm.sql
 - **2** 项目搭建
     + **2.1**  File -> Project from Version Control -> Git
     + **2.2**  导入该项目的URL，设置好项目存放的路径
