@@ -2,6 +2,7 @@ package web.sontan.action;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.util.IdUtil;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
@@ -48,7 +49,7 @@ public class UserAction extends ActionSupport implements SessionAware {
     }
 
     public String register() {
-        user.setUserId(user.getUserPhone()); // TODO 待修改改为UUID
+        user.setUserId(IdUtil.simpleUUID());
         boolean flag = userService.register(user);
         if (!flag) {
             tip = "注册失败，请检查您的信息后重试！";
