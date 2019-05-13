@@ -1,8 +1,10 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="zh-CN" />
     <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>主页</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css">
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet" />
@@ -10,7 +12,9 @@
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<jsp:include page="header/header.jsp" />
+<jsp:include page="header/header.jsp">
+    <jsp:param name="indexActive" value="active"/>
+</jsp:include>
 
 <main role="main">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">

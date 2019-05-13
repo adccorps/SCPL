@@ -29,7 +29,7 @@ public class NoLogin implements Interceptor {
     public String intercept(ActionInvocation actionInvocation) throws Exception {
         User user = (User) ActionContext.getContext().getSession().get("user");
         if (user == null) { // 未登录用户不允许访问
-            return "index";
+            return "login";
         }
         return actionInvocation.invoke();
     }

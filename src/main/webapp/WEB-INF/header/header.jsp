@@ -16,19 +16,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item ${param.indexActive}">
                     <a class="nav-link" href="${pageContext.servletContext.contextPath}">首页</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">贴吧</a>
+                <li class="nav-item ${param.postActive}">
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/post/index">贴吧</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ${param.renwuActive}">
                     <a class="nav-link" href="#">任务</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ${param.shopActive}">
                     <a class="nav-link" href="#">二手市场</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ${param.shiwuxunwuActive}">
                     <a class="nav-link" href="#">失物寻物</a>
                 </li>
             </ul>

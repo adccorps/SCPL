@@ -8,8 +8,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
-<html lang="en" class="h-100">
+<html lang="zh-CN" class="h-100">
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="zh-CN" />
     <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>校园生活</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css">
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet">

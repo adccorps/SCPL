@@ -7,8 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
-<html lang="en" class="h-100">
+<html lang="zh-CN" class="h-100">
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="zh-CN" />
     <title>注册</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css">
     <%--<link href="css/carousel.css" rel="stylesheet" />--%>

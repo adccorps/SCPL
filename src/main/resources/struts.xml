@@ -47,23 +47,29 @@
     <action name="test_*" class="testAction" method="{1}"/>
   </package>
 
-  <package name="user" namespace="/user" strict-method-invocation="false" extends="struts-default">
+  <package name="nologin" extends="json-default" abstract="true" strict-method-invocation="false">
     <interceptors>
       <interceptor name="interceptor" class="web.sontan.interceptor.NoLogin"/>
-      <interceptor-stack name="myStack">
+      <interceptor-stack name="nologin">
         <interceptor-ref name="defaultStack"/>
         <interceptor-ref name="interceptor"/>
       </interceptor-stack>
     </interceptors>
 
-    <default-interceptor-ref name="myStack"/>
+    <default-interceptor-ref name="nologin"/>
 
     <global-results>
-      <result name="index" type="redirect">/login?error=-1</result>
+      <result name="login" type="redirect">/login?error=-1</result>
     </global-results>
+  </package>
+
+  <package name="user" namespace="/user" extends="nologin">
 
     <action name="profile">
       <result>/WEB-INF/user/profile.jsp</result>
     </action>
+
   </package>
+
+  <include file="struts-snoopyaquarius.xml"/>
 </struts>
