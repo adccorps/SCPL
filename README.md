@@ -1,7 +1,8 @@
 # SCPL 校园信息平台系统
 
 项目使用IDEA构建  
-后端使用`Struts2` + `Spring` + `Mybatis` + `Maven`，前端使用`jquery` + `bootstrap`
+后端使用`Struts2` + `Spring` + `Mybatis` + `Maven`，前端使用`jquery` + `bootstrap`  
+支持`IE10+`
 
 ## 环境搭建
 - **1** 数据库搭建
