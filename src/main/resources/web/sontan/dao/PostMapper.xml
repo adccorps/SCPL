@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.sontan.dao.PostDao">
+  <resultMap id="postMap" type="post">
+    <id property="postId" column="post_id"/>
+    <result property="postContent" column="post_content"/>
+    <result property="postTitle" column="post_title"/>
+    <result property="postStatus" column="post_status"/>
+    <result property="postType" column="post_type"/>
+    <result property="createTime" column="create_time"/>
+
+    <association property="user" resultMap="web.sontan.dao.UserDao.userMap"/>
+  </resultMap>
+  <insert id="addPost">
+    INSERT INTO xy_post
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="post.postId != null">
+        post_id,
+      </if>
+      <if test="post.postContent != null">
+        post_content,
+      </if>
+      <if test="post.postTitle != null">
+        post_title,
+      </if>
+      <if test="post.postStatus != null">
+        post_status,
+      </if>
+      <if test="post.postType != null">
+        post_type,
+      </if>
+      <if test="post.createTime != null">
+        create_time,
+      </if>
+      <if test="post.user.userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+      <if test="post.postId != null">
+        #{post.postId},
+      </if>
+      <if test="post.postContent != null">
+        #{post.postContent},
+      </if>
+      <if test="post.postTitle != null">
+        #{post.postTitle},
+      </if>
+      <if test="post.postStatus != null">
+        #{post.postStatus},
+      </if>
+      <if test="post.postType != null">
+        #{post.postType},
+      </if>
+      <if test="post.createTime != null">
+        #{post.createTime},
+      </if>
+      <if test="post.user.userId != null">
+        #{post.user.userId},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updatePost">
+    UPDATE xy_post
+    <set>
+      <if test="post.postType != null">
+        post_type = #{post.postType},
+      </if>
+      <if test="post.postTitle != null">
+        post_title = #{post.postTitle},
+      </if>
+      <if test="post.postContent != null">
+        post_content = #{post.postContent},
+      </if>
+      <if test="post.postStatus != null">
+        post_status = #{post.postStatus},
+      </if>
+      WHERE post_id=#{post.postId}
+    </set>
+  </update>
+
+  <select id="findById" resultMap="postMap">
+    SELECT * FROM xy_post p LEFT JOIN xy_user u on p.user_id = u.user_id WHERE post_id=#{postId} AND post_status!=2
+  </select>
+
+  <select id="findAll" resultMap="postMap">
+    SELECT * FROM xy_post p LEFT JOIN xy_user u on p.user_id=u.user_id WHERE post_status!=2
+  </select>
+
+</mapper>
