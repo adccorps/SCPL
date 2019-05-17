@@ -120,13 +120,13 @@
             $tip.modal();
           } else {
             $modalBody.html('注册成功');
-            $tip.on('shown.bs.modal', function (e) {
+            $tip.one('shown.bs.modal', function (e) {
               setTimeout(function () {
                 $tip.modal('hide');
               }, 3000);
             });
             $tip.modal();
-            $tip.on('hidden.bs.modal', function (e) {
+            $tip.one('hidden.bs.modal', function (e) {
               window.location.replace("login");
             });
           }

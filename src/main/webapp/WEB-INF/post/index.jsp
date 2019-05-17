@@ -35,12 +35,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
-                <a href="add">
+            <div class="col-12 text-right">
+                <a href="${pageContext.servletContext.contextPath}/post/add">
                     <button class="btn btn-primary"><b>&plus;</b>&nbsp;发布新贴</button>
                 </a>
             </div>
         </div>
+        <s:iterator value="posts">
+            <div class="row mt-3 mb-3">
+                <div class="col-6 pl-5">
+                    <a href="${pageContext.servletContext.contextPath}/post/view/${postId}">${postTitle}</a>
+                </div>
+                <div class="col-3">
+                        ${user.userName}
+                </div>
+                <div class="col-3">
+                    <s:property value="createTime.substring(0,19)" />
+                </div>
+            </div>
+        </s:iterator>
     </div>
 </div>
 

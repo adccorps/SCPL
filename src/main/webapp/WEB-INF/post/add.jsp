@@ -29,14 +29,15 @@
             <div class="col-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="${pageContext.servletContext.contextPath}/post/index">贴吧</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="${pageContext.servletContext.contextPath}/post">贴吧</a></li>
                         <li class="breadcrumb-item active" aria-current="page">发表贴子</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <div class="form-group row">
-            <label for="title" class="col-sm-1 col-form-label text-left">标题：</label>
+            <label for="title" class="col-sm-1 col-form-label text-right">标题：</label>
             <div class="col-sm-11">
                 <input id="title" class="form-control title" name="post.postTitle" type="text" required>
                 <div class="invalid-feedback"></div>
@@ -53,20 +54,40 @@
         </div>
     </div>
 </div>
+<jsp:include page="../components/tipModal.jsp" />
 <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/ushareEditor.js"></script>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/ushareEditor.css">
 <script type="text/javascript">
+  var $tip = $('#tip-modal');
+  var $modalBody = $('.modal-body p');
+
   ushareEditor.prototype.serialize = function (name) {
     return name + '=' + this.txt.html();
   };
   var editor = new ushareEditor('.editor');
+  // 配置服务器端地址
+  // editor.customConfig.uploadImgServer = '/upload';
   editor.create();
 
   $('.publish').on('click', function (e) {
-    var title = $('#title').serialize();
+    var $title = $('#title');
+    var tip = '';
+    tip = !editor.txt.text() && '内容不能为空';
+    tip = !$title.val() && '标题不能为空';
+    if (!editor.txt.text() || !$title.val()) {
+      <%-- TODO 提示不能为空 --%>
+      $modalBody.html(tip);
+      $tip.one('shown.bs.modal', function (e) {
+        setTimeout(function () {
+          $tip.modal('hide');
+        }, 3000);
+      });
+      $tip.modal();
+      return;
+    }
+    var title = $title.serialize();
     var content = editor.serialize('post.postContent');
     var data = title + '&' + content;
-    console.log(data);
     console.log(editor.txt.text()); // 判断空(注意空格为&nbsp;)
     // return;
     $.ajax({
@@ -74,8 +95,19 @@
       type: 'POST',
       data: data,
       success: function (result, status, xhr) {
-        console.log(result);
-        console.log(xhr);
+        // 1. 弹出tip-modal
+        $modalBody.html('发布成功');
+        // 2. 按确定或3秒后走第3步
+        $tip.one('shown.bs.modal', function (e) {
+          setTimeout(function () {
+            $tip.modal('hide');
+          }, 3000);
+        });
+        $tip.modal();
+        // 3. 跳转到贴子页面
+        $tip.one('hidden.bs.modal', function (e) {
+          window.location.replace("${pageContext.servletContext.contextPath}/post/view/" + result.post.postId);
+        });
       }
     });
   });

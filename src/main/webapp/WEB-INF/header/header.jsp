@@ -20,7 +20,7 @@
                     <a class="nav-link" href="${pageContext.servletContext.contextPath}">首页</a>
                 </li>
                 <li class="nav-item ${param.postActive}">
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/post/index">贴吧</a>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/post">贴吧</a>
                 </li>
                 <li class="nav-item ${param.renwuActive}">
                     <a class="nav-link" href="#">任务</a>

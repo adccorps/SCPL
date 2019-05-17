@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import web.sontan.dao.PostDao;
 import web.sontan.model.Post;
+import web.sontan.model.VO.PostVO;
 
 import java.util.List;
 
@@ -24,12 +25,12 @@ public class PostService {
         this.postDao = postDao;
     }
 
-    public Post findById(String postId) {
+    public PostVO findById(String postId) {
         return postDao.findById(postId);
     }
 
-    public List<Post> findAll() {
-        return postDao.findAll();
+    public List<Post> findAll(String orderType) {
+        return postDao.findAll(orderType);
     }
 
     public boolean addPost(Post post) {

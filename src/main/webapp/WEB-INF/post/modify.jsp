@@ -30,14 +30,14 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a
-                                href="${pageContext.servletContext.contextPath}/post/index">贴吧</a></li>
+                                href="${pageContext.servletContext.contextPath}/post">贴吧</a></li>
                         <li class="breadcrumb-item active" aria-current="page">修改帖子</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <div class="form-group row">
-            <label for="title" class="col-sm-1 col-form-label text-left">标题：</label>
+            <label for="title" class="col-sm-1 col-form-label text-right">标题：</label>
             <div class="col-sm-11">
                 <input id="title" class="form-control title" name="post.postTitle" value="${post.postTitle}" type="text" required>
                 <div class="invalid-feedback"></div>
@@ -61,17 +61,28 @@
     return name + '=' + this.txt.html();
   };
   var editor = new ushareEditor('.editor');
+  // 配置服务器端地址
+  // editor.customConfig.uploadImgServer = '/upload';
+  // 将图片大小限制为 3M
+  // editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024
+  // 限制一次最多上传 5 张图片
+  // editor.customConfig.uploadImgMaxLength = 5
   editor.create();
 
   $('.modify').on('click', function (e) {
     var title = $('#title').serialize();
     var content = editor.serialize('post.postContent');
-    var data = title + '&' + content;
+    var data = title + '&' + content; // 缺id
     $.ajax({
-      url: '',
+      url: '${pageContext.servletContext.contextPath}/post/post_modify',
       type: 'POST',
+      data: data,
       success: function (result) {
-        console.log(result);
+        // 1. 弹出tip-modal
+        // 2. 按确定或3秒后走第3步
+        // 3. 跳转到贴子页面
+        window.location.replace("${pageContext.servletContext.contextPath}/post/view/" + result.post.postId);
+        // console.log(result);
       }
     })
   });
