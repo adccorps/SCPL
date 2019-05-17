@@ -72,4 +72,5 @@
   </package>
 
   <include file="struts-snoopyaquarius.xml"/>
+  <include file="struts-oopswj.xml"/>
 </struts>
