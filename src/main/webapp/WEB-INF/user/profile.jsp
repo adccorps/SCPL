@@ -10,6 +10,8 @@
 <!doctype html>
 <html lang="zh-CN" class="h-100">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta http-equiv="content-language" content="zh-CN" />
     <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>校园生活</title>
@@ -316,21 +318,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="tip-modal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">提示</h5>
-                </div>
-                <div class="modal-body">
-                    <p></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <jsp:include page="../components/tipModal.jsp" />
 </div>
 <script>
   $(function () {

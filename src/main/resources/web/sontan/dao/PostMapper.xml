@@ -11,18 +11,17 @@
 
     <association property="user" resultMap="web.sontan.dao.UserDao.userMap"/>
   </resultMap>
+
+  <resultMap id="postVoMap" type="postvo" extends="postMap">
+    <collection property="replies" ofType="reply" column="post_id" select="web.sontan.dao.ReplyDao.findByPostId" /> <!--column="post_id" select="web.sontan.dao.ReplyDao.findByPostId"-->
+  </resultMap>
+
   <insert id="addPost">
     INSERT INTO xy_post
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="post.postId != null">
-        post_id,
-      </if>
-      <if test="post.postContent != null">
-        post_content,
-      </if>
-      <if test="post.postTitle != null">
-        post_title,
-      </if>
+      post_id,
+      post_content,
+      post_title,
       <if test="post.postStatus != null">
         post_status,
       </if>
@@ -32,20 +31,12 @@
       <if test="post.createTime != null">
         create_time,
       </if>
-      <if test="post.user.userId != null">
-        user_id,
-      </if>
+      user_id,
     </trim>
     <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
-      <if test="post.postId != null">
-        #{post.postId},
-      </if>
-      <if test="post.postContent != null">
-        #{post.postContent},
-      </if>
-      <if test="post.postTitle != null">
-        #{post.postTitle},
-      </if>
+      #{post.postId},
+      #{post.postContent},
+      #{post.postTitle},
       <if test="post.postStatus != null">
         #{post.postStatus},
       </if>
@@ -55,9 +46,7 @@
       <if test="post.createTime != null">
         #{post.createTime},
       </if>
-      <if test="post.user.userId != null">
-        #{post.user.userId},
-      </if>
+      #{post.user.userId},
     </trim>
   </insert>
 
@@ -80,12 +69,12 @@
     </set>
   </update>
 
-  <select id="findById" resultMap="postMap">
-    SELECT * FROM xy_post p LEFT JOIN xy_user u on p.user_id = u.user_id WHERE post_id=#{postId} AND post_status!=2
+  <select id="findById" resultMap="postVoMap">
+    SELECT p.*, u.user_id, u.user_avatar, u.user_name FROM xy_post p LEFT JOIN xy_user u on p.user_id = u.user_id WHERE post_id=#{postId} AND post_status!=2
   </select>
 
   <select id="findAll" resultMap="postMap">
-    SELECT * FROM xy_post p LEFT JOIN xy_user u on p.user_id=u.user_id WHERE post_status!=2
+    SELECT p.*, u.user_id, u.user_avatar, u.user_name FROM xy_post p LEFT JOIN xy_user u on p.user_id=u.user_id WHERE post_status!=2 ORDER BY p.create_time ${orderType}
   </select>
 
 </mapper>

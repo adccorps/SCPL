@@ -10,6 +10,8 @@
 <!doctype html>
 <html lang="zh-CN" class="h-100">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta http-equiv="content-language" content="zh-CN" />
     <title>登录</title>
@@ -58,21 +60,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="tip-modal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">提示</h5>
-            </div>
-            <div class="modal-body">
-                <p></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
-            </div>
-        </div>
-    </div>
-</div>
+<jsp:include page="components/tipModal.jsp" />
 <script>
   $(function () {
     <s:if test="#parameters.error[0]=='-1'">
@@ -96,19 +84,19 @@
           if (result.code !== 1) {
             $modalBody.html(result.tip);
             $tip.modal();
-            $tip.on('hidden.bs.modal', function (e) {
+            $tip.one('hidden.bs.modal', function (e) {
               $modalBody.html('');
               $('form')[0].reset();
             });
           } else {
             $modalBody.html('登录成功');
-            $tip.on('shown.bs.modal', function (e) {
+            $tip.one('shown.bs.modal', function (e) {
               setTimeout(function () {
                 $tip.modal('hide');
               }, 3000);
             });
             $tip.modal();
-            $tip.on('hidden.bs.modal', function (e) {
+            $tip.one('hidden.bs.modal', function (e) {
               window.location.replace("index");
             });
           }

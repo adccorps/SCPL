@@ -10,6 +10,8 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta http-equiv="content-language" content="zh-CN" />
     <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>贴吧首页</title>
@@ -35,12 +37,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
-                <a href="add">
+            <div class="col-12 text-right">
+                <a href="${pageContext.servletContext.contextPath}/post/add">
                     <button class="btn btn-primary"><b>&plus;</b>&nbsp;发布新贴</button>
                 </a>
             </div>
         </div>
+        <s:iterator value="posts">
+            <div class="row mt-3 mb-3">
+                <div class="col-6 pl-5">
+                    <a href="${pageContext.servletContext.contextPath}/post/view/${postId}">${postTitle}</a>
+                </div>
+                <div class="col-3">
+                        ${user.userName}
+                </div>
+                <div class="col-3">
+                    <s:property value="createTime.substring(0,19)" />
+                </div>
+            </div>
+        </s:iterator>
     </div>
 </div>
 

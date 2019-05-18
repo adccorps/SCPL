@@ -1,7 +1,10 @@
 package web.sontan.dao;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import web.sontan.model.Post;
+import web.sontan.model.VO.PostVO;
 
 import java.util.List;
 
@@ -11,10 +14,12 @@ import java.util.List;
  * @author SnoopyAquarius
  * @since 1.0
  */
+@Repository
+@Mapper
 public interface PostDao {
-    Post findById(@Param("postId") String postId);
+    PostVO findById(@Param("postId") String postId);
 
-    List<Post> findAll();
+    List<Post> findAll(@Param("orderType") String orderType);
 
     boolean addPost(@Param("post") Post post);
 

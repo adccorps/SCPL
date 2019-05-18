@@ -6,6 +6,9 @@
 
 <struts>
   <constant name="struts.objectFactory" value="spring"/>
+  <constant name="struts.freeroute.controllerPackage" value="web.sontan.action"/>
+  <constant name="struts.freeroute.controllerSuffixes" value="Action, Controller"/>
+  <constant name="struts.devMode" value="true"/>
 
   <package name="default" namespace="/" strict-method-invocation="false" extends="json-default">
     <interceptors>
@@ -56,8 +59,6 @@
       </interceptor-stack>
     </interceptors>
 
-    <default-interceptor-ref name="nologin"/>
-
     <global-results>
       <result name="login" type="redirect">/login?error=-1</result>
     </global-results>
@@ -66,6 +67,7 @@
   <package name="user" namespace="/user" extends="nologin">
 
     <action name="profile">
+      <interceptor-ref name="nologin"/>
       <result>/WEB-INF/user/profile.jsp</result>
     </action>
 

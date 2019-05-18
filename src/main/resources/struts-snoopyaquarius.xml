@@ -8,26 +8,29 @@
   <package name="post" namespace="/post" extends="nologin" strict-method-invocation="false">
 
     <global-results>
-      <result name="post/*" type="redirect">/post/index/{1}</result>
+      <!--<result name="post/*" type="redirect">/post/index/{1}</result>-->
       <result name="json" type="json"/>
     </global-results>
 
     <action name="post_*" class="postAction" method="{1}">
-      <result name="success">index</result>
+      <interceptor-ref name="nologin"/>
+      <!--<result name="success">/post</result>-->
     </action>
 
-    <action name="index" class="postAction"> <!-- TODO 可能会改成Route -->
-      <result>/WEB-INF/post/index.jsp</result>
-    </action>
-
-    <action name="add" class="postAction"> <!-- TODO 可能会改成Route -->
+    <action name="add" class="postAction">
+      <interceptor-ref name="nologin"/>
       <result>/WEB-INF/post/add.jsp</result>
     </action>
 
-    <action name="modify" class="postAction"> <!-- TODO 可能会改成Route -->
-      <result>/WEB-INF/post/modify.jsp</result>
+  </package>
+
+  <package name="reply" namespace="/reply" extends="nologin" strict-method-invocation="false">
+    <global-results>
+      <result name="json" type="json"/>
+    </global-results>
+
+    <action name="reply_*" class="replyAction" method="{1}">
+      <interceptor-ref name="nologin"/>
     </action>
-
-
   </package>
 </struts>
