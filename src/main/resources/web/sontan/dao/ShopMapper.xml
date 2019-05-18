@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.sontan.dao.ShopDao">
+    <insert id="addGoods">
+        INSERT INTO xy_goods(goods_id,goods_name,goods_desc,goods_price,goods_pic,goods_type) VALUES (#{goods.goodsId}, #{goods.goodsName}, #{goods.goodsDesc}, #{goods.goodsPrice}, #{goods.goodsPic},#{goods.goodsType})
+    </insert>
+
+    <update id="modifyGoods">
+        UPDATE xy_goods
+        <trim prefix="set" suffixOverrides=",">
+            <if test="goods.goodsId!=null">goods_id=#{goods.goodsId},</if>
+            <if test="goods.goodsName!=null">goods_name=#{goods.goodsName},</if>
+            <if test="goods.goodsDesc!=null">goods_desc=#{goods.goodsDesc},</if>
+            <if test="goods.goodsPrice!=null">goods_price=#{goods.goodsPrece},</if>
+            <if test="goods.goodsPic!=null">goods_pic=#{goods.goodsPic},</if>
+            <if test="goods.goodsType!=null">goods_type=#{goods.goodsType},</if>
+        </trim>
+        WHERE goods_id=#{goods.goodsId}
+    </update>
+
+    <delete id="deleteGoods">
+        DELETE FROM xy_goods WHERE goods_id=#{goods.goodsId}
+    </delete>
+
+    <select id="findAllGoods" resultType="web.sontan.model.Goods">
+        SELECT * FROM xy_goods
+    </select>
+</mapper>

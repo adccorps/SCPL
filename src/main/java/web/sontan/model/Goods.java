@@ -11,6 +11,7 @@ public class Goods {
     private String goodsName;
     private BigDecimal goodsPrice;
     private String goodsPic;
+    private String goodsType;
 
     public String getGoodsId() {
         return goodsId;
@@ -50,5 +51,13 @@ public class Goods {
 
     public void setGoodsPic(String goodsPic) {
         this.goodsPic = goodsPic;
+    }
+
+    public String getGoodsType() {
+        return goodsType;
+    }
+
+    public void setGoodsType(String goodsType) {
+        this.goodsType = goodsType;
     }
 }
