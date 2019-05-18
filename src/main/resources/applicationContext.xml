@@ -14,20 +14,6 @@
 
   <context:property-placeholder location="classpath:jdbc.properties"/>
 
-  <!--<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-    <property name="driverClass" value="${mysql.driverClassName}"/>
-    <property name="jdbcUrl" value="${mysql.url}"/>
-    <property name="user" value="${mysql.username}"/>
-    <property name="password" value="${mysql.password}"/>
-
-    <property name="maxPoolSize" value="50"/>
-    <property name="minPoolSize" value="5"/>
-    <property name="initialPoolSize" value="5"/>
-    <property name="maxIdleTime" value="20"/>
-    <property name="maxStatements" value="50"/>
-    <property name="acquireIncrement" value="20"/>
-  </bean> &lt;!&ndash; c3p0 &ndash;&gt;-->
-
   <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"> <!-- Hikari -->
     <property name="driverClassName" value="${mysql.driverClassName}"/>
     <property name="jdbcUrl" value="${mysql.url}"/>
