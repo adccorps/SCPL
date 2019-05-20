@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="h-100">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -16,7 +16,7 @@
     <title>404</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css">
 </head>
-<body class="bg-light d-flex align-items-center">
+<body class="bg-light d-flex align-items-center h-100">
 <div class="m-auto w-50 card">
     <div class="col card-body">
         <h1 class="text-center text-muted display-1">404</h1>
