@@ -22,6 +22,9 @@
                 <li class="nav-item ${param.postActive}">
                     <a class="nav-link" href="${pageContext.servletContext.contextPath}/post">贴吧</a>
                 </li>
+                <li class="nav-item ${param.xiaoyouquanActive}">
+                    <a class="nav-link" href="#">校友圈</a>
+                </li>
                 <li class="nav-item ${param.renwuActive}">
                     <a class="nav-link" href="#">任务</a>
                 </li>
