@@ -5,9 +5,18 @@ package web.sontan.model;
  */
 public class Order {
     private String orderId;
+    private Goods goods;
     private Integer orderStatus;
     private User seller;
     private User buyer;
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
 
     public String getOrderId() {
         return orderId;

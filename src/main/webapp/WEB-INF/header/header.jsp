@@ -29,7 +29,7 @@
                     <a class="nav-link" href="#">任务</a>
                 </li>
                 <li class="nav-item ${param.shopActive}">
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/shop/index">二手市场</a>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/shop/viewIndex">二手市场</a>
                 </li>
                 <li class="nav-item ${param.shiwuxunwuActive}">
                     <a class="nav-link" href="#">失物寻物</a>

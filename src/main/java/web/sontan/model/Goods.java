@@ -12,6 +12,15 @@ public class Goods {
     private BigDecimal goodsPrice;
     private String goodsPic;
     private String goodsType;
+    private User seller;
+
+    public User getSeller() {
+        return seller;
+    }
+
+    public void setSeller(User seller) {
+        this.seller = seller;
+    }
 
     public String getGoodsId() {
         return goodsId;
