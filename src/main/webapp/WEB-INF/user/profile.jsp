@@ -21,6 +21,7 @@
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
     <%--<script src="${pageContext.servletContext.contextPath}/js/utils/base64.js"></script>--%>
     <script src="${pageContext.servletContext.contextPath}/js/utils/core.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/utils/tips.js"></script>
 </head>
 <body class="h-100">
 <jsp:include page="../header/header.jsp" />
@@ -515,23 +516,31 @@
       var $tip = $('#tip-modal .modal-body p');
       if (result.code === 1) { // 成功
         // 成功
-        $modal.one('hidden.bs.modal', function (e) {
-          $tip.html('修改成功');
-          $tipModal.modal();
-        });
-        $tipModal.one('shown.bs.modal', function (e) {
-          setTimeout(function (e) {
-            $tipModal.modal('hide');
-          }, 3000);
-        });
-        $tipModal.one('hidden.bs.modal', function (e) {
-          window.location.replace("profile");
+        showTip({
+          body: $tip,
+          modal: $tipModal,
+          lazy: true,
+          hidden: function (e) {
+            window.location.replace("profile");
+          },
+          before: function () {
+            $modal.one('hidden.bs.modal', function (e) {
+              $tip.html('修改成功');
+              $tipModal.modal();
+            });
+          }
         });
       } else { // 失败
-        $modal.one('hidden.bs.modal', function (e) {
-          $tip.html(result.tip);
-          $tipModal.modal();
-        });
+        showTip({
+          body: $tip,
+          modal: $tipModal,
+          before: function () {
+            $modal.one('hidden.bs.modal', function (e) {
+              $tip.html(result.tip);
+              $tipModal.modal();
+            });
+          }
+        })
       }
     }
 
