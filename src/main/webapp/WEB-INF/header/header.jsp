@@ -25,8 +25,8 @@
                 <li class="nav-item ${param.xiaoyouquanActive}">
                     <a class="nav-link" href="#">校友圈</a>
                 </li>
-                <li class="nav-item ${param.renwuActive}">
-                    <a class="nav-link" href="#">任务</a>
+                <li class="nav-item ${param.taskActive}">
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/task/index">任务</a>
                 </li>
                 <li class="nav-item ${param.shopActive}">
                     <a class="nav-link" href="${pageContext.servletContext.contextPath}/shop/viewIndex">二手市场</a>

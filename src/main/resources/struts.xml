@@ -74,5 +74,9 @@
   </package>
 
   <include file="struts-snoopyaquarius.xml"/>
+<<<<<<< HEAD
   <include file="struts-oopswj.xml"/>
+=======
+  <include file="struts-task.xml"/>
+>>>>>>> Add task module
 </struts>
