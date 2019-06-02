@@ -5,6 +5,7 @@
         INSERT INTO xy_goods(goods_id,goods_name,goods_desc,goods_price,goods_pic,goods_type) VALUES (#{goods.goodsId}, #{goods.goodsName}, #{goods.goodsDesc}, #{goods.goodsPrice}, #{goods.goodsPic},#{goods.goodsType})
     </insert>
 
+
     <update id="modifyGoods">
         UPDATE xy_goods
         <trim prefix="set" suffixOverrides=",">
