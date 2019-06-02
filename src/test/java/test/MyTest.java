@@ -7,12 +7,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.DigestUtils;
 import utils.TextUtils;
+import web.sontan.dao.AlumniCircleDao;
+import web.sontan.model.Dynamic;
 import web.sontan.model.User;
 import web.sontan.service.UserService;
 
 import java.io.*;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.List;
 
 /**
  * 类{@link MyTest}
@@ -26,6 +29,9 @@ public class MyTest {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AlumniCircleDao alumniCircleDao;
 
     @Test
     public void test1() {
@@ -106,6 +112,14 @@ public class MyTest {
             System.out.println(md5$2);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test112321() {
+        List<Dynamic> allCircle = alumniCircleDao.findAllCircle();
+        for (Dynamic dynamic : allCircle) {
+            System.out.println(dynamic.toString());
         }
     }
 

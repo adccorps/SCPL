@@ -37,6 +37,7 @@
         VALUES (#{order.orderId},#{order.goods.goodsId},#{order.orderStatus},#{order.seller.userId},#{order.buyer.userId})
     </insert>
 
+
     <update id="modifyGoods">
         UPDATE xy_goods
         <trim prefix="set" suffixOverrides=",">
