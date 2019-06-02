@@ -19,6 +19,7 @@
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/utils/core.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/utils/tips.js"></script>
 </head>
 <body class="bg-light d-flex align-items-center h-100">
 <jsp:include page="header/header.jsp" />
@@ -101,18 +102,20 @@
         data: $(this).serialize(),
         success: function (result, status, xhr) {
           if (result.code !== 1) {
-            $modalBody.html(result.tip);
-            $tip.modal();
-          } else {
-            $modalBody.html('注册成功');
-            $tip.one('shown.bs.modal', function (e) {
-              setTimeout(function () {
-                $tip.modal('hide');
-              }, 3000);
+            showTip({
+              body: $modalBody,
+              modal: $tip,
+              tip: result.tip
             });
-            $tip.modal();
-            $tip.one('hidden.bs.modal', function (e) {
-              window.location.replace("login");
+          } else {
+            showTip({
+              body: $modalBody,
+              modal: $tip,
+              tip: '注册成功',
+              lazy: true,
+              hidden: function (e) {
+                window.location.replace("login");
+              }
             });
           }
         }

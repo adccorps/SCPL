@@ -19,6 +19,7 @@
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet" />
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/utils/tips.js"></script>
 </head>
 <body>
 <jsp:include page="../header/header.jsp">
@@ -32,7 +33,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a
-                                href="${pageContext.servletContext.contextPath}/post">贴吧</a></li>
+                                href="${pageContext.servletContext.contextPath}/post">帖吧</a></li>
                         <li class="breadcrumb-item active" aria-current="page">修改帖子</li>
                     </ol>
                 </nav>
@@ -41,24 +42,33 @@
         <div class="form-group row">
             <label for="title" class="col-sm-1 col-form-label text-right">标题：</label>
             <div class="col-sm-11">
-                <input id="title" class="form-control title" name="post.postTitle" value="${post.postTitle}" type="text" required>
+                <input id="title" class="form-control title" name="post.postTitle" value="${post.postTitle}" type="text"
+                       required>
                 <div class="invalid-feedback"></div>
             </div>
         </div>
         <div class="row">
             <div class="col-12 editor">${post.postContent}</div>
         </div>
-        <div class="row mt-4">
-            <div class="col-11"></div>
-            <div class="col-1">
+        <div class="row mt-3">
+            <div class="col-12 text-right">
                 <button class="btn btn-primary modify">修改</button>
             </div>
         </div>
     </div>
 </div>
+<jsp:include page="../components/tipModal.jsp" />
 <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/ushareEditor.js"></script>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/ushareEditor.css">
 <script type="text/javascript">
+  var $tip = $('#tip-modal');
+  var $modalBody = $('.modal-body p');
+
+  var href = window.location.href;
+  // var qmIndex = href.indexOf('?'); // !=-1时有?
+  var slashIndex = href.lastIndexOf('/'); // 最后一个/的位置+1到结尾或?前一个
+  var postId = href.substr(slashIndex + 1, 32);
+
   ushareEditor.prototype.serialize = function (name) {
     return name + '=' + this.txt.html();
   };
@@ -74,17 +84,21 @@
   $('.modify').on('click', function (e) {
     var title = $('#title').serialize();
     var content = editor.serialize('post.postContent');
-    var data = title + '&' + content; // 缺id
+    var data = 'post.postId=' + postId + '&' + title + '&' + content; // 缺id
     $.ajax({
       url: '${pageContext.servletContext.contextPath}/post/post_modify',
       type: 'POST',
       data: data,
       success: function (result) {
-        // 1. 弹出tip-modal
-        // 2. 按确定或3秒后走第3步
-        // 3. 跳转到贴子页面
-        window.location.replace("${pageContext.servletContext.contextPath}/post/view/" + result.post.postId);
-        // console.log(result);
+        showTip({
+          body: $modalBody,
+          modal: $tip,
+          tip: '修改成功',
+          lazy: true,
+          hidden: function (e) {
+            window.location.replace("${pageContext.servletContext.contextPath}/post/view/" + result.post.postId);
+          }
+        })
       }
     })
   });

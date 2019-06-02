@@ -14,11 +14,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta http-equiv="content-language" content="zh-CN" />
-    <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>发表贴子</title>
+    <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>发表帖子</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css">
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet" />
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/utils/tips.js"></script>
 </head>
 <body>
 <jsp:include page="../header/header.jsp">
@@ -32,8 +33,8 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a
-                                href="${pageContext.servletContext.contextPath}/post">贴吧</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">发表贴子</li>
+                                href="${pageContext.servletContext.contextPath}/post">帖吧</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">发表帖子</li>
                     </ol>
                 </nav>
             </div>
@@ -48,9 +49,8 @@
         <div class="row">
             <div class="col-12 editor" spellcheck="false"></div>
         </div>
-        <div class="row mt-4">
-            <div class="col-11"></div>
-            <div class="col-1">
+        <div class="row mt-3">
+            <div class="col-12 text-right">
                 <button class="btn btn-primary publish">发表</button>
             </div>
         </div>
@@ -68,23 +68,30 @@
   };
   var editor = new ushareEditor('.editor');
   // 配置服务器端地址
-  // editor.customConfig.uploadImgServer = '/upload';
+  editor.customConfig.uploadImgServer = 'localhost:8081/upload';
+  editor.customConfig.uploadFileName = 'images';
+  // 将图片大小限制为 3M
+  // editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024
+  // 限制一次最多上传 5 张图片
+  // editor.customConfig.uploadImgMaxLength = 5
   editor.create();
 
   $('.publish').on('click', function (e) {
     var $title = $('#title');
     var tip = '';
-    tip = !editor.txt.text() && '内容不能为空';
-    tip = !$title.val() && '标题不能为空';
+    if (!$title.val()) {
+      tip = '标题不能为空';
+    }
+    if (!editor.txt.text()) {
+      tip = '内容不能为空';
+    }
     if (!editor.txt.text() || !$title.val()) {
-      <%-- TODO 提示不能为空 --%>
-      $modalBody.html(tip);
-      $tip.one('shown.bs.modal', function (e) {
-        setTimeout(function () {
-          $tip.modal('hide');
-        }, 3000);
+      showTip({
+        body: $modalBody,
+        modal: $tip,
+        tip: tip,
+        lazy: true
       });
-      $tip.modal();
       return;
     }
     var title = $title.serialize();
@@ -97,18 +104,14 @@
       type: 'POST',
       data: data,
       success: function (result, status, xhr) {
-        // 1. 弹出tip-modal
-        $modalBody.html('发布成功');
-        // 2. 按确定或3秒后走第3步
-        $tip.one('shown.bs.modal', function (e) {
-          setTimeout(function () {
-            $tip.modal('hide');
-          }, 3000);
-        });
-        $tip.modal();
-        // 3. 跳转到贴子页面
-        $tip.one('hidden.bs.modal', function (e) {
-          window.location.replace("${pageContext.servletContext.contextPath}/post/view/" + result.post.postId);
+        showTip({ // 1. 弹出tip-modal
+          body: $modalBody,
+          modal: $tip,
+          tip: '发布成功',
+          lazy: true,
+          hidden: function (e) {
+            window.location.replace("${pageContext.servletContext.contextPath}/post/view/" + result.post.postId);
+          }
         });
       }
     });
