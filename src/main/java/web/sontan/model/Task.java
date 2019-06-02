@@ -9,9 +9,18 @@ public class Task {
     private String taskCompany;
     private String taskQuantity;
     private String taskSize;
-    private String taskMoney;
+    private Integer taskMoney;
     private String taskMessage;
     private Integer taskStatus;
+    private String taskRecipient;
+
+    public String getTaskRecipient() {
+        return taskRecipient;
+    }
+
+    public void setTaskRecipient(String taskRecipient) {
+        this.taskRecipient = taskRecipient;
+    }
 
     public Integer getTaskStatus() {
         return taskStatus;
@@ -71,11 +80,11 @@ public class Task {
         this.taskSize = taskSize;
     }
 
-    public String getTaskMoney() {
+    public Integer getTaskMoney() {
         return taskMoney;
     }
 
-    public void setTaskMoney(String taskMoney) {
+    public void setTaskMoney(Integer taskMoney) {
         this.taskMoney = taskMoney;
     }
 
@@ -97,6 +106,8 @@ public class Task {
                 ", taskSize='" + taskSize + '\'' +
                 ", taskMoney='" + taskMoney + '\'' +
                 ", taskMessage='" + taskMessage + '\'' +
+                ", taskStatus=" + taskStatus +
+                ", taskRecipient='" + taskRecipient + '\'' +
                 ", user=" + user +
                 '}';
     }

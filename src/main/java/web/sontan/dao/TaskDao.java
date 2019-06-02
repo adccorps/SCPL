@@ -18,7 +18,14 @@ public interface TaskDao {
 
     List<Task> findAll();
 
+    List<Task> findByUserId(@Param("userId") String userId);
+
+    List<Task> findByRecipient(@Param("taskRecipient") String taskRecipient);
+
     boolean addTask(@Param("task") Task task);
 
     boolean updateTask(@Param("task") Task task);
+
+    boolean acceptTask(@Param("task") Task task);
+
 }

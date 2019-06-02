@@ -34,12 +34,55 @@ public class TaskAction extends ActionSupport implements SessionAware {
     }
 
     private Map<String, Object> session;
+    private String taskId;
+    private String taskRecipient;
+
+    public String getTaskRecipient() {
+        return taskRecipient;
+    }
+
+    public void setTaskRecipient(String taskRecipient) {
+        this.taskRecipient = taskRecipient;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
+
+    private int code;
+    private String tip;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getTip() {
+        return tip;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
+    }
 
     public String add() {
         this.task.setTaskId(IdUtil.simpleUUID()); // 设置task_id
         User user = (User) session.get("user");
         this.task.setUser(user);
         boolean flag = taskService.addTask(this.task);
+        if (flag) {
+            code = 1;
+        } else {
+            code = -1;
+            tip = "发布失败";
+        }
         return "json";
     }
 
@@ -48,10 +91,26 @@ public class TaskAction extends ActionSupport implements SessionAware {
         User user = (User) session.get("user");
         this.task.setUser(user);
         boolean flag = taskService.modifyTask(this.task);
+        if (flag) {
+            code = 1;
+        } else {
+            code = -1;
+            tip = "修改失败";
+        }
         return "json";
     }
-    public String findAll(){
-        list = taskService.findAll();
+
+    public String accept() {
+        this.task.getTaskId();
+        User user = (User) session.get("user");
+        this.task.setUser(user);
+        boolean flag = taskService.acceptTask(this.task);
+        if (flag) {
+            code = 1;
+        } else {
+            code = -1;
+            tip = "接受失败";
+        }
         return "json";
     }
 
@@ -60,8 +119,36 @@ public class TaskAction extends ActionSupport implements SessionAware {
         User user = (User) session.get("user");
         this.task.setUser(user);
         boolean flag = taskService.deleteTask(this.task);
+        if (flag) {
+            code = 1;
+        } else {
+            code = -1;
+            tip = "删除失败";
+        }
         return "json";
     }
+
+    public String findAll() {
+        this.list = taskService.findAll();
+        return "success";
+    }
+
+    public String findByUserId() {
+        User user = (User) session.get("user");
+        this.list = taskService.findByUserId(user.getUserId());
+        return "success";
+    }
+
+    public String findById() {
+        this.task = taskService.findById(taskId);
+        return "success";
+    }
+
+    public String findByRecipient() {
+        this.list = taskService.findByRecipient(taskRecipient);
+        return "success";
+    }
+
 
     public Task getTask() {
         return task;
@@ -74,4 +161,5 @@ public class TaskAction extends ActionSupport implements SessionAware {
     public void setSession(Map<String, Object> session) {
         this.session = session;
     }
+
 }

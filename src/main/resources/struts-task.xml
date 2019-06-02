@@ -6,21 +6,34 @@
 
 <struts>
     <package name="task" extends="nologin" namespace="/task" strict-method-invocation="false">
-        <action name="index" class="taskAction" method="findAll">
-            <result>/WEB-INF/task/index.jsp</result>
-        </action>
-        <action name="task_*" class="taskAction" method="{1}">
+        <default-interceptor-ref name="nologin">
+        </default-interceptor-ref>
+        <global-results>
             <result name="success">/WEB-INF/task/index.jsp</result>
-            <result name="allTask">/WEB-INF/task/index.jsp</result>
+            <result name="json" type="json"/>
+        </global-results>
+
+
+        <action name="task_*" class="taskAction" method="{1}">
+            <result name="input">/WEB-INF/task/modify.jsp</result>
+        </action>
+
+
+        <action name="index" class="taskAction" method="findAll">
+            <result name="success">/WEB-INF/task/index.jsp</result>
+        </action>
+        <action name="myIssue" class="taskAction" method="findByUserId">
+            <result name="success">/WEB-INF/task/myIssue.jsp</result>
+        </action>
+        <action name="myAccept" class="taskAction" method="findByRecipient">
+            <result name="success">/WEB-INF/task/myAccept.jsp</result>
         </action>
         <action name="add">
             <result>/WEB-INF/task/add.jsp</result>
         </action>
-        <action name="modify">
+
+        <action name="modify" class="taskAction" method="findById">
             <result>/WEB-INF/task/modify.jsp</result>
         </action>
-        <!--<action name="allTask" class="taskAction" method="findAll">-->
-            <!--<result name="allTask">/WEB-INF/task/index.jsp</result>-->
-        <!--</action>-->
     </package>
 </struts>

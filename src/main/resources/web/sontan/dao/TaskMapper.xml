@@ -99,16 +99,36 @@
             <if test="task.taskStatus != null">
                 task_status = #{task.taskStatus},
             </if>
-            WHERE task_id=#{task.taskId}
         </set>
+        WHERE task_id = #{task.taskId} AND  task_status!=-1
     </update>
 
 
+    <update id="acceptTask">
+        UPDATE xy_task
+        <set>
+            <if test="task.taskStatus != null">
+                task_status = #{task.taskStatus},
+            </if>
+            <if test="task.user.userId != null">
+                task_recipient = #{task.user.userId},
+            </if>
+        </set>
+        WHERE task_id = #{task.taskId} AND user_id != #{task.user.userId}
+    </update>
+
     <select id="findById" resultMap="taskMap">
-        SELECT * FROM xy_task t LEFT JOIN xy_user u on t.user_id = u.user_id WHERE task_id=#{taskId} AND task_status!=2
+        SELECT * FROM xy_task t LEFT JOIN xy_user u on t.user_id = u.user_id WHERE task_id=#{taskId} AND (task_status!=2 or task_status!=-1)
     </select>
 
     <select id="findAll" resultMap="taskMap">
-        SELECT * FROM xy_task t LEFT JOIN xy_user u on t.user_id=u.user_id
+        SELECT * FROM xy_task t LEFT JOIN xy_user u on t.user_id=u.user_id WHERE task_status!=2 AND task_status!=-1
     </select>
+    <select id="findByUserId" resultMap="taskMap">
+        SELECT * FROM xy_task t LEFT JOIN xy_user u on t.user_id = u.user_id WHERE t.user_id=#{userId} AND task_status!=2
+    </select>
+    <select id="findByRecipient" resultMap="taskMap">
+        SELECT * FROM xy_task t LEFT JOIN xy_user u on t.user_id = u.user_id WHERE task_recipient=#{taskRecipient} AND task_status!=2
+    </select>
+
 </mapper>
