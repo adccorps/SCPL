@@ -1,0 +1,22 @@
+blockquote.previous {
+    color: #666;
+    padding: 15px;
+    background-color: #f7f7f8;
+    /*word-break: break-word;*/
+    max-height: 116px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    /*font-weight: 400;*/
+}
+
+blockquote:not(.previous) {
+    color: #666;
+    margin: 22px 0;
+    padding: 15px 20px;
+    background-color: #f7f7f8;
+    border-left: 6px solid #b4b4b4;
+    word-break: break-word;
+    /*font-weight: 400;*/
+
+}

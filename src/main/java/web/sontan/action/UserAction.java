@@ -45,7 +45,7 @@ public class UserAction extends ActionSupport implements SessionAware {
             code = 1;
         }
         this.user = null;
-        return "login";
+        return "json";
     }
 
     public String register() {
@@ -58,7 +58,7 @@ public class UserAction extends ActionSupport implements SessionAware {
             code = 1;
         }
         this.user = null;
-        return "register";
+        return "json";
     }
 
     public String update() {
@@ -76,7 +76,7 @@ public class UserAction extends ActionSupport implements SessionAware {
         }
 
         this.user = null;
-        return "update";
+        return "json";
     }
 
     public String logout() {
@@ -107,7 +107,7 @@ public class UserAction extends ActionSupport implements SessionAware {
 
         this.user = null;
         this.oldPassword = null;
-        return "update";
+        return "json";
     }
 
     public String updatePhone() {
@@ -133,7 +133,7 @@ public class UserAction extends ActionSupport implements SessionAware {
             code = -3;
             tip = "密码输入错误！请重试！";
         }
-        return "update";
+        return "json";
     }
 
     public String checkUserPhone() { // 注册登录检验
@@ -146,7 +146,7 @@ public class UserAction extends ActionSupport implements SessionAware {
             code = -1;
         }
         this.user = null;
-        return "login";
+        return "json";
     }
 
     public String getOldPassword() {

@@ -13,7 +13,8 @@
   </resultMap>
 
   <resultMap id="postVoMap" type="postvo" extends="postMap">
-    <collection property="replies" ofType="reply" column="post_id" select="web.sontan.dao.ReplyDao.findByPostId" /> <!--column="post_id" select="web.sontan.dao.ReplyDao.findByPostId"-->
+    <collection property="replies" ofType="reply" column="post_id"
+                select="web.sontan.dao.ReplyDao.findByPostId"/> <!--column="post_id" select="web.sontan.dao.ReplyDao.findByPostId"-->
   </resultMap>
 
   <insert id="addPost">
@@ -65,8 +66,8 @@
       <if test="post.postStatus != null">
         post_status = #{post.postStatus},
       </if>
-      WHERE post_id=#{post.postId}
     </set>
+    WHERE post_id=#{post.postId}
   </update>
 
   <select id="findById" resultMap="postVoMap">

@@ -10,7 +10,23 @@
     <association property="user" resultMap="web.sontan.dao.UserDao.userMap"/>
     <association property="post" resultMap="web.sontan.dao.PostDao.postMap"/>
 
-    <association property="previous" resultMap="replyMap"/>
+    <association property="previous" resultMap="previousMap"/>
+  </resultMap>
+
+  <resultMap id="previousMap" type="reply">
+    <id property="replyId" column="previous_id"/>
+    <result property="replyContent" column="prev_content"/>
+    <result property="replyStatus" column="prev_status"/>
+    <result property="replyTime" column="prev_time"/>
+
+    <association property="user" resultMap="prevUser"/>
+    <association property="post" resultMap="web.sontan.dao.PostDao.postMap"/>
+  </resultMap>
+
+  <resultMap id="prevUser" type="user">
+    <id property="userId" column="prev_user_id"/>
+    <result property="userName" column="prev_user_name"/>
+    <result property="userAvatar" column="prev_user_avatar"/>
   </resultMap>
 
   <insert id="addReply">
@@ -26,7 +42,7 @@
       </if>
       user_id,
       post_id,
-      <if test="reply.previous.replyId != null">
+      <if test="reply.previous != null">
         previous_id,
       </if>
     </trim>
@@ -41,7 +57,7 @@
       </if>
       #{reply.user.userId},
       #{reply.post.postId},
-      <if test="reply.previous.replyId != null">
+      <if test="reply.previous != null">
         #{reply.previous.replyId},
       </if>
     </trim>
@@ -51,20 +67,33 @@
     UPDATE xy_reply
     <set>
       <if test="reply.replyContent != null">
-        reply_content=#{reply.replyContent},
+        reply_content = #{reply.replyContent},
       </if>
       <if test="reply.replyTime != null">
-        reply_time=#{reply.replyTime},
+        reply_time = #{reply.replyTime},
       </if>
       <if test="reply.replyStatus != null">
-        reply_status=#{reply.replyStatus},
+        reply_status = #{reply.replyStatus},
       </if>
-      WHERE reply_id=#{reply.replyId}
     </set>
+    WHERE reply_id = #{reply.replyId}
   </update>
 
   <select id="findByPostId" resultMap="replyMap">
-    SELECT this.*,pre.*,thisU.user_name,thisU.user_avatar,preU.user_name,preU.user_avatar FROM xy_reply this LEFT JOIN xy_reply pre ON pre.reply_id=this.previous_id LEFT JOIN xy_user thisU ON thisU.user_id=this.user_id LEFT JOIN xy_user preU ON preU.user_id=pre.user_id WHERE (pre.reply_status IS NULL OR pre.reply_status!=2) AND this.post_id=#{postId} AND this.reply_status!=2 ORDER BY this.reply_time ASC
+    SELECT this.*,pre.reply_content as prev_content,pre.reply_status as prev_status,pre.reply_time as prev_time,pre.user_id as prev_user_id,thisU.user_name,thisU.user_avatar,preU.user_name as prev_user_name,preU.user_avatar as prev_user_avatar FROM xy_reply this LEFT JOIN xy_reply pre ON pre.reply_id=this.previous_id LEFT JOIN xy_user thisU ON thisU.user_id=this.user_id LEFT JOIN xy_user preU ON preU.user_id=pre.user_id WHERE this.post_id=#{postId} ORDER BY this.reply_time ASC
   </select>
+
+  <select id="findById" resultMap="replyMap">
+    SELECT * FROM xy_reply WHERE reply_id=#{replyId} AND reply_status!=2
+  </select>
+
+  <select id="findByPostIdLimit" resultMap="replyMap">
+    SELECT this.*,pre.reply_content as prev_content,pre.reply_status as prev_status,pre.reply_time as prev_time,pre.user_id as prev_user_id,thisU.user_name,thisU.user_avatar,preU.user_name as prev_user_name,preU.user_avatar as prev_user_avatar FROM xy_reply this LEFT JOIN xy_reply pre ON pre.reply_id=this.previous_id LEFT JOIN xy_user thisU ON thisU.user_id=this.user_id LEFT JOIN xy_user preU ON preU.user_id=pre.user_id WHERE this.post_id=#{postId} ORDER BY this.reply_time ASC LIMIT #{start},#{nums}
+  </select>
+
+  <select id="count" resultType="java.lang.Integer">
+    SELECT count(*) FROM xy_reply this LEFT JOIN xy_reply pre ON pre.reply_id=this.previous_id LEFT JOIN xy_user thisU ON thisU.user_id=this.user_id LEFT JOIN xy_user preU ON preU.user_id=pre.user_id WHERE this.post_id=#{postId} ORDER BY this.reply_time ASC
+  </select>
+
 
 </mapper>
