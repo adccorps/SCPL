@@ -1,9 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="web.sontan.dao.ShopDao">
+    <resultMap id="goodsList" type="Goods">
+        <id property="goodsId" column="goods_id"></id>
+        <result property="goodsName" column="goods_name"></result>
+        <result property="goodsDesc" column="goods_desc"></result>
+        <result property="goodsPic" column="goods_pic"></result>
+        <result property="goodsPrice" column="goods_price"></result>
+        <result property="goodsType" column="goods_type"></result>
+        <association property="seller" resultMap="web.sontan.dao.UserDao.userMap"></association>
+    </resultMap>
+
+    <resultMap id="seller" type="User">
+        <id property="userId" column="seller_id"/>
+        <result property="userName" column="seller_name"/>
+        <result property="userAddress" column="seller_address"/>
+        <result property="userPhone" column="seller_phone"/>
+    </resultMap>
+
+    <resultMap id="orderMap" type="Order">
+        <id property="orderId" column="order_id"></id>
+        <result property="orderStatus" column="order_status"></result>
+
+        <association property="goods" resultMap="goodsList"></association>
+        <association property="seller" resultMap="seller"></association>
+        <association property="buyer" resultMap="web.sontan.dao.UserDao.userMap"></association>
+    </resultMap>
+
     <insert id="addGoods">
-        INSERT INTO xy_goods(goods_id,goods_name,goods_desc,goods_price,goods_pic,goods_type) VALUES (#{goods.goodsId}, #{goods.goodsName}, #{goods.goodsDesc}, #{goods.goodsPrice}, #{goods.goodsPic},#{goods.goodsType})
+        INSERT INTO xy_goods(goods_id,goods_name,goods_desc,goods_price,goods_pic,goods_type,seller_id)
+         VALUES (#{goods.goodsId}, #{goods.goodsName}, #{goods.goodsDesc}, #{goods.goodsPrice}, #{goods.goodsPic},#{goods.goodsType},#{goods.seller.userId})
     </insert>
+
+    <insert id="createOrder">
+        INSERT INTO xy_order(order_id, goods_id,order_status, seller_id, buyer_id)
+        VALUES (#{order.orderId},#{order.goods.goodsId},#{order.orderStatus},#{order.seller.userId},#{order.buyer.userId})
+    </insert>
+
 
     <update id="modifyGoods">
         UPDATE xy_goods
@@ -14,6 +47,7 @@
             <if test="goods.goodsPrice!=null">goods_price=#{goods.goodsPrece},</if>
             <if test="goods.goodsPic!=null">goods_pic=#{goods.goodsPic},</if>
             <if test="goods.goodsType!=null">goods_type=#{goods.goodsType},</if>
+            <if test="goods.sellerId!=null">seller_id=#{goods.seller.userId},</if>
         </trim>
         WHERE goods_id=#{goods.goodsId}
     </update>
@@ -22,7 +56,27 @@
         DELETE FROM xy_goods WHERE goods_id=#{goods.goodsId}
     </delete>
 
-    <select id="findAllGoods" resultType="web.sontan.model.Goods">
+    <select id="findAllGoods" resultMap="goodsList">
         SELECT * FROM xy_goods
     </select>
+
+    <select id="findGoodsByType" resultMap="goodsList">
+        SELECT * FROM xy_goods WHERE goods_type=#{goodsType}
+    </select>
+    <select id="findGoodsById" resultMap="goodsList">
+        SELECT * FROM xy_goods g LEFT JOIN xy_user u ON  g.seller_id=user_id WHERE goods_id=#{goodsId}
+    </select>
+    <select id="findGoodsByName" resultType="web.sontan.model.Goods" resultMap="goodsList">
+        SELECT * FROM xy_goods WHERE goods_name LIKE "%" #{goodsName}"%"
+    </select>
+
+    <select id="findUserBuyOrder"   resultMap="orderMap">
+       SELECT o.*,g.goods_name,g.goods_price FROM xy_goods g LEFT JOIN xy_order o ON g.goods_id=o.goods_id WHERE o.buyer_id=#{userId}
+    </select>
+
+    <select id="findUserSellOrder"  resultMap="orderMap">
+        SELECT o.*,g.goods_id,g.goods_name,g.goods_price FROM xy_order o LEFT JOIN xy_goods g ON g.goods_id=o.goods_id
+         WHERE o.seller_id=#{sellerId}
+    </select>
+
 </mapper>

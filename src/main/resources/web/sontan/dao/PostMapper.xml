@@ -9,7 +9,7 @@
     <result property="postType" column="post_type"/>
     <result property="createTime" column="create_time"/>
 
-    <association property="user" resultMap="web.sontan.dao.UserDao.userMap"/>
+    <association property="user" resultMap="web.sontan.dao.UserDao.userMap"/><!--多对一外键-->
   </resultMap>
 
   <resultMap id="postVoMap" type="postvo" extends="postMap">

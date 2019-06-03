@@ -1,9 +1,11 @@
 package web.sontan.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import web.sontan.dao.ShopDao;
 import web.sontan.model.Goods;
+import web.sontan.model.Order;
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ import java.util.List;
 public class ShopService {
     private final ShopDao shopDao;
 
-
+    @Autowired
     public ShopService(ShopDao shopDao) {
         this.shopDao = shopDao;
     }
@@ -32,5 +34,28 @@ public class ShopService {
     }
     public Goods modifyGoods(Goods goods){
         return shopDao.modifyGoods(goods);
+    }
+
+    public List<Goods> findGoodsByType(String goodsType){
+        return shopDao.findGoodsByType(goodsType);
+    }
+    public Goods findGoodsById(Goods goodsId){
+        return shopDao.findGoodsById(goodsId);
+    }
+
+    public boolean createOrder(Order order){
+        return  shopDao.createOrder(order);
+    }
+
+    public List<Goods> findGoodsByName(String goodsName){
+        return shopDao.findGoodsByName(goodsName);
+    }
+
+    public List<Order> findUserBuyOrder(String userId){
+        return shopDao.findUserBuyOrder(userId);
+    }
+
+    public List<Order> findUserSellOrder(String sellerId){
+        return shopDao.findUserSellOrder(sellerId);
     }
 }
