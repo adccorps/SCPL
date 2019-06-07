@@ -22,7 +22,7 @@
 
         <action name="addGoods" class="shopAction" method="addGoods">
             <interceptor-ref name="nologin"/>
-            <result name="addSuccerss">/WEB-INF/shop/index.jsp</result>
+            <!--<result name="addSuccerss">/WEB-INF/shop/index.jsp</result>-->
         </action>
 
         <action name="getGoodsInfo" class="shopAction" method="getGoodsInfo">
@@ -44,7 +44,28 @@
 
         <action name="checkOrder" class="shopAction" method="checkOrder">
             <interceptor-ref name="nologin"/>
+            <result name="success">/WEB-INF/shop/myGoods.jsp</result>
+        </action>
+
+        <action name="checkBuy" class="shopAction" method="checkBuy">
+            <interceptor-ref name="nologin"/>
             <result name="success">/WEB-INF/shop/Order.jsp</result>
+        </action>
+
+        <action name="viewModify" class="shopAction" method="viewModify">
+            <result name="success">/WEB-INF/shop/modify.jsp</result>
+        </action>
+
+        <action name="orderCompletion" class="shopAction" method="orderCompletion">
+            <result name="success" type="chain">checkBuy</result>
+            <result name="error">checkBuy.action?shopError=-3</result>
+        </action>
+        <action name="orderCancel" class="shopAction" method="orderCancel">
+            <result name="success" type="chain">checkBuy</result>
+            <result name="error">checkBuy.action?shopError=-3</result>
+        </action>
+
+        <action name="updateGoods" class="shopAction" method="updateGoods">
         </action>
 
 

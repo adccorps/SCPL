@@ -8,6 +8,7 @@
         <result property="goodsPic" column="goods_pic"></result>
         <result property="goodsPrice" column="goods_price"></result>
         <result property="goodsType" column="goods_type"></result>
+        <result property="goodsStatus" column="goods_status"></result>
         <association property="seller" resultMap="web.sontan.dao.UserDao.userMap"></association>
     </resultMap>
 
@@ -20,7 +21,6 @@
 
     <resultMap id="orderMap" type="Order">
         <id property="orderId" column="order_id"></id>
-        <result property="orderStatus" column="order_status"></result>
 
         <association property="goods" resultMap="goodsList"></association>
         <association property="seller" resultMap="seller"></association>
@@ -28,13 +28,13 @@
     </resultMap>
 
     <insert id="addGoods">
-        INSERT INTO xy_goods(goods_id,goods_name,goods_desc,goods_price,goods_pic,goods_type,seller_id)
-         VALUES (#{goods.goodsId}, #{goods.goodsName}, #{goods.goodsDesc}, #{goods.goodsPrice}, #{goods.goodsPic},#{goods.goodsType},#{goods.seller.userId})
+        INSERT INTO xy_goods(goods_id,goods_name,goods_desc,goods_price,goods_pic,goods_type,seller_id,goods_status)
+         VALUES (#{goods.goodsId}, #{goods.goodsName}, #{goods.goodsDesc}, #{goods.goodsPrice}, #{goods.goodsPic},#{goods.goodsType},#{goods.seller.userId},#{goods.goodsStatus})
     </insert>
 
     <insert id="createOrder">
-        INSERT INTO xy_order(order_id, goods_id,order_status, seller_id, buyer_id)
-        VALUES (#{order.orderId},#{order.goods.goodsId},#{order.orderStatus},#{order.seller.userId},#{order.buyer.userId})
+        INSERT INTO xy_order(order_id, goods_id, seller_id, buyer_id)
+        VALUES (#{order.orderId},#{order.goods.goodsId},#{order.seller.userId},#{order.buyer.userId})
     </insert>
 
 
@@ -44,10 +44,10 @@
             <if test="goods.goodsId!=null">goods_id=#{goods.goodsId},</if>
             <if test="goods.goodsName!=null">goods_name=#{goods.goodsName},</if>
             <if test="goods.goodsDesc!=null">goods_desc=#{goods.goodsDesc},</if>
-            <if test="goods.goodsPrice!=null">goods_price=#{goods.goodsPrece},</if>
+            <if test="goods.goodsPrice!=null">goods_price=#{goods.goodsPrice},</if>
             <if test="goods.goodsPic!=null">goods_pic=#{goods.goodsPic},</if>
             <if test="goods.goodsType!=null">goods_type=#{goods.goodsType},</if>
-            <if test="goods.sellerId!=null">seller_id=#{goods.seller.userId},</if>
+            <if test="goods.goodsStatus!=null">goods_status=#{goods.goodsStatus},</if>
         </trim>
         WHERE goods_id=#{goods.goodsId}
     </update>
@@ -64,19 +64,18 @@
         SELECT * FROM xy_goods WHERE goods_type=#{goodsType}
     </select>
     <select id="findGoodsById" resultMap="goodsList">
-        SELECT * FROM xy_goods g LEFT JOIN xy_user u ON  g.seller_id=user_id WHERE goods_id=#{goodsId}
+        SELECT * FROM xy_goods g LEFT JOIN xy_user u ON  g.seller_id=u.user_id WHERE goods_id=#{goodsId}
     </select>
     <select id="findGoodsByName" resultType="web.sontan.model.Goods" resultMap="goodsList">
         SELECT * FROM xy_goods WHERE goods_name LIKE "%" #{goodsName}"%"
     </select>
 
     <select id="findUserBuyOrder"   resultMap="orderMap">
-       SELECT o.*,g.goods_name,g.goods_price FROM xy_goods g LEFT JOIN xy_order o ON g.goods_id=o.goods_id WHERE o.buyer_id=#{userId}
-    </select>
+ SELECT o.*,g.goods_id,g.goods_name,g.goods_price,g.goods_status FROM xy_order o LEFT JOIN xy_goods g ON g.goods_id=o.goods_id
+         WHERE o.buyer_id=#{userId}    </select>
 
-    <select id="findUserSellOrder"  resultMap="orderMap">
-        SELECT o.*,g.goods_id,g.goods_name,g.goods_price FROM xy_order o LEFT JOIN xy_goods g ON g.goods_id=o.goods_id
-         WHERE o.seller_id=#{sellerId}
+    <select id="findUserSellOrder"  resultMap="goodsList">
+        SELECT * FROM  xy_goods   WHERE seller_id=#{sellerId}
     </select>
 
 </mapper>

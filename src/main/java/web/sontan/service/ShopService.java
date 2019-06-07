@@ -32,14 +32,14 @@ public class ShopService {
     public boolean deleteGoods(Goods goods){
         return shopDao.deleteGoods(goods);
     }
-    public Goods modifyGoods(Goods goods){
+    public boolean modifyGoods(Goods goods){
         return shopDao.modifyGoods(goods);
     }
 
     public List<Goods> findGoodsByType(String goodsType){
         return shopDao.findGoodsByType(goodsType);
     }
-    public Goods findGoodsById(Goods goodsId){
+    public Goods findGoodsById(String goodsId){
         return shopDao.findGoodsById(goodsId);
     }
 
@@ -55,7 +55,7 @@ public class ShopService {
         return shopDao.findUserBuyOrder(userId);
     }
 
-    public List<Order> findUserSellOrder(String sellerId){
+    public List<Goods> findUserSellOrder(String sellerId){
         return shopDao.findUserSellOrder(sellerId);
     }
 }

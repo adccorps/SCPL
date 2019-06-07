@@ -74,7 +74,7 @@
         </div>
         <hr>
         <div id="carIcon">
-            <a href="showBuy">
+            <a href="checkBuy">
             <img src="${pageContext.servletContext.contextPath}/assets/img/car.jpg"  style="width:40px;height: 35px;">
             </a>
         </div>

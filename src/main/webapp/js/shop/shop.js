@@ -65,10 +65,12 @@ $(function () {
     function getGoods(datas) {
         // console.log(datas);
         $.each(datas.goodsList, function (n, obj) {
+          pArr = splitPicURL(datas.goodsList[n].goodsPic);
+            //console.log(datas);
             $("#show").append(
                 "<div class='card ml-3 mt-1 mr-3 mb-2' style='width: 14.5rem'''>" +
                 "<a href='getGoodsInfo.action?goods.goodsId=" + datas.goodsList[n].goodsId + "'>" +
-                "<img class='card-img-top' src='" + datas.goodsList[n].goodsPic + "'  style='height: 14.5rem; width: 14.4rem'> </a>" +
+                "<img class='card-img-top' src='" + pArr[0]+ "'  style='height: 14.5rem; width: 14.4rem'> </a>" +
                 "<div class='car=body pt-3' style='height: 5rem'>" + "<a class='card-link text-center'  href='getGoodsInfo.action?goods.goodsId=" + datas.goodsList[n].goodsId + "'> <p class='text-center' style='margin: 0'>" + datas.goodsList[n].goodsName + "</p></a>" +
                 "<h6 class='card-text pl-3' > ¥" + datas.goodsList[n].goodsPrice + " 元</h6> " +
                 "</div>" + "</div>"
@@ -97,7 +99,11 @@ $(function () {
         });
     }
 
-
+function splitPicURL(pic) {
+        var picArr;
+    picArr= pic.split(",");
+   return picArr;
+}
 
 
 
