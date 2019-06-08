@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="alumniCircle" namespace="/alumniCircle" extends="nologin" strict-method-invocation="false">
+
+        <global-results>
+            <result name="json" type="json"/>
+        </global-results>
+        <action name="index">
+            <result>/WEB-INF/alumniCircle/index.jsp</result>
+        </action>
+        <action name="*ZCQ" class="alumniCircleAction" method="{1}">
+            <result>/WEB-INF/alumniCircle/index.jsp</result>
+        </action>
+        <action name="*Mine" class="alumniCircleAction" method="{1}">
+            <result>/WEB-INF/alumniCircle/myCircle.jsp</result>
+        </action>
+        <action name="*Add" class="alumniCircleAction" method="{1}">
+            <result>/WEB-INF/alumniCircle/send.jsp</result>
+        </action>
+        <action name="send">
+            <result>/WEB-INF/alumniCircle/send.jsp</result>
+        </action>
+        <action name="message">
+            <result>/WEB-INF/alumniCircle/message.jsp</result>
+        </action>
+        <action name="*COLL" class="alumniCircleAction" method="{1}">
+            <result>/WEB-INF/alumniCircle/collection.jsp</result>
+        </action>
+
+
+
+    </package>
+</struts>
