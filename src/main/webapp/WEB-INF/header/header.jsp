@@ -23,7 +23,7 @@
                     <a class="nav-link" href="${pageContext.servletContext.contextPath}/post">贴吧</a>
                 </li>
                 <li class="nav-item ${param.alumniCircleActive}">
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/alumniCircle/index">校友圈</a>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/alumniCircle/indexZCQ.action">校友圈</a>
                 </li>
                 <li class="nav-item ${param.renwuActive}">
                     <a class="nav-link" href="#">任务</a>

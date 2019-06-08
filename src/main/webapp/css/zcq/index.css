@@ -42,6 +42,12 @@ a{
     margin-left: 20px;
     width: 90%;
 }
+#all-comment{
+    display: none;
+    width:100%;
+    height:auto;
+    margin-left:20px;
+}
 .load-more{
     margin-top: 20px;
 }
@@ -53,7 +59,7 @@ a{
     font-size:0;
 }
 .user-imgs img{
-    margin-left:2px;
-    margin-top: 2px;
-    width:100px;
-}
+     margin-left:2px;
+     margin-top: 2px;
+     width:100px;
+ }
