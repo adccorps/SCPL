@@ -47,7 +47,7 @@
                             <div class="col-md-6">
                                 <div class="p-3 text-left">
                                     <h5 class="mb-0"><%--<img src="${sessionScope.user.userAvatar}" class="card-img" alt="...">--%>
-                                        <img src="${pageContext.servletContext.contextPath}/assets/img/test.jpg"
+                                        <img src="${user.userAvatar}"
                                              class="rounded-circle" alt="..." width="50" height="50"></h5>
                                 </div>
                             </div>
@@ -171,11 +171,11 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body text-center">
-                    <input class="d-none avatar-hook" type="file" accept="image/*">
-                    <img src="${pageContext.servletContext.contextPath}/assets/img/test.jpg" class="toggle-avatar"
+                <form class="modal-body text-center">
+                    <input class="d-none avatar-hook" name="files" type="file" accept="image/*">
+                    <img src="${user.userAvatar}" class="toggle-avatar"
                          alt="" width="200" height="200"> <%-- 初始图片是用户原本的头像 --%>
-                </div>
+                </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary cancel" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary update">保存</button>
@@ -195,7 +195,7 @@
                 <div class="modal-body">
                     <div class="form-group row">
                         <span class="col-sm-4 text-right">当前用户名：</span><span
-                            class="col-sm-8">${sessionScope.user.userName}</span>
+                            class="col-sm-8">${user.userName}</span>
                     </div>
                     <div class="form-group row">
                         <label for="username" class="col-sm-4 col-form-label text-right">新用户名：</label>
@@ -362,7 +362,28 @@
       // 使用ajax更新用户信息后需要更新页面上用户的信息，使用WebSocket通知用户手动刷新页面????，或者用jQuery直接修改????，或者客户端重定向????
       switch (index) {
         case 0: // <%-- 头像  --%> <%-- TODO 等图片服务器 --%>
-          // 1. 用户点击保存后，(是否要判断图片是否已经改变????)通过ajax上传base64到服务器
+          // 1. 用户点击保存后，(是否要判断图片是否已经改变????)通过ajax上传到服务器
+          var formData = new FormData();
+          var files = $('.avatar-hook')[0].files[0];
+          formData.append('files', files);
+          $.ajax({
+            url: 'http://10.2.16.131:8080/UploadImg/upload',
+            data: formData,
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (result, status, xhr) {
+              if (result.errno === 0) {
+                $.ajax({
+                  url: '${pageContext.servletContext.contextPath}/user_update',
+                  type: 'POST',
+                  data: 'user.userAvatar=' + result.data[0],
+                  success: $success.bind(this, index)
+                });
+              }
+            }
+          });
           break;
         case 1: // 用户名
           // 1. 用户点击保存后，通过ajax上传名字到服务器

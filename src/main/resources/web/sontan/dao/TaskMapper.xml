@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.sontan.dao.TaskDao">
+    <resultMap id="taskMap" type="task">
+        <id property="taskId" column="task_id"/>
+        <result property="taskType" column="task_type"/>
+        <result property="taskCompany" column="task_company"/>
+        <result property="taskQuantity" column="task_quantity"/>
+        <result property="taskSize" column="task_size"/>
+        <result property="taskMoney" column="task_money"/>
+        <result property="taskMessage" column="task_message"/>
+        <result property="taskStatus" column="task_status"/>
+
+        <association property="user" resultMap="web.sontan.dao.UserDao.userMap"/>
+    </resultMap>
+    <insert id="addTask">
+        INSERT INTO xy_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="task.taskId != null">
+                task_id,
+            </if>
+            <if test="task.taskType != null">
+                task_type,
+            </if>
+            <if test="task.taskCompany != null">
+                task_company,
+            </if>
+            <if test="task.taskQuantity != null">
+                task_quantity,
+            </if>
+            <if test="task.taskSize != null">
+                task_size,
+            </if>
+            <if test="task.taskMoney != null">
+                task_money,
+            </if>
+            <if test="task.taskMessage != null">
+                task_message,
+            </if>
+            <if test="task.taskStatus != null">
+                task_status,
+            </if>
+            <if test="task.user.userId != null">
+                user_id,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="task.taskId != null">
+                #{task.taskId},
+            </if>
+            <if test="task.taskType != null">
+                #{task.taskType},
+            </if>
+            <if test="task.taskCompany != null">
+                #{task.taskCompany},
+            </if>
+            <if test="task.taskQuantity != null">
+                #{task.taskQuantity},
+            </if>
+            <if test="task.taskSize != null">
+                #{task.taskSize},
+            </if>
+            <if test="task.taskMoney != null">
+                #{task.taskMoney},
+            </if>
+            <if test="task.taskMessage != null">
+                #{task.taskMessage},
+            </if>
+            <if test="task.taskStatus != null">
+                #{task.taskStatus},
+            </if>
+            <if test="task.user.userId != null">
+                #{task.user.userId},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateTask">
+        UPDATE xy_task
+        <set>
+            <if test="task.taskType != null">
+                task_type = #{task.taskType},
+            </if>
+            <if test="task.taskCompany != null">
+                task_company = #{task.taskCompany},
+            </if>
+            <if test="task.taskQuantity != null">
+                task_quantity = #{task.taskQuantity},
+            </if>
+            <if test="task.taskSize != null">
+                task_size = #{task.taskSize},
+            </if>
+            <if test="task.taskMoney != null">
+                task_money = #{task.taskMoney},
+            </if>
+            <if test="task.taskMessage != null">
+                task_message = #{task.taskMessage},
+            </if>
+            <if test="task.taskStatus != null">
+                task_status = #{task.taskStatus},
+            </if>
+        </set>
+        WHERE task_id = #{task.taskId} AND  task_status!=-1
+    </update>
+
+
+    <update id="acceptTask">
+        UPDATE xy_task
+        <set>
+            <if test="task.taskStatus != null">
+                task_status = #{task.taskStatus},
+            </if>
+            <if test="task.user.userId != null">
+                task_recipient = #{task.user.userId},
+            </if>
+        </set>
+        WHERE task_id = #{task.taskId} AND user_id != #{task.user.userId}
+    </update>
+
+    <select id="findById" resultMap="taskMap">
+        SELECT * FROM xy_task t LEFT JOIN xy_user u on t.user_id = u.user_id WHERE task_id=#{taskId} AND (task_status!=2 or task_status!=-1)
+    </select>
+
+    <select id="findAll" resultMap="taskMap">
+        SELECT * FROM xy_task t LEFT JOIN xy_user u on t.user_id=u.user_id WHERE task_status!=2 AND task_status!=-1
+    </select>
+    <select id="findByUserId" resultMap="taskMap">
+        SELECT * FROM xy_task t LEFT JOIN xy_user u on t.user_id = u.user_id WHERE t.user_id=#{userId} AND task_status!=2
+    </select>
+    <select id="findByRecipient" resultMap="taskMap">
+        SELECT * FROM xy_task t LEFT JOIN xy_user u on t.user_id = u.user_id WHERE task_recipient=#{taskRecipient} AND task_status!=2
+    </select>
+
+</mapper>

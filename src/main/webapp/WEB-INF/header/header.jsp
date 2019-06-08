@@ -20,13 +20,13 @@
                     <a class="nav-link" href="${pageContext.servletContext.contextPath}">首页</a>
                 </li>
                 <li class="nav-item ${param.postActive}">
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/post">贴吧</a>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/post">帖吧</a>
                 </li>
                 <li class="nav-item ${param.alumniCircleActive}">
                     <a class="nav-link" href="${pageContext.servletContext.contextPath}/alumniCircle/indexZCQ.action">校友圈</a>
                 </li>
-                <li class="nav-item ${param.renwuActive}">
-                    <a class="nav-link" href="#">任务</a>
+                <li class="nav-item ${param.taskActive}">
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/task/index">任务</a>
                 </li>
                 <li class="nav-item ${param.shopActive}">
                     <a class="nav-link" href="${pageContext.servletContext.contextPath}/shop/viewIndex">二手市场</a>

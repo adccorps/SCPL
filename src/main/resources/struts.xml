@@ -8,7 +8,7 @@
   <constant name="struts.objectFactory" value="spring"/>
   <constant name="struts.freeroute.controllerPackage" value="web.sontan.action"/>
   <constant name="struts.freeroute.controllerSuffixes" value="Action, Controller"/>
-  <constant name="struts.devMode" value="true"/>
+  <!--<constant name="struts.devMode" value="true"/>-->
 
   <package name="default" namespace="/" strict-method-invocation="false" extends="json-default">
     <interceptors>
@@ -23,9 +23,7 @@
 
     <global-results>
       <result name="index" type="redirect">/</result>
-      <result name="login" type="json"/>
-      <result name="register" type="json"/>
-      <result name="update" type="json"/>
+      <result name="json" type="json"/>
     </global-results>
 
     <action name="index">
@@ -75,5 +73,8 @@
 
   <include file="struts-snoopyaquarius.xml"/>
   <include file="struts-oopswj.xml"/>
+=======
+  <include file="struts-task.xml"/>
+>>>>>>> Add task module
   <include file="struts-zcq.xml"/>
 </struts>

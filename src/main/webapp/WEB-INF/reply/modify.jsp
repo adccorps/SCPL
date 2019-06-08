@@ -3,7 +3,7 @@
   Created by IntelliJ IDEA.
   User: SnoopyAquarius
   Date: 2019/5/11
-  Time: 20:05
+  Time: 21:45
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta http-equiv="content-language" content="zh-CN" />
-    <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>发表帖子</title>
+    <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>修改帖子</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css">
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet" />
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
@@ -34,24 +34,17 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a
                                 href="${pageContext.servletContext.contextPath}/post">帖吧</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">发表帖子</li>
+                        <li class="breadcrumb-item active" aria-current="page">修改回复</li>
                     </ol>
                 </nav>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="title" class="col-sm-1 col-form-label text-right">标题：</label>
-            <div class="col-sm-11">
-                <input id="title" class="form-control title" name="post.postTitle" type="text" required>
-                <div class="invalid-feedback"></div>
-            </div>
-        </div>
         <div class="row">
-            <div class="col-12 editor" spellcheck="false"></div>
+            <div class="col-12 editor">${reply.replyContent}</div>
         </div>
         <div class="row mt-3">
             <div class="col-12 text-right">
-                <button class="btn btn-primary publish">发表</button>
+                <button class="btn btn-primary modify">修改</button>
             </div>
         </div>
     </div>
@@ -63,59 +56,44 @@
   var $tip = $('#tip-modal');
   var $modalBody = $('.modal-body p');
 
+  var href = window.location.href;
+  // var qmIndex = href.indexOf('?'); // !=-1时有?
+  var slashIndex = href.lastIndexOf('/'); // 最后一个/的位置+1到结尾或?前一个
+  var replyId = href.substr(slashIndex + 1, 32);
+
   ushareEditor.prototype.serialize = function (name) {
     return name + '=' + this.txt.html();
   };
   var editor = new ushareEditor('.editor');
   // 配置服务器端地址
-  editor.customConfig.uploadImgServer = 'http://10.2.16.131:8080/UploadImg/upload';
-  editor.customConfig.uploadFileName = 'files';
+  // editor.customConfig.uploadImgServer = '/upload';
   // 将图片大小限制为 3M
   // editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024
   // 限制一次最多上传 5 张图片
   // editor.customConfig.uploadImgMaxLength = 5
   editor.create();
 
-  $('.publish').on('click', function (e) {
-    var $title = $('#title');
-    var tip = '';
-    if (!$title.val()) {
-      tip = '标题不能为空';
-    }
-    if (!editor.txt.text()) {
-      tip = '内容不能为空';
-    }
-    if (!editor.txt.text() || !$title.val()) {
-      showTip({
-        body: $modalBody,
-        modal: $tip,
-        tip: tip,
-        lazy: true
-      });
-      return;
-    }
-    var title = $title.serialize();
-    var content = editor.serialize('post.postContent');
-    var data = title + '&' + content;
-    console.log(editor.txt.text()); // 判断空(注意空格为&nbsp;)
-    // return;
+  $('.modify').on('click', function (e) {
+    var content = editor.serialize('reply.replyContent');
+    var data = 'reply.replyId=' + replyId + '&' + content;
     $.ajax({
-      url: '${pageContext.servletContext.contextPath}/post/post_add',
+      url: '${pageContext.servletContext.contextPath}/reply/reply_modify',
       type: 'POST',
       data: data,
-      success: function (result, status, xhr) {
+      success: function (result) {
         showTip({ // 1. 弹出tip-modal
           body: $modalBody,
           modal: $tip,
-          tip: '发布成功',
+          tip: '修改成功',
           lazy: true,
-          hidden: function (e) {
-            window.location.replace("${pageContext.servletContext.contextPath}/post/view/" + result.post.postId);
+          hidden: function (e) { // 3. 跳转到帖子页面
+            window.location.replace("${pageContext.servletContext.contextPath}/post/view/" + result.reply.post.postId);
           }
         });
       }
-    });
+    })
   });
 </script>
+
 </body>
 </html>

@@ -10,7 +10,7 @@ public class Post {
 
     private String postId;
 //    private String userId; // 外键
-    private String postType; // 贴子类型????
+    private String postType; // 帖子类型????
     private String postTitle;
     private String postContent;
     private String createTime;

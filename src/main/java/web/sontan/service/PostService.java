@@ -1,5 +1,6 @@
 package web.sontan.service;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,8 @@ public class PostService {
         return postDao.findById(postId);
     }
 
-    public List<Post> findAll(String orderType) {
+    public List<Post> findAll(int pageNum, String orderType) {
+        PageHelper.startPage(pageNum, 10);
         return postDao.findAll(orderType);
     }
 
