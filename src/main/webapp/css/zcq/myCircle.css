@@ -1,10 +1,6 @@
 a{
     text-decoration: none;
 }
-*{
-    margin: 0;
-    padding:0;
-}
 .nav{
     text-align: center;
     margin: 0 auto;
@@ -20,23 +16,22 @@ a{
     padding-bottom: 20px;
     background-color: #ededed;
 }
-.refresh{
-    margin-bottom: 20px;
+.col-12 a{
+    color: #999;
 }
-.card-body-main{
-    width:690px;
+.user-imgs{
+    width:306px;
+    font-size:0;
 }
 .col-sm-1 img{
     margin-right: 5px;
     width: 45px;
     height:45px;
 }
-.user-info{
-    padding-top: 5px;
-}
-.time{
-    font-size: 10px;
+.user-imgs img{
+    margin-left:2px;
     margin-top: 2px;
+    width:100px;
 }
 .comment{
     margin-left: 20px;
@@ -48,18 +43,5 @@ a{
     height:auto;
     margin-left:20px;
 }
-.load-more{
-    margin-top: 20px;
-}
-.col-sm-1 a{
-     color: #999;
- }
-.user-imgs{
-    width:306px;
-    font-size:0;
-}
-.user-imgs img{
-     margin-left:2px;
-     margin-top: 2px;
-     width:100px;
- }
+
+

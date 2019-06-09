@@ -1,12 +1,12 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: 0
-  Date: 2019/5/22
-
-  Time: 17:14
+  Date: 2019/5/25
+  Time: 15:39
   To change this template use File | Settings | File Templates.
 --%>
+
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -16,8 +16,6 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/zcq/myCircle.css">
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/zico.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/zcq/baguetteBox.css" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/zcq/baguetteBox.css" rel="stylesheet">
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet" />
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/baguetteBox.js"></script>
@@ -47,12 +45,12 @@
         <div class="col-lg-9 main">
             <figure class="figure">
                 <img src="${pageContext.servletContext.contextPath}/assets/img/mybg.jpg" class="img-fluid" alt="Responsive image">
-                <figcaption class="figure-caption">个性签名：A caption for the above image.</figcaption>
+                <figcaption class="figure-caption">个人收藏</figcaption>
             </figure>
 
             <s:if test="#request.allCircleList.size()==0">
                 <div class="card shadow p-3 mb-5 bg-white rounded" style="">
-                    <a href="#" class="text-decoration-none text-center">您还没有发表任何动态，快去发条动态看看吧...</a>
+                    <a href="#" class="text-decoration-none text-center">您还任何收藏，快去看看吧...</a>
                 </div>
             </s:if>
             <s:else>
@@ -66,8 +64,8 @@
                                     <div class="time"><s:property value="#circle.date"/></div>
                                 </div>
                                 <div class="col-12 col-sm-4"></div>
-                                <div class="col-12 col-sm-1"><!--删除此动态-->
-                                    <a href="" id="delete" title="删除此动态" onClick="javascript:return del(<s:property value="#circle.dynamicId"/>)">
+                                <div class="col-12 col-sm-1"><!--删除此收藏-->
+                                    <a href="" id="delete" title="删除此动态" onClick="javascript:return delColl(<s:property value="#circle.dynamicId"/>)">
                                         <i class="zi zi_times" zico="错号粗黑"></i>
                                     </a>
                                 </div>
@@ -122,8 +120,8 @@
         $(".pinglun").click(function(e){
             e.preventDefault();
             $(this).parent().parent().parent().next().next().children(".form-control").focus();
-           // $(this).parents("card-body").next(".comment").children("input").focus();
         });
+        //图片查看插件
         baguetteBox.run('.baguetteBox', {
             //options
         });
@@ -169,30 +167,30 @@
         });
     }
 
-    function del(dynamic_id) {
-        var msg = "删除后无法恢复，确定要删除吗？";
+    <!--删除收藏动态-->
+    function delColl(dynamic_id) {
+        var msg = "确定要删除此收藏吗？";
         if (confirm(msg)==true){
-            deleteCircle(dynamic_id);
+            deleteCollection(dynamic_id);
             return false;
         }else{
             return false;
         }
     }
-
-    function deleteCircle(dynamic_id){
+    function deleteCollection(dynamic_id){
         var $modalBody = $('.modal-body p');
         var $tip = $('#tip-modal');
         $.ajax({
             type:"post",
-            url:"alumniCircle/deleteCircleMine.action",
+            url:"alumniCircle/deleteCollectionCOLL.action",
             dataType:"text",//预期服务器返回的数据类型
-            data: { dynamicid: dynamic_id },
+            data: { dynamicId: dynamic_id },
             success:function(msg){
                 if(msg=="success"){
                     $divID = "#circle-node"+dynamic_id;
                     $($divID).hide("slow");
                 }else{
-                    $modalBody.html('你没有删除此动态的权限');
+                    $modalBody.html('删除失败，请稍后再试！');
                     $tip.modal();
                 }
             },
