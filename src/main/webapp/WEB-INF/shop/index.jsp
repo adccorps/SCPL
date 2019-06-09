@@ -18,6 +18,9 @@
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/shop/shop.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/bootstrap-paginator.min.js"></script>
+
+
 </head>
 <body>
 <jsp:include page="../header/header.jsp">
@@ -64,6 +67,12 @@
 
     <div class="col-md-10 mt-5 float-left pt-2 pl-lg-5">
         <div class="row " id="show"></div>
+
+        <div class="row mt-5 justify-content-center">
+            <ul class="page" id="page1"></ul>
+             <ul class="page" id="page2"></ul>
+            <ul class="page" id="page3"></ul>
+        </div>
     </div>
     <div class="position-fixed" style=" width: 45px;height: 60px; right:50px;bottom: 70px">
 
@@ -82,6 +91,18 @@
 
 
 </div>
+<script>
+    $.fn.bootstrapPaginator.regional["chinese"] = {
+        first: "首页",
+        prev: "上一页",
+        next: "下一页",
+        last: "尾页",
+        current: "当前页",
+        page: "第\${0}页"
+    };
+    $('.posts').css({ minHeight: '384px' });
+
+</script>
 
 </body>
 </html>

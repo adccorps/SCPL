@@ -6,7 +6,6 @@ $(function () {
      * 表单输入验证
      * */
     $("#goodsName").blur(function () {
-
         // $(this).addClass("is-invalid");
         if (this.value.length > 0 && this.value.length < 25) {
             $(this).addClass("is-valid");
@@ -27,7 +26,6 @@ $(function () {
         }
     })
 
-
     /**
      *  图片上传
      * */
@@ -35,10 +33,8 @@ $(function () {
         $("#goodsPic").click();
     });
 
-
-
     /**
-     * 共用的文件变量
+     * 关于图片上传的全局变量
      * */
     var files = [];
     if ($("#getPicURL").val() != undefined){
@@ -48,7 +44,7 @@ $(function () {
     var formData = new FormData();
 
     /**
-     * 选择图片后图片预览
+     * 选择图片,图片预览
      * */
     $("#goodsPic").on("change", function (e) {
         e.preventDefault();
@@ -71,7 +67,7 @@ $(function () {
     })
 
     /**
-     * 移除图片,移除在表单上的预览
+     * 移除图片,移除图片预览
      * */
     $(document).on("click", ".close", function () {
         console.log($(".close").index(this));
@@ -99,7 +95,7 @@ $(function () {
     })
 
     /**
-     * 将输入的商品信息传到后台并得到返回
+     * 上传商品信息
      * */
     $("#formSm").click(function (e) {
         e.preventDefault();
@@ -231,7 +227,6 @@ $(function () {
         }
         return url;
     }
-
     /**
      * 图片路径分割
      * */

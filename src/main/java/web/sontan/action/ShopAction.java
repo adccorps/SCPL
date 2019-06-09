@@ -1,6 +1,10 @@
 package web.sontan.action;
 
 import cn.hutool.core.util.IdUtil;
+import com.bastengao.struts2.freeroute.Results;
+import com.bastengao.struts2.freeroute.annotation.MethodType;
+import com.bastengao.struts2.freeroute.annotation.Route;
+import com.github.pagehelper.PageInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
@@ -9,9 +13,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import web.sontan.model.Goods;
 import web.sontan.model.Order;
+import web.sontan.model.Post;
 import web.sontan.model.User;
 import web.sontan.service.ShopService;
 import web.sontan.service.UserService;
+import web.sontan.utils.sql.OrderType;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -36,10 +42,14 @@ public class ShopAction extends ActionSupport implements SessionAware {
     private Goods goods;
     private String[] files;
 
+    private int pageNum;
+    private int totalPages;
+
     /*
     * 跳转页面action
     * */
     public String viewIndex() {
+
         return SUCCESS;
     }
     public String viewAdd() {
@@ -79,12 +89,21 @@ public class ShopAction extends ActionSupport implements SessionAware {
     * 查找所有的商品 (未完全)
     * */
     public String queryGoods() {
-        goodsList = ShopService.queryGoods();
+
+        goodsList = ShopService.queryGoods(pageNum); // TODO 分页
+        PageInfo<Goods> goodsPageInfo = new PageInfo<>(goodsList);
+        this.totalPages = goodsPageInfo.getPages();
+        if (goodsList.size() ==0){
+            shopError=-1;//无商品出售
+        }
         return "json";
     }
-  /**
+
+    /**
    * 跳转到单个商品详情页面处理
    * */
+
+
     public String getGoodsInfo() {
         HttpServletRequest request = ServletActionContext.getRequest();
         String curGoddsId = request.getParameter("goods.goodsId");
@@ -98,8 +117,8 @@ public class ShopAction extends ActionSupport implements SessionAware {
     public String buyGoods() {
 
         goods = ShopService.findGoodsById(goods.getGoodsId());//得到当前商品
-
-       if(goods.getGoodsStatus() !=0) {
+        //判断商品是否已经出售
+       if(goods.getGoodsStatus() ==0) {
         User buyer = new User();
         User seller = new User();
         buyer = (User) session.get("user");
@@ -130,15 +149,17 @@ public class ShopAction extends ActionSupport implements SessionAware {
         }
     }else {
            tip = "商品已出售,购买失败";
-           shopError = -3;
+           shopError = -5;
        }
         return "json";
     }
 
     public String findGoodsByType() {
         // System.out.println(goods.getGoodsType());
-        goodsList = ShopService.findGoodsByType(goods.getGoodsType());
-        System.out.println(goodsList.size());
+        goodsList = ShopService.findGoodsByType(goods.getGoodsType(),pageNum);
+        PageInfo<Goods> goodsPageInfo = new PageInfo<>(goodsList);
+        this.totalPages = goodsPageInfo.getPages();
+//        System.out.println(goodsList.size());
         if (goodsList.size() == 0) {
             shopError = -4;
         }
@@ -146,8 +167,10 @@ public class ShopAction extends ActionSupport implements SessionAware {
     }
 
     public String findGoodsByName() {
-        goodsList = ShopService.findGoodsByName(goods.getGoodsName());
-        System.out.println(goodsList.size());
+        goodsList = ShopService.findGoodsByName(goods.getGoodsName(),pageNum);
+        PageInfo<Goods> goodsPageInfo = new PageInfo<>(goodsList);
+        this.totalPages = goodsPageInfo.getPages();
+//        System.out.println(goodsList.size());
         if (goodsList.size() == 0) {
             shopError = -4;
         }
@@ -219,6 +242,18 @@ public class ShopAction extends ActionSupport implements SessionAware {
     /**
      *  变量的get/set方法
      * */
+    public int getPageNum() {
+        return pageNum;
+    }
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+    public int getTotalPages() {
+        return totalPages;
+    }
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
+    }
     public String[] getFiles() {
         return files;
     }

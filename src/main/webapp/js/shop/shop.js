@@ -6,35 +6,67 @@ $(function () {
      * 进页面执行查询商品
      * */
     // showAll();
-    $.ajax({
-        url: "queryGoods.action",
-        Type: "post",
-        dataType: "json",
-        success: function (dates) {
-            $("#show").empty();
-            getGoods(dates);
-        }})
+
+    queryGoods();
+    function queryGoods() {
+        $.ajax({
+            url: "queryGoods",
+            Type: "post",
+            dataType: "json",
+            data:'pageNum='+1,
+            success: function (datas) {
+                console.log(datas);
+                $("#show").empty();
+                getGoods(datas);
+             /*   getPage(url,datas.totalPages);*/
+                $("#page1").siblings().empty();
+                $('#page1').bootstrapPaginator({
+                    language: "chinese",
+                    currentPage: 1,
+                    totalPages:datas.totalPages,
+                    // ${totalPages}
+                    onPageChanged: function (e, oldPage, newPage) {
+                        if (oldPage !== newPage) {
+                            $.ajax({
+                                url: 'queryGoods?pageNum='+ newPage,
+                                type: 'GET',
+                                success: function (datas) {
+                                    //显示商品card
+                                    $("#show").empty();
+                                    getGoods(datas);
+                                }
+                            });
+                        }
+                    }
+                });
+            }})
+        }
+   /* function getPage(url,totalPages) {
+        $('.page').bootstrapPaginator({
+            language: "chinese",
+            currentPage: 1,
+            totalPages:totalPages,
+            // ${totalPages}
+            onPageChanged: function (e, oldPage, newPage) {
+                if (oldPage !== newPage) {
+                    $.ajax({
+                        url: url+'?pageNum='+ newPage,
+                        type: 'GET',
+                        success: function (datas) {
+                            //显示商品card
+                            $("#show").empty();
+                            getGoods(datas);
+                        }
+                    });
+                }
+            }
+        });
+    }*/
 
     $("#chooseType").on("click", "li>a", function () {
         var Type = $(this).html();
         findByType(Type);
     })
-
-
-    /**
-     * 显示所有商品
-     * */
-    function showAll() {
-        $.ajax({
-        url: "queryGoods.action",
-        Type: "post",
-        dataType: "json",
-        success: function (dates) {
-            $("#show").empty();
-            getGoods(dates);
-        }
-    })
-}
 
     /**
      * 根据类型查找对应类型项
@@ -43,13 +75,36 @@ $(function () {
        // console.log(type);
         $.ajax({
             url: "findGoodsByType.action",
-            data: "goods.goodsType=" + type,
+            data: {
+                "goods.goodsType": type,
+                "pageNum":1},
             type: 'POST',
             success: function (datas) {
+                console.log(datas);
                 $("#show").empty();
+                $("#page2").siblings().empty();
+                $('#page2').bootstrapPaginator({
+                    language: "chinese",
+                    currentPage: 1,
+                    totalPages:datas.totalPages,
+                    onPageChanged: function (e, oldPage, newPage) {
+                        if (oldPage !== newPage) {
+                            $.ajax({
+                                url: 'findGoodsByType?pageNum='+ newPage+"&goods.goodsType="+type,
+                                type: 'GET',
+                                success: function (datas) {
+                                    //显示商品card
+                                    $("#show").empty();
+                                    getGoods(datas);
+                                }
+                            });
+                        }
+                    }
+                });
                 if (type=="所有商品"){
-                    showAll();
+                    queryGoods();
                 }else {
+                  //  console.log(datas.totalPages);
                     getGoods(datas);
                 }
                 if(datas.shopError==-4){
@@ -60,7 +115,7 @@ $(function () {
     }
 
     /**
-     * 获取json并且显示到首页
+     * 获取json,显示商品
      * */
     function getGoods(datas) {
         // console.log(datas);
@@ -78,7 +133,9 @@ $(function () {
         });
     }
 
-
+    /**
+    * 模糊搜索
+    * */
     $("#searchBtn").click(function () {
         var searchName =$("#searchInput").val()
      //   console.log($("#searchInput").val());
@@ -87,11 +144,34 @@ $(function () {
     function search(Name) {
         $.ajax({
             url: "findGoodsByName",
-            data: "goods.goodsName=" + Name,
+            data:{
+                "goods.goodsName" : Name,
+                "pageNum":1,
+            },
             type: 'POST',
             success: function (datas) {
                 $("#show").empty();
                 getGoods(datas);
+                $("#page3").siblings().empty();
+                $('#page3').bootstrapPaginator({
+                    language: "chinese",
+                    currentPage: 1,
+                    totalPages:datas.totalPages,
+                    onPageChanged: function (e, oldPage, newPage) {
+                        if (oldPage !== newPage) {
+                            $.ajax({
+                                url: 'findGoodsByName?pageNum='+ newPage+"&goods.goodsName="+Name,
+                                type: 'GET',
+                                success: function (datas) {
+                                    //显示商品card
+                                    $("#show").empty();
+                                    getGoods(datas);
+                                }
+                            });
+                        }
+                    }
+                });
+
                 if(datas.shopError==-4){
                     $("#show").html("没有此商品,请确认关键字是否错误")
                 }
@@ -99,6 +179,9 @@ $(function () {
         });
     }
 
+    /**
+    * 获取图片数据分割成数组
+    * */
 function splitPicURL(pic) {
         var picArr;
     picArr= pic.split(",");
