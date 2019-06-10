@@ -1,0 +1,18 @@
+a{
+    text-decoration: none;
+}
+.nav{
+    text-align: center;
+    margin: 0 auto;
+    padding:0;
+    margin-top:50px;
+    margin-bottom: 50px;
+}
+.bt{
+    width:200px;
+}
+.main{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #ededed;
+}
