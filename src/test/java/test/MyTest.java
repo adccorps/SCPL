@@ -15,7 +15,7 @@ import web.sontan.service.UserService;
 import java.io.*;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.List;
+//import java.util.List;
 
 /**
  * 类{@link MyTest}
@@ -30,8 +30,8 @@ public class MyTest {
     @Autowired
     private UserService userService;
 
-    @Autowired
-//    private AlumniCircleDao alumniCircleDao;
+    /*@Autowired
+    private AlumniCircleDao alumniCircleDao;*/
 
     @Test
     public void test1() {
@@ -115,12 +115,12 @@ public class MyTest {
         }
     }
 
-   /* @Test
+    /*@Test
     public void test112321() {
         List<Dynamic> allCircle = alumniCircleDao.findAllCircle();
         for (Dynamic dynamic : allCircle) {
             System.out.println(dynamic.toString());
         }
-    }
-*/
+    }*/
+
 }
