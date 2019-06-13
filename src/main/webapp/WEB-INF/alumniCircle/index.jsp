@@ -117,80 +117,89 @@
                     </div>
                 </div>
             </div>--%>
-
-            <s:iterator value="#request.allCircleList" var="circle">
-                <div class="card" style="">
-                    <div class="card-body card-body-main">
-                        <div class="row">
-                            <div class="col-6 col-sm-1"><a href="javascript:void(0)"><img
-                                    src="<s:property value="#circle.user.userAvatar"/>" alt="头像"
-                                    class="rounded-circle touxiang"></a></div>
-                            <div class="col-6 col-sm-3 user-info">
-                                <a class="h6 font-weight-bold user-name"
-                                   href="${pageContext.servletContext.contextPath}/alumniCircle/myCircleMine.action?userId=<s:property value="#circle.user.userId"/>"><s:property
-                                        value="#circle.user.userName" /></a><br> <!--发动态的用户名-->
-                                <div class="time"><s:property value="#circle.date" /></div>
-                            </div>
-                        </div>
-                        <p class="card-text"><s:property value="#circle.content" /></p>
-                        <div class="user-imgs baguetteBox">
-                            <s:generator val="#circle.picAddress" separator="," var="p">
-                                <s:if test="#circle.picCount==1">
-                                    <s:iterator status="st">
-                                        <a href="http://10.2.16.131/images/<s:property/>" target="_Blank">
-                                            <img src="http://10.2.16.131/images/<s:property/>" alt=""
-                                                 style="width: 300px;">
-                                        </a>
-                                    </s:iterator>
-                                </s:if>
-                                <s:else>
-                                    <s:iterator status="st">
-                                        <a href="http://10.2.16.131/images/<s:property/>" target="_Blank">
-                                            <img src="http://10.2.16.131/images/<s:property/>" alt="">
-                                        </a>
-                                    </s:iterator>
-                                </s:else>
-                            </s:generator>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-sm-3">
-                                <div class="zi zi_love"></div>
-                                <a href="javascript:void(0);" class="card-link"><s:property value="#circle.likes" />人觉得很赞</a>
-                            </div>
-                            <div class="col-12 col-sm-3">
-                                <div class="zi zi_msgchat"></div>
-                                <a href="javascript:void(0);"
-                                   onclick="comment_show(this,<s:property value="#circle.dynamicId"/>)"
-                                   class="card-link all-comments">所有评论</a></div>
-                            <div class="col-12 col-sm-2"></div>
-                            <div class="col-12 col-sm-1"></div>
-                            <div class="col-12 col-sm-1"><a href="javascript:void(0)" class="alert-link dianzan"
-                                                            title="点赞"><i
-                                    class="zi zi_digg"></i></a></div><!--点赞图标-->
-                            <div class="col-12 col-sm-1"><a href="javascript:void(0)" class="alert-link pinglun"
-                                                            title="评论"><i
-                                    class="zi zi_fxqp"></i></a></div><!--评论图标-->
-                            <div class="col-12 col-sm-1"><a href="javascript:void (0);"
-                                                            onclick="add_collection(<s:property
-                                                                    value="#circle.dynamicId"/>)"
-                                                            class="alert-link shoucang" title="收藏"><i class="zi zi_box"
-                                                                                                      zico="箱子"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="all-comment">评论</div>
-                    <div class="input-group mb-3 comment">
-                        <input type="text" class="form-control" placeholder="评论" aria-label="Recipient's username"
-                               aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary"
-                                    onclick="publish_comment(this,<s:property value="#circle.dynamicId"/>);"
-                                    type="button">发表
-                            </button>
-                        </div>
-                    </div>
+            <s:if test="#request.allCircleList.size()==0">
+                <div class="card shadow p-3 mb-5 bg-white rounded" style="">
+                    < a href=" " class="text-decoration-none text-center">您还任何收藏，快去看看吧...</a>
                 </div>
-            </s:iterator>
+            </s:if>
+            <s:else>
+
+                <s:iterator value="#request.allCircleList" var="circle">
+                    <div class="card" style="">
+                        <div class="card-body card-body-main">
+                            <div class="row">
+                                <div class="col-6 col-sm-1"><a href="javascript:void(0)"><img
+                                        src="<s:property value="#circle.user.userAvatar"/>" alt="头像"
+                                        class="rounded-circle touxiang"></a></div>
+                                <div class="col-6 col-sm-3 user-info">
+                                    <a class="h6 font-weight-bold user-name"
+                                       href="${pageContext.servletContext.contextPath}/alumniCircle/myCircleMine.action?userId=<s:property value="#circle.user.userId"/>"><s:property
+                                            value="#circle.user.userName" /></a><br> <!--发动态的用户名-->
+                                    <div class="time"><s:property value="#circle.date" /></div>
+                                </div>
+                            </div>
+                            <p class="card-text"><s:property value="#circle.content" /></p>
+                            <div class="user-imgs baguetteBox">
+                                <s:generator val="#circle.picAddress" separator="," var="p">
+                                    <s:if test="#circle.picCount==1">
+                                        <s:iterator status="st">
+                                            <a href="http://10.2.16.131/images/<s:property/>" target="_Blank">
+                                                <img src="http://10.2.16.131/images/<s:property/>" alt=""
+                                                     style="width: 300px;">
+                                            </a>
+                                        </s:iterator>
+                                    </s:if>
+                                    <s:else>
+                                        <s:iterator status="st">
+                                            <a href="http://10.2.16.131/images/<s:property/>" target="_Blank">
+                                                <img src="http://10.2.16.131/images/<s:property/>" alt="">
+                                            </a>
+                                        </s:iterator>
+                                    </s:else>
+                                </s:generator>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-3">
+                                    <div class="zi zi_love"></div>
+                                    <a href="javascript:void(0);" class="card-link"><s:property value="#circle.likes" />人觉得很赞</a>
+                                </div>
+                                <div class="col-12 col-sm-3">
+                                    <div class="zi zi_msgchat"></div>
+                                    <a href="javascript:void(0);"
+                                       onclick="comment_show(this,<s:property value="#circle.dynamicId"/>)"
+                                       class="card-link all-comments">所有评论</a></div>
+                                <div class="col-12 col-sm-2"></div>
+                                <div class="col-12 col-sm-1"></div>
+                                <div class="col-12 col-sm-1"><a href="javascript:void(0)" class="alert-link dianzan"
+                                                                title="点赞"><i
+                                        class="zi zi_digg"></i></a></div><!--点赞图标-->
+                                <div class="col-12 col-sm-1"><a href="javascript:void(0)" class="alert-link pinglun"
+                                                                title="评论"><i
+                                        class="zi zi_fxqp"></i></a></div><!--评论图标-->
+                                <div class="col-12 col-sm-1"><a href="javascript:void (0);"
+                                                                onclick="add_collection(<s:property
+                                                                        value="#circle.dynamicId"/>)"
+                                                                class="alert-link shoucang" title="收藏"><i
+                                        class="zi zi_box"
+                                        zico="箱子"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="all-comment">评论</div>
+                        <div class="input-group mb-3 comment">
+                            <input type="text" class="form-control" placeholder="评论" aria-label="Recipient's username"
+                                   aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary"
+                                        onclick="publish_comment(this,<s:property value="#circle.dynamicId"/>);"
+                                        type="button">发表
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </s:iterator>
+            </s:else>
+
             <button type="button" class="btn btn-primary btn-lg btn-block load-more" id="load-more">查看更多消息</button>
         </div>
     </div>
