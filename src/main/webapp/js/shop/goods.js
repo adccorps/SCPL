@@ -168,7 +168,7 @@ $(function () {
             processData: false,
             success: function (datas) {
                 //  console.log(formData);
-                // console.log(datas);
+                 console.log(datas);
                 if (datas.error === 0) {
                     // $.ajax()  无错误才上传到后台 append表单数据进formdata
                     var formData2 = new FormData();
@@ -191,6 +191,42 @@ $(function () {
                         contentType: false,
                         processData: false,
                         success: function (da) {
+                            console.log(da);
+                            if (da.shopError === 0) {
+                                var $modalBody = $('.modal-body p');
+                                var $tip = $('#tip-modal');
+                                $modalBody.html(da.tip);
+                                $tip.modal();
+                                $tip.on('hidden.bs.modal', function (e) {
+                                    $modalBody.html('');
+                                });
+                                $('.modal-footer>button').click(function () {
+                                    window.location.replace("checkOrder");
+                                })
+
+
+                            }
+                        }
+
+                    })
+                }
+                if(datas.error === -1){
+                    var formData2 = new FormData();
+                    formData2.append("goods.goodsName", $("#goodsName").val());
+                    formData2.append("goods.goodsType", $("#goodsType").val());
+                    formData2.append("goods.goodsDesc", $("#goodsDesc").val());
+                    formData2.append("goods.goodsPrice", $("#goodsPrice").val());
+                    formData2.append("goods.goodsId", $("#goodsId").val());
+
+                    $.ajax({
+                        url: "updateGoods",
+                        type: 'POST',
+                        data: formData2,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (da) {
+                            console.log(da);
                             if (da.shopError === 0) {
                                 var $modalBody = $('.modal-body p');
                                 var $tip = $('#tip-modal');

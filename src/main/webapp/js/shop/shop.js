@@ -136,7 +136,8 @@ $(function () {
     /**
     * 模糊搜索
     * */
-    $("#searchBtn").click(function () {
+    $("#searchBtn").click(function (e) {
+        e.preventDefault();
         var searchName =$("#searchInput").val()
      //   console.log($("#searchInput").val());
         search(searchName)

@@ -39,7 +39,7 @@ public class ShopService {
     }
 
     public List<Goods> findGoodsByType(String goodsType,int pageNum){
-        PageHelper.startPage(pageNum, 4);
+        PageHelper.startPage(pageNum, 12);
         return shopDao.findGoodsByType(goodsType);
     }
     public Goods findGoodsById(String goodsId){
@@ -51,7 +51,7 @@ public class ShopService {
     }
 
     public List<Goods> findGoodsByName(String goodsName,int pageNum){
-        PageHelper.startPage(pageNum, 2);
+        PageHelper.startPage(pageNum, 12);
         return shopDao.findGoodsByName(goodsName);
     }
 

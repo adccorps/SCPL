@@ -17,9 +17,10 @@
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet" />
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.servletContext.contextPath}/js/shop/shop.js"></script>
+    <%--<script src="${pageContext.servletContext.contextPath}/js/shop/shop.js"></script>--%>
 <script>
     $(function () {
+
 
         $("#buyIron").click(function () {
             $.ajax({
@@ -59,7 +60,7 @@
         }
 
        var goodsPicArr=splitPicURL($("#getPicURL").val());
-        console.log(goodsPicArr.length);
+//        console.log(goodsPicArr.length);
 
         if (goodsPicArr.length -1 === 1){
             $("#picBox").append(

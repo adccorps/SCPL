@@ -34,15 +34,12 @@
         </action>
 
         <action name="queryGoods" class="shopAction" method="queryGoods">
-            <interceptor-ref name="nologinJSON"/>
         </action>
 
         <action name="findGoodsByType" class="shopAction" method="findGoodsByType">
-            <interceptor-ref name="nologinJSON"/>
         </action>
 
         <action name="findGoodsByName" class="shopAction" method="findGoodsByName">
-            <interceptor-ref name="nologinJSON"/>
         </action>
 
         <action name="checkOrder" class="shopAction" method="checkOrder">
