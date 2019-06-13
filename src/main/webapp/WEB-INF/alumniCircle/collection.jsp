@@ -64,7 +64,7 @@
 
             <s:if test="#request.allCircleList.size()==0">
                 <div class="card shadow p-3 mb-5 bg-white rounded" style="">
-                    <a href="#" class="text-decoration-none text-center">您还任何收藏，快去看看吧...</a>
+                    <a href="javascript:void(0)" class="text-decoration-none text-center">您还任何收藏，快去看看吧...</a>
                 </div>
             </s:if>
             <s:else>
@@ -72,11 +72,11 @@
                     <div class="card" style="" id="circle-node<s:property value="#circle.dynamicId"/>">
                         <div class="card-body card-body-main">
                             <div class="row">
-                                <div class="col-12 col-sm-1"><a href="#"><img
+                                <div class="col-12 col-sm-1"><a href="javascript:void(0)"><img
                                         src="<s:property value="#circle.user.userAvatar"/>" alt="头像"
                                         class="rounded-circle touxiang"></a></div>
                                 <div class="col-12 col-sm-6 user-info">
-                                    <a class="h6 font-weight-bold user-name" href="#"><s:property
+                                    <a class="h6 font-weight-bold user-name" href="javascript:void(0)"><s:property
                                             value="#circle.user.userName" /></a><br> <!--发动态的用户名-->
                                     <div class="time"><s:property value="#circle.date" /></div>
                                 </div>
@@ -111,7 +111,7 @@
                             <div class="row">
                                 <div class="col-12 col-sm-3">
                                     <div class="zi zi_love"></div>
-                                    <a href="#" class="card-link"><s:property value="#circle.likes" />人觉得很赞</a></div>
+                                    <a href="javascript:void(0)" class="card-link"><s:property value="#circle.likes" />人觉得很赞</a></div>
                                 <div class="col-12 col-sm-3">
                                     <div class="zi zi_msgchat"></div>
                                     <a href="javascript:void(0);"

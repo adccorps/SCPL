@@ -31,8 +31,6 @@
 <div class="container mt-5">
     <div class="col">
         <div class="row"><%--border pt-1 pb-1--%>
-            <%--<div class="col-2"></div>
-            <div class="col-10">${post.postTitle}</div>--%>
             <div class="col-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -67,7 +65,7 @@
             </div>
         </div>
         <div class="reply"></div>
-        <%--<s:if test="!post.replies.isEmpty()"> &lt;%&ndash; TODO 改为Ajax渲染 &ndash;%&gt;
+        <%--<s:if test="!post.replies.isEmpty()"> &lt;%&ndash;  改为Ajax渲染 &ndash;%&gt;
             <s:iterator value="post.replies">
                 <div class="row border replies pt-3 pb-3 ml-0 mr-0">
                     <div class="col-2 border-right">
@@ -195,7 +193,7 @@
                 if (oldPage !== newPage) { // 非首次渲染
                   $('.post').remove();
                 }
-                <%-- TODO Ajax渲染 --%>
+                <%-- Ajax渲染 --%>
                 var $reply = $('.reply');
                 $reply.html('');
                 $.each(result.replies, function (index, reply) {
@@ -240,6 +238,7 @@
                 $('img').on('load', function () {
                   $(window).resize();
                 });
+                $('html,body').scrollTop(0);
               }
             });
           }
@@ -409,6 +408,10 @@
         type: 'POST',
         data: data,
         success: function (result, status, xhr) {
+          if (result.code === -10) {
+            window.location.href = result.action;
+            return;
+          }
           showTip({
             body: $tipMsg,
             modal: $tip,

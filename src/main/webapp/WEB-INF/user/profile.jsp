@@ -31,8 +31,8 @@
         <div class="row">
             <div class="col-3 text-center col-offset-2">
                 <div class="list-group">
-                    <a class="list-group-item list-group-item-action active" href="#">个人信息设置</a>
-                    <a class="list-group-item list-group-item-action" href="#">...</a>
+                    <a class="list-group-item list-group-item-action active" href="javascript:void(0)">个人信息设置</a>
+                    <a class="list-group-item list-group-item-action" href="javascript:void(0)">...</a>
                 </div>
             </div>
             <div class="col-9">

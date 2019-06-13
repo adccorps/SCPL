@@ -58,8 +58,8 @@
 
       <interceptor name="jsonInterceptor" class="web.sontan.interceptor.NoLoginJSON"/>
       <interceptor-stack name="nologinJSON">
+        <interceptor-ref name="defaultStack"/>
         <interceptor-ref name="jsonInterceptor"/>
-        <interceptor-ref name="interceptor"/>
       </interceptor-stack>
     </interceptors>
 
