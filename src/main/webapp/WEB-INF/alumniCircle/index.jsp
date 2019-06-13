@@ -88,7 +88,12 @@
                     </div>
                 </div>
             </div>
-
+            <s:if test="#request.allCircleList.size()==0">
+                <div class="card shadow p-3 mb-5 bg-white rounded" style="">
+                    <a href="#" class="text-decoration-none text-center">还没有任何动态，快去发条动态看看吧...</a>
+                </div>
+            </s:if>
+            <s:else>
             <s:iterator value="#request.allCircleList" var="circle">
                 <div class="card" style="">
                     <div class="card-body card-body-main">
@@ -137,6 +142,7 @@
                     </div>
                 </div>
             </s:iterator>
+            </s:else>
             <button type="button" class="btn btn-primary btn-lg btn-block load-more" id="load-more">查看更多消息</button>
         </div>
     </div>
@@ -179,7 +185,10 @@
                 $(dom).parent().prev().val("").blur(); //清空input,并且失去焦点
             },
             error:function(e){
-                alert("评论失败"+e);
+                var $modalBody = $('.modal-body p');
+                var $tip = $('#tip-modal');
+                $modalBody.html('发表评论失败，请查看是否登录！');
+                $tip.modal();
             },
         });
     }
@@ -201,7 +210,10 @@
                     $this_comment.empty().append(msg);
                 },
                 error:function(e){
-                    alert("查看评论失败"+e);
+                    var $modalBody = $('.modal-body p');
+                    var $tip = $('#tip-modal');
+                    $modalBody.html('查看评论失败！');
+                    $tip.modal();
                 },
             });
         }
