@@ -30,6 +30,10 @@
                     "goods.goodsId":"${goods.goodsId}"
                 },
                 success:function (datas) {
+                    if (datas.code === -10) {
+                        window.location.href = datas.action;
+                        return;
+                    }
                     console.log(datas);
                     if (datas.shopError!=0){
                         var $modalBody = $('.modal-body p');

@@ -21,7 +21,7 @@
         </action>
 
         <action name="addGoods" class="shopAction" method="addGoods">
-            <interceptor-ref name="nologinRedirect"/>
+            <interceptor-ref name="nologinJSON"/>
             <!--<result name="addSuccerss">/WEB-INF/shop/index.jsp</result>-->
         </action>
 
@@ -30,16 +30,19 @@
         </action>
 
         <action name="buyGoods" class="shopAction" method="buyGoods">
-            <interceptor-ref name="nologinRedirect"/>
+            <interceptor-ref name="nologinJSON"/>
         </action>
 
         <action name="queryGoods" class="shopAction" method="queryGoods">
+            <interceptor-ref name="nologinJSON"/>
         </action>
 
         <action name="findGoodsByType" class="shopAction" method="findGoodsByType">
+            <interceptor-ref name="nologinJSON"/>
         </action>
 
         <action name="findGoodsByName" class="shopAction" method="findGoodsByName">
+            <interceptor-ref name="nologinJSON"/>
         </action>
 
         <action name="checkOrder" class="shopAction" method="checkOrder">
@@ -66,6 +69,7 @@
         </action>
 
         <action name="updateGoods" class="shopAction" method="updateGoods">
+            <interceptor-ref name="nologinJSON"/>
         </action>
 
 
