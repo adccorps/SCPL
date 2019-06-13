@@ -47,11 +47,13 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpSession session = request.getSession();
         request.setAttribute("allCircleList", allCircle);
-        for (Dynamic dynamic : allCircle) {
+        /*for (Dynamic dynamic : allCircle) {
             System.out.println(dynamic.toString());
+        }*/
+        if (allCircle.size() != 0) {
+            session.setAttribute("max", allCircle.get(0).getDynamicId());//保存当前最新的动态的ID
+            session.setAttribute("min", allCircle.get(allCircle.size() - 1).getDynamicId());//保存当前最旧的动态的ID
         }
-        session.setAttribute("max", allCircle.get(0).getDynamicId());//保存当前最新的动态的ID
-        session.setAttribute("min", allCircle.get(allCircle.size() - 1).getDynamicId());//保存当前最旧的动态的ID
         //此单纯测试用
         System.out.println("最新的动态ID" + session.getAttribute("max"));
         System.out.println("旧动态ID" + session.getAttribute("min"));

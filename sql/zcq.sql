@@ -2,8 +2,7 @@
 SQLyog Enterprise v12.08 (32 bit)
 MySQL - 5.6.41 : Database - xy
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -13,7 +12,7 @@ MySQL - 5.6.41 : Database - xy
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE IF NOT EXISTS `xy` DEFAULT CHARACTER SET utf8mb4;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`xy` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `xy`;
 
@@ -28,11 +27,11 @@ CREATE TABLE `xy_collection` (
   `dynamic_id` int(11) NOT NULL,
   `state` char(5) NOT NULL DEFAULT '1',
   PRIMARY KEY (`collection_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `xy_collection` */
 
-insert  into `xy_collection`(`collection_id`,`collection_date`,`user_id`,`dynamic_id`,`state`) values (16,'2019-06-07 21:47:02','01',29,'0'),(17,'2019-06-07 21:21:17','01',39,'1'),(18,'2019-06-07 21:50:56','01',35,'0'),(19,'2019-06-07 21:50:56','01',35,'0');
+insert  into `xy_collection`(`collection_id`,`collection_date`,`user_id`,`dynamic_id`,`state`) values (1,'2019-06-13 14:04:01','92aa2e75ba6f413888bebf0392baab17',9,'1');
 
 /*Table structure for table `xy_comment` */
 
@@ -46,11 +45,11 @@ CREATE TABLE `xy_comment` (
   `user_id` varchar(32) NOT NULL,
   PRIMARY KEY (`comment_id`),
   KEY `dynamic_id` (`dynamic_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `xy_comment` */
 
-insert  into `xy_comment`(`comment_id`,`dynamic_id`,`comment_date`,`comment_content`,`user_id`) values (13,'27','5-6 21:18','上传评论测试','01'),(14,'28','5-6 21:20','评论测试','01'),(15,'28','5-6 21:21','这么好看不会使松田吧','01'),(16,'29','5-6 21:35','测试','01'),(17,'29','5-6 21:35','测试二','01'),(18,'25','5-6 22:50','测试','01'),(19,'28','5-6 23:0','还是测试','02'),(20,'38','5-7 1:16','欢迎大家来评论','01'),(21,'38','5-7 1:16','哈哈哈','01'),(22,'39','5-7 1:27','娃哈哈','01'),(23,'37','5-7 9:58','外网','01'),(24,'37','5-7 9:58','测试','01'),(25,'27','5-7 21:50','哈哈','01');
+insert  into `xy_comment`(`comment_id`,`dynamic_id`,`comment_date`,`comment_content`,`user_id`) values (1,'9','5-13 14:2','你这样过分了','4253d1f441f74d538a0f8145f5927ba9'),(2,'10','5-13 14:2','不敢想，不敢想','4253d1f441f74d538a0f8145f5927ba9'),(3,'11','5-13 14:4','求大家共同监督！','24cc2350258f48af875195f16bd481bd'),(4,'11','5-13 14:6','zc','92aa2e75ba6f413888bebf0392baab17');
 
 /*Table structure for table `xy_dynamic` */
 
@@ -69,11 +68,11 @@ CREATE TABLE `xy_dynamic` (
   PRIMARY KEY (`dynamic_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `xy_dynamic_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `xy_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `xy_dynamic` */
 
-insert  into `xy_dynamic`(`dynamic_id`,`user_id`,`date`,`pic_count`,`pics_address`,`comment_count`,`likes`,`content`,`state`) values (22,'02','2019-06-03 21:38:27',9,'b8db72031769f53334e099bbc73cb139.jpg,81b8bcdc66fe31c07bf2e38d3d0a82e1.jpg,a79466cfd16df6baa96368a6c9f522e5.jpg,47437b7347352424f1c5d8ebdfd29c74.jpg,6bb8d1de0e9a47520bea0579701a941d.jpg,810403a8dfab1282ada567c64a8e7ce8.jpg,85ae3e9195eeb62035261873e9a844b0.jpg,dc4fc4125c0a5f2ad4d8c95fb0243a6f.jpg,acb1e98c13231b6532d555c32ce1df81.jpg',0,0000000000,'世界很大我想去看看...','0'),(24,'01','2019-06-03 22:56:14',0,'',0,0000000000,'测试动态，无图片..','1'),(25,'01','2019-06-03 22:57:01',1,'afc868e5c8ea90e1c8b260a865a6a7fb.jpg',0,0000000000,'派大星。。。\n测试','1'),(26,'01','2019-06-06 22:32:53',0,'',0,0000000000,'测试三，时间精确到...秒','0'),(27,'02','2019-06-04 15:32:47',0,'',0,0000000000,'6月4号，今天下好大雨啊','1'),(28,'02','2019-06-04 15:55:10',1,'acb1e98c13231b6532d555c32ce1df81.jpg',0,0000000000,'测试时间','1'),(29,'02','2019-06-05 21:20:31',0,'',0,0000000000,'今天周四','1'),(30,'01','2019-06-06 22:33:01',0,'',0,0000000000,'新用户报道0.0','0'),(31,'01','2019-06-07 00:43:14',1,'47437b7347352424f1c5d8ebdfd29c74.jpg',0,0000000000,'深夜改代码','1'),(32,'01','2019-06-07 00:44:42',0,'',0,0000000000,'再来一次深夜改代码','1'),(33,'01','2019-06-07 00:49:43',0,'',0,0000000000,'测试','1'),(34,'01','2019-06-07 00:50:59',0,'',0,0000000000,'测试00','1'),(35,'01','2019-06-07 01:03:09',1,'acb1e98c13231b6532d555c32ce1df81.jpg',0,0000000000,'测试','1'),(36,'01','2019-06-07 21:51:09',0,'',0,0000000000,'测试','0'),(37,'01','2019-06-07 01:04:00',0,'',0,0000000000,'测试','1'),(38,'01','2019-06-07 01:25:38',0,'',0,0000000000,'测试','0'),(39,'01','2019-06-07 21:21:41',0,'',0,0000000000,'测试费大幅度发','0'),(40,'02','2019-06-08 13:33:34',9,'b8db72031769f53334e099bbc73cb139.jpg,81b8bcdc66fe31c07bf2e38d3d0a82e1.jpg,a79466cfd16df6baa96368a6c9f522e5.jpg,47437b7347352424f1c5d8ebdfd29c74.jpg,6bb8d1de0e9a47520bea0579701a941d.jpg,810403a8dfab1282ada567c64a8e7ce8.jpg,85ae3e9195eeb62035261873e9a844b0.jpg,dc4fc4125c0a5f2ad4d8c95fb0243a6f.jpg,acb1e98c13231b6532d555c32ce1df81.jpg',0,0000000000,'世界很大我想去看看','1');
+insert  into `xy_dynamic`(`dynamic_id`,`user_id`,`date`,`pic_count`,`pics_address`,`comment_count`,`likes`,`content`,`state`) values (2,'eaa711944f19440f95832859d5794b2a','2019-06-13 13:56:36',0,'',0,0000000000,'今天松田好大雨啊','1'),(3,'eaa711944f19440f95832859d5794b2a','2019-06-13 13:57:02',1,'22fdcae946ef77ad302d49d2c77df706.gif',0,0000000000,'起床上课...','1'),(4,'a7d0dbfa79a443d99ae0611483409237','2019-06-13 13:57:57',6,'659081b4d80e47e2231743f79f153130.jpg,282071f494836c20d8a49b4f45008a9c.jpg,32671c8daadb81def8cfbe162f845471.jpg,8e2c028f1876586238d6dea528b3d77d.jpg,c33986d2c9a832003c12b066536c9d5a.jpg,6ac5d027c60bc06d537b1386cf0ec895.jpg',0,0000000000,'小仙女最好看~','1'),(5,'eaa711944f19440f95832859d5794b2a','2019-06-13 13:58:18',0,'',0,0000000000,'哇哈哈哈哈哈哈........','1'),(6,'eaa711944f19440f95832859d5794b2a','2019-06-13 13:58:55',1,'acd3f988d8bbb842e323cfc7659bd344.jpg',0,0000000000,'压力山大啊，最近','1'),(7,'b5fb641bcbbd46d0b95598cf8abb2fad','2019-06-13 13:59:41',0,'',0,0000000000,'生活无趣~~~','1'),(8,'4253d1f441f74d538a0f8145f5927ba9','2019-06-13 14:01:19',1,'952b84a84bdaefec1224364c95ebb53a.jpg',0,0000000000,'有没有一起养狗的小哥哥~~','1'),(9,'013626b0405c44ff9aa19121fbefae46','2019-06-13 14:01:23',1,'a2df5ab7143b7aa562e0b46f5af506ba.jpg',0,0000000000,'','1'),(10,'013626b0405c44ff9aa19121fbefae46','2019-06-13 14:02:42',5,'947d187294e970272ba85aada8a6da39.jpg,859414d73c461fc6d5cf93886cdd05f4.jpg,bb549c00907b1d992a90427e49fd3fed.jpg,fb66384862bb005dbdabc8bcfca8c295.jpg,05ed9e28ad7b6c0699264215edd58ffe.jpg',0,0000000000,'感想','0'),(11,'24cc2350258f48af875195f16bd481bd','2019-06-13 14:04:40',0,'',0,0000000000,'从今天开始，我一定要好好学习~','1');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

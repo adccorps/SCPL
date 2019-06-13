@@ -46,11 +46,11 @@
                                                                                             zico="相机"></i> 发动态
                     </button>
                 </a>
-                <a href="${pageContext.servletContext.contextPath}/alumniCircle/message" class="alert-link">
+                <%--<a href="${pageContext.servletContext.contextPath}/alumniCircle/message" class="alert-link">
                     <button type="button" class="list-group-item list-group-item-action"><i class="zi zi_commentdots"
                                                                                             zico="消息黑"></i> 消息
                     </button>
-                </a>
+                </a>--%>
                 <a href="${pageContext.servletContext.contextPath}/alumniCircle/findCollectionDynamicCOLL.action?userId=<s:property value="#session.user.userId"/>"
                    class="alert-link">
                     <button type="button" class="list-group-item list-group-item-action"><i class="zi zi_box"
@@ -119,7 +119,7 @@
             </div>--%>
             <s:if test="#request.allCircleList.size()==0">
                 <div class="card shadow p-3 mb-5 bg-white rounded" style="">
-                    < a href=" " class="text-decoration-none text-center">您还任何收藏，快去看看吧...</a>
+                    <a href=" " class="text-decoration-none text-center">还没有动态哦，去发布一个看看吧...</a>
                 </div>
             </s:if>
             <s:else>

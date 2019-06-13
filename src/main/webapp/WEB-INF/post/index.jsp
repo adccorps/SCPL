@@ -143,7 +143,12 @@
 
     $(document).on('click', '.search', function () {
       query = !!$('.search-input').val().trim();
-      $page.bootstrapPaginator('reload');
+      var currentPage = $page.bootstrapPaginator('getOption').currentPage;
+      if (currentPage === 1) {
+        $page.bootstrapPaginator('reload');
+      } else {
+        $page.bootstrapPaginator('show', 1);
+      }
     });
 
     $(document).on('keydown', '.search-input', function (e) {
