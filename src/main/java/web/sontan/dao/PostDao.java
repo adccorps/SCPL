@@ -44,4 +44,6 @@ public interface PostDao {
      * @return 成功返回true, 失败返回false
      */
     boolean updatePost(@Param("post") Post post);
+
+    List<Post> findByString(@Param("query") String query, @Param("orderType") String orderType);
 }

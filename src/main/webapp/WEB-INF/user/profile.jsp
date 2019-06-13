@@ -374,7 +374,7 @@
             contentType: false,
             processData: false,
             success: function (result, status, xhr) {
-              if (result.errno === 0) {
+              if (result.error === 0) {
                 $.ajax({
                   url: '${pageContext.servletContext.contextPath}/user_update',
                   type: 'POST',

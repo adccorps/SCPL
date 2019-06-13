@@ -237,6 +237,9 @@
                   $reply.append($repliesBody);
                 });
                 $(window).resize();
+                $('img').on('load', function () {
+                  $(window).resize();
+                });
               }
             });
           }
@@ -251,7 +254,7 @@
 
       var $userHeight = [];
       $('.content').parent().parent().each(function (index, item) {
-        $(item).children(':even').each(function (index, item) {
+        $(item).children(':first-child').each(function (index, item) {
           var total = 0;
           $(item).children().each(function (index, item) {
             total += $(item).height();
@@ -269,7 +272,7 @@
         $contentHeight.push(total);
       });
 
-      $.each($contentHeight, function (index) {
+      $.each($userHeight, function (index) {
         if ($contentHeight[index] < $userHeight[index]) {
           $('.content').eq(index).css({
             minHeight: $userHeight[index]
@@ -280,7 +283,7 @@
     $(window).resize();
 
     var replyId = null;
-    $('.reply-href').on('click', function () {
+    $(document).on('click', '.reply-href', function () {
       var $col_10 = $(this).parent().parent();
       var username = $col_10.parent().children(':first-child').children(':last-child').text().trim();
       replyId = $col_10.children(":first-child").data('replyId');
@@ -306,7 +309,7 @@
     var $confirmMsg = $('#confirm-modal .modal-body p');
     var $confirmOk = $('#confirm-modal .ok');
 
-    $('.replies .delete').on('click', function () {
+    $(document).on('click', '.replies .delete', function () {
       replyId = $(this).parent().parent().children(":first-child").data('replyId');
       $confirmMsg.html('确定要删除这条评论吗？');
       $confirm.modal();
@@ -336,7 +339,7 @@
       });
     });
 
-    $('.post .delete').on('click', function () {
+    $(document).on('click', '.post .delete', function () {
       $confirmMsg.html('确定要删除这个帖子吗？');
       $confirm.modal();
       $confirmOk.one('click', function () {
@@ -377,16 +380,16 @@
     // editor.customConfig.uploadImgServer = 'localhost:8081/ImgServer/upload';
     editor.create();
 
-    $('.post .modify').on('click', function () {
+    $(document).on('click', '.post .modify', function () {
       window.location.href = "${pageContext.servletContext.contextPath}/post/modify/" + postId;
     });
 
-    $('.replies .modify').on('click', function () { // TODO
+    $(document).on('click', '.replies .modify', function () { // TODO
       replyId = $(this).parent().parent().children(":first-child").data('replyId');
       window.location.href = "${pageContext.servletContext.contextPath}/reply/modify/" + replyId;
     });
 
-    $('.publish').on('click', function () {
+    $(document).on('click', '.publish', function () {
       var tip = !editor.txt.text() && '内容不能为空';
       if (!editor.txt.text()) {
         showTip({
