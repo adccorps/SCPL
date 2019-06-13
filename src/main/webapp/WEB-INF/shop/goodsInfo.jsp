@@ -59,7 +59,7 @@
 
         if (goodsPicArr.length -1 === 1){
             $("#picBox").append(
-           " <img src='"+goodsPicArr[0]+ "' style='width:100%; height: 100%; background-color: #95999c'>"
+           " <img src='"+goodsPicArr[0]+ "' style='width:100%; height:100%; background-color: #95999c'>"
             )
         }else{
             $("#carouselControls").attr("style","display:block");
@@ -90,7 +90,7 @@
 
 <div class="container" >
     <jsp:include page="shop_header.jsp"></jsp:include>
-    <div class="float-left col-md-6 h-75 "  id="picBox"  style=" background-color: #95999c">
+    <div class="float-left col-md-6 "  id="picBox"  style=" background-color: #95999c;height: 28.8rem">
         <input type="hidden" value="${goods.goodsPic}" id="getPicURL" >
         <%--<input type="hidden" value="http://10.2.16.131/images/afc868e5c8ea90e1c8b260a865a6a7fb.jpg,http://10.2.16.131/images/afc868e5c8ea90e1c8b260a865a6a7fb.jpg,http://10.2.16.131/images/afc868e5c8ea90e1c8b260a865a6a7fb.jpg," id="getPicURL" >--%>
         <div id="carouselControls" class="carousel slide" data-ride="carousel" style="display: none">

@@ -57,7 +57,7 @@
     </delete>
 
     <select id="findAllGoods" resultMap="goodsList">
-        SELECT * FROM xy_goods
+        SELECT * FROM xy_goods WHERE goods_status =0
     </select>
 
     <select id="findGoodsByType" resultMap="goodsList">

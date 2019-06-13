@@ -142,6 +142,7 @@ public class ShopAction extends ActionSupport implements SessionAware {
                     shopError = -3;
                 } else {
                     goods.setGoodsStatus(1);//标志购买
+                    ShopService.modifyGoods(goods);
                     tip = "购买成功";
                     shopError = 1;
                 }
