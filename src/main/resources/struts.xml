@@ -44,9 +44,9 @@
     </action>
   </package>
 
-  <package name="test" namespace="/test" strict-method-invocation="false" extends="struts-default">
+  <!--<package name="test" namespace="/test" strict-method-invocation="false" extends="struts-default">
     <action name="test_*" class="testAction" method="{1}"/>
-  </package>
+  </package>-->
 
   <package name="nologin" extends="json-default" abstract="true" strict-method-invocation="false">
     <interceptors>
