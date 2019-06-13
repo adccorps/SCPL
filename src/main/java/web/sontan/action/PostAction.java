@@ -53,7 +53,7 @@ public class PostAction extends ActionSupport implements SessionAware {
         boolean flag = postService.addPost(this.post);
         code = flag ? 1 : -1;
         tip = flag ? "回复成功" : "回复失败";
-        return flag ? "json" : "";
+        return "json";
     }
 
     public String modify() {
@@ -80,7 +80,7 @@ public class PostAction extends ActionSupport implements SessionAware {
         boolean flag = postService.deletePost(this.post);
         code = flag ? 1 : -1;
         tip = flag ? "删除成功" : "删除失败";
-        return flag ? "json" : "";
+        return "json";
     }
 
     @Route(value = "/post/modify/{postId}", interceptors = {"nologinRedirect"})
