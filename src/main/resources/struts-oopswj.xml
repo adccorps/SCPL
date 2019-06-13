@@ -16,12 +16,12 @@
         </action>
 
         <action name="viewAdd" class="shopAction" method="viewAdd">
-            <interceptor-ref name="nologin"/>
+            <interceptor-ref name="nologinRedirect"/>
             <result>/WEB-INF/shop/addGoods.jsp</result>
         </action>
 
         <action name="addGoods" class="shopAction" method="addGoods">
-            <interceptor-ref name="nologin"/>
+            <interceptor-ref name="nologinRedirect"/>
             <!--<result name="addSuccerss">/WEB-INF/shop/index.jsp</result>-->
         </action>
 
@@ -30,7 +30,7 @@
         </action>
 
         <action name="buyGoods" class="shopAction" method="buyGoods">
-            <interceptor-ref name="nologin"/>
+            <interceptor-ref name="nologinRedirect"/>
         </action>
 
         <action name="queryGoods" class="shopAction" method="queryGoods">
@@ -43,12 +43,12 @@
         </action>
 
         <action name="checkOrder" class="shopAction" method="checkOrder">
-            <interceptor-ref name="nologin"/>
+            <interceptor-ref name="nologinRedirect"/>
             <result name="success">/WEB-INF/shop/myGoods.jsp</result>
         </action>
 
         <action name="checkBuy" class="shopAction" method="checkBuy">
-            <interceptor-ref name="nologin"/>
+            <interceptor-ref name="nologinRedirect"/>
             <result name="success">/WEB-INF/shop/Order.jsp</result>
         </action>
 
