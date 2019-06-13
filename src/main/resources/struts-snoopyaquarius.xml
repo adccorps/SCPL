@@ -8,17 +8,15 @@
   <package name="post" namespace="/post" extends="nologin" strict-method-invocation="false">
 
     <global-results>
-      <!--<result name="post/*" type="redirect">/post/index/{1}</result>-->
       <result name="json" type="json"/>
     </global-results>
 
     <action name="post_*" class="postAction" method="{1}">
-      <interceptor-ref name="nologin"/>
-      <!--<result name="success">/post</result>-->
+      <interceptor-ref name="nologinJSON"/>
     </action>
 
     <action name="add" class="postAction">
-      <interceptor-ref name="nologin"/>
+      <interceptor-ref name="nologinRedirect"/>
       <result>/WEB-INF/post/add.jsp</result>
     </action>
 
@@ -30,7 +28,7 @@
     </global-results>
 
     <action name="reply_*" class="replyAction" method="{1}">
-      <interceptor-ref name="nologin"/>
+      <interceptor-ref name="nologinJSON"/>
     </action>
   </package>
 </struts>

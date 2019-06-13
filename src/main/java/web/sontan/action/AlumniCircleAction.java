@@ -29,7 +29,6 @@ import java.util.Map;
  */
 @Controller("alumniCircleAction")
 @Scope("prototype")
-@ControllerPackage(parent = "post")
 public class AlumniCircleAction extends ActionSupport implements SessionAware {
     private String content;
     private String[] picAddress;

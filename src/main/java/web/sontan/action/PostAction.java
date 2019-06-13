@@ -83,7 +83,7 @@ public class PostAction extends ActionSupport implements SessionAware {
         return flag ? "json" : "";
     }
 
-    @Route(value = "/post/modify/{postId}", interceptors = {"nologin"})
+    @Route(value = "/post/modify/{postId}", interceptors = {"nologinRedirect"})
     public String viewModify() {
         this.post = postService.findById(postId);
         User user = (User) session.get("user");
