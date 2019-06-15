@@ -383,7 +383,7 @@
       window.location.href = "${pageContext.servletContext.contextPath}/post/modify/" + postId;
     });
 
-    $(document).on('click', '.replies .modify', function () { // TODO
+    $(document).on('click', '.replies .modify', function () {
       replyId = $(this).parent().parent().children(":first-child").data('replyId');
       window.location.href = "${pageContext.servletContext.contextPath}/reply/modify/" + replyId;
     });
