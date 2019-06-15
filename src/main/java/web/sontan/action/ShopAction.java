@@ -227,7 +227,7 @@ public class ShopAction extends ActionSupport implements SessionAware {
                 curPic.append(",");
             }
             System.out.println(curPic.toString());
-            goods.setGoodsPic(curPic.toString());
+
 
 
         goods= ShopService.findGoodsById(goods.getGoodsId());
@@ -235,6 +235,7 @@ public class ShopAction extends ActionSupport implements SessionAware {
         goods.setGoodsName(new_name);
         goods.setGoodsDesc(new_desc);
         goods.setGoodsPrice(new_price);
+        goods.setGoodsPic(curPic.toString());
 
        boolean flag= ShopService.modifyGoods(goods);
         if (flag==true){

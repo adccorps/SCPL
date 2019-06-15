@@ -171,7 +171,7 @@ $(function () {
             success: function (datas) {
                 //  console.log(formData);
                  console.log(datas);
-                if (datas.error === 0 || datas.error === -1) {
+                if (datas.error !== 1 ) {
                     // $.ajax()  无错误才上传到后台 append表单数据进formdata
                     var formData2 = new FormData();
                     formData2.append("goods.goodsName", $("#goodsName").val());
