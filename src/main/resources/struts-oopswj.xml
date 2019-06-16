@@ -69,6 +69,11 @@
             <interceptor-ref name="nologinJSON"/>
         </action>
 
+        <action name="change" class="shopAction" method="goodsChange">
+            <interceptor-ref name="nologinJSON"/>
+            <result name="success" type="chain">checkOrder</result>
+        </action>
+
 
     </package>
 </struts>

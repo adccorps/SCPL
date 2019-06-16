@@ -18,6 +18,7 @@
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
 
 </head>
+
 <body>
 <jsp:include page="../header/header.jsp">
     <jsp:param name="shopActive" value="active" />
@@ -45,19 +46,28 @@
                     <s:if test="#goods.goodsStatus == 0">出售中</s:if>
                     <s:if test="#goods.goodsStatus == 1">交易中</s:if>
                     <s:if test="#goods.goodsStatus == 2">交易完成</s:if>
-
+                    <s:if test="#goods.goodsStatus == 3">已下架</s:if>
                 </td>
                 <td>
-                    <a href="viewModify.action?goods.goodsId=<s:property value='#goods.goodsId'></s:property>">
-                        修改信息
-                    </a>
+                    <s:if test="#goods.goodsStatus == 0">
+                        <a href="viewModify.action?goods.goodsId=<s:property value='#goods.goodsId'></s:property>">
+                            修改信息
+                        </a>
+                        <%--href="change.action?goods.goodsId=<s:property value='#goods.goodsId'></s:property>"--%>
+
+                        <a href="change.action?goods.goodsId=<s:property value='#goods.goodsId'></s:property>"  >
+                            下架商品</a>
+                    </s:if>
+                    <s:if test="#goods.goodsStatus == 3">
+                    <a href="change.action?goods.goodsId=<s:property value='#goods.goodsId'></s:property>"  >
+                        上架商品</a>
+                    </s:if>
                 </td>
             </tr>
         </s:iterator>
         </tbody>
     </table>
 </div>
-<jsp:include page="../components/tipModal.jsp"></jsp:include>
 
 </body>
 </html>

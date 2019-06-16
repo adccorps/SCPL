@@ -244,6 +244,19 @@ public class ShopAction extends ActionSupport implements SessionAware {
         return "json";
     }
 
+    public String goodsChange(){
+        goods= ShopService.findGoodsById(goods.getGoodsId());
+
+        if(goods.getGoodsStatus()==0){
+            goods.setGoodsStatus(3);
+        }else{
+            goods.setGoodsStatus(0);
+        }
+        ShopService.modifyGoods(goods);
+
+        return SUCCESS;
+    }
+
     /**
      *  变量的get/set方法
      * */
