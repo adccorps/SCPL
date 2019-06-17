@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="find" namespace="/find" extends="nologin" strict-method-invocation="false">
+
+        <global-results>
+            <result name="json" type="json"/>
+        </global-results>
+
+        <action name="findIndex" class="findAction" method="showView">
+            <result>/WEB-INF/find/indexView.jsp</result>
+        </action>
+
+
+        <action name="findFindView" class="findAction" method="showView">
+            <result>/WEB-INF/find/findView.jsp</result>
+
+        </action>
+        <action name="findLostView" class="findAction" method="showView">
+            <result>/WEB-INF/find/findView.jsp</result>
+
+        </action>
+        <action name="findPeriodView" class="findAction" method="tableView">
+            <result>/WEB-INF/find/findView.jsp</result>
+
+        </action>
+
+
+        <action name="findPersonal" class="findAction" method="showView">
+            <result>/WEB-INF/find/personalView.jsp</result>
+        </action>
+
+        <action name="findFromView" class="findAction" method="showView">
+            <result>/WEB-INF/find/findFromView.jsp</result>
+        </action>
+
+    </package>
+</struts>
