@@ -1,18 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!doctype html>
-<html lang="zh-CN">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="content-language" content="zh-CN" />
-    <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>寻物界面首页</title>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/find.index.css">
-    <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet" />
-    <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
-    <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
+
 <jsp:include page="../header/header.jsp">
     <jsp:param name="findActive" value="active" />
 </jsp:include>
@@ -30,13 +18,13 @@
                     <a class="nav-link" href="${pageContext.servletContext.contextPath}/find/findIndex">主页</a>
                 </li>
                 <li class="nav-item nav-li-far">
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/find/findFindView">寻物</a>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/find/findFindView?view=0">寻物</a>
                 </li>
                 <li class="nav-item nav-li-far">
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/find/findLostView">招领</a>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/find/findFindView?view=1">招领</a>
                 </li>
                 <li class="nav-item nav-li-far">
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/find/findPeriodView">公证</a>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/find/findFindView?view=2">公证</a>
                 </li>
                 <li class="nav-item nav-li-far">
                     <a class="nav-link" href="${pageContext.servletContext.contextPath}/find/findPersonal">个人</a>
@@ -50,5 +38,3 @@
         </div>
     </nav>
 </div>
-</body>
-</html>

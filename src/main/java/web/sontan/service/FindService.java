@@ -27,16 +27,18 @@ public class FindService {
         return findDao.findAllFinds();
     }
 
-    public List<Find> findFinds(int pageNum,int status){                            //查找不同类型：0/1/2/3
+
+
+    public List<Find> findFinds(int pageNum,int view){                            //查找不同类型：0/1/2/3
         PageHelper.startPage(pageNum, 10);
-        return findDao.findFinds(pageNum,status);
+        return findDao.findFinds(view);
     }
 
 
 //    public List<Find> findSuccessFinds( int status){return findDao.findSuccessFinds(status);}    //查找3类型：成功案例
 //    public List<Find> findGoodsByName(String Search){return  findDao.findGoodsByName(Search);}  //模糊查找
 
-    public boolean addFinds(Find find){return  findDao.addFinds(find);}
+    public boolean addFinds(Find find,String userId){return  findDao.addFinds(find,userId);}
     public Find lookFind(int findId){return  findDao.lookFind(findId);}
     public boolean modifyFindToPeriod(int findId){return findDao.modifyFindToPeriod(findId);}
     public boolean modifyPeriodToEnd( int findId){return findDao.modifyPeriodToEnd(findId);}

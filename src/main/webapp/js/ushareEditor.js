@@ -4654,14 +4654,14 @@
                 return;
               }
             }
-            if (!hooks.customInsert && result.errno != '0') {
+            if (!hooks.customInsert && result.error != '0') {
               // hook - fail
               if (hooks.fail && typeof hooks.fail === 'function') {
                 hooks.fail(xhr, editor, result);
               }
 
               // 数据错误
-              _this3._alert('上传图片失败', '上传图片返回结果错误，返回结果 errno=' + result.errno);
+              _this3._alert('上传图片失败', '上传图片返回结果错误，返回结果 error=' + result.error);
             } else {
               if (hooks.customInsert && typeof hooks.customInsert === 'function') {
                 // 使用者自定义插入方法

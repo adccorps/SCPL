@@ -11,24 +11,19 @@
             <result name="json" type="json"/>
         </global-results>
 
-        <action name="findIndex" class="findAction" method="showView">
+        <action name="findPage" class="findAction" method="tableView">
+            <interceptor-ref name="nologinJSON"></interceptor-ref>
+        </action>
+
+
+        <action name="findIndex" class="findAction" method="indexShowView">
             <result>/WEB-INF/find/indexView.jsp</result>
         </action>
 
 
         <action name="findFindView" class="findAction" method="showView">
             <result>/WEB-INF/find/findView.jsp</result>
-
         </action>
-        <action name="findLostView" class="findAction" method="showView">
-            <result>/WEB-INF/find/findView.jsp</result>
-
-        </action>
-        <action name="findPeriodView" class="findAction" method="tableView">
-            <result>/WEB-INF/find/findView.jsp</result>
-
-        </action>
-
 
         <action name="findPersonal" class="findAction" method="showView">
             <result>/WEB-INF/find/personalView.jsp</result>
@@ -36,6 +31,14 @@
 
         <action name="findFromView" class="findAction" method="showView">
             <result>/WEB-INF/find/findFromView.jsp</result>
+        </action>
+
+        <action name="addFrom" class="findAction" method="addFind">
+            <result>/WEB-INF/find/personalView.jsp</result>
+        </action>
+        
+        <action name="test" class="findAction" method="testadd">
+            <result>/WEB-INF/find/personalView.jsp</result>
         </action>
 
     </package>

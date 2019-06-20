@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/find_cwz.css">
@@ -14,7 +15,7 @@
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-
+<%request.setCharacterEncoding("utf-8"); %>
 <nav class="navbar-inner" style="background-color:#343a40 !important;color: #343a40 !important">
 </nav>
 
@@ -26,8 +27,7 @@
         </nav>
     </div>
 
-    <form class="form-horizontal" enctype="multipart/form-data">
-        <fieldset>
+    <form class="form-horizontal"  action="${pageContext.servletContext.contextPath}/find/test.action">
             <link href="${pageContext.servletContext.contextPath}/css/find_cwz.css" rel="stylesheet" />
             <!-- Form Name -->
             <legend>Form Name</legend>
@@ -141,7 +141,6 @@
                 </div>
             </div>
             <button id="formSm" type="submit" class="btn btn-primary btn-lg btn-block send-message">发表</button>
-        </fieldset>
     </form>
     <script>
         /*
@@ -185,7 +184,6 @@
             for (var i = 0; i < files.length; i++) {
                 formData.append('files', files[i]);
             }
-            console.log(formData);
             $.ajax({
                 url: 'http://10.2.16.131:8080/UploadImg/upload',
                 data: formData,
@@ -194,34 +192,47 @@
                 contentType: false,
                 processData: false,
                 success: function (datas) {
-                    console.log(datas);
-                    var content_text = $(".form-control").val();
-                    var $modalBody = $('.modal-body p');
-                    var $tip = $('#tip-modal');
+                    var formData = new FormData();
+                    formData.append("find.status",$("input[type='radio']:checked").val());//单选框的值
+                    formData.append("find.title", $("#textinput-1").val());
+                    formData.append("find.date", $("#textinput-5").val());
+                    formData.append("find.adders",  $("#textinput-4").val());
+                    formData.append("find.mobile", $("#textinput-2").val());
+                    formData.append("find.name", $("#textinput-3").val());
                     if (datas.error === 0) {
+                        // $.ajax()  无错误才上传到后台 append表单数据进formdata
+                        formData.append("files", datas.data);;
+                        // console.log($("#goodsName").val());
                         $.ajax({
-                            url: '${pageContext.servletContext.contextPath}/alumniCircle/addCircleZCQ.action',
-                            data: "picAddress=" + datas.data + "&content=" + content_text,
+                            url: "${pageContext.servletContext.contextPath}/find/test.action",
                             type: 'POST',
-                            success: function (m) {
-                                $modalBody.html('发送成功！');
-                                $tip.modal();
-                                setTimeout(function(){
-                                    window.location.href="${pageContext.servletContext.contextPath}/alumniCircle/indexZCQ.action";
-                                },1500);
-                                console.log(m);
+                            data: formData,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (successData) {
+                                console.log(successData);
+                                //成功之后需要跳转
+                                <%--if (da.shopError === 0) {--%>
+                                <%--    $('.modal-footer>button').click(function () {--%>
+                                <%--        window.location.replace("${pageContext.servletContext.contextPath}/find/findIndex");--%>
+                                <%--    })--%>
+                                <%--}--%>
+
                             }
-                        });
+
+                        })
                     }else if(datas.error === -1){ //无图片
+                        console.log(formData);
                         $.ajax({
-                            url: '${pageContext.servletContext.contextPath}/alumniCircle/addCircleZCQ.action',
-                            data: "content=" + content_text,
+                            url: '${pageContext.servletContext.contextPath}/find/test.action',
+                            data: formData,
                             type: 'POST',
                             success: function (m) {
                                 $modalBody.html('发送成功！');
                                 $tip.modal();
                                 setTimeout(function(){
-                                    window.location.href="${pageContext.servletContext.contextPath}/alumniCircle/indexZCQ.action";
+                                    window.location.href="${pageContext.servletContext.contextPath}/find/test.action";
                                 },1500);
                                 console.log(m);
                             }

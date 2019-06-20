@@ -21,8 +21,8 @@ public interface FindDao {
      * 查找所有物品（index首页，三种类型齐上阵）
      * @return 返回所有物品信息
      */
-    List<Find> findAllFinds();                               //查找除了3类型外的全部
-    List<Find> findFinds(@Param("pageNum") int pageNum,@Param("status") int status);    //查找0类型：失物
+    List<Find> findAllFinds();
+    List<Find> findFinds(@Param("view") int view);    //查找0类型：失物
 //    List<Find> findFindFinds(@Param("status") int status);    //查找1类型：招领
 //    List<Find> findPeriodFinds(@Param("status") int status);    //查找2类型：公示
 //    List<Find> findSuccessFinds(@Param("status") int status);    //查找3类型：成功案例
@@ -32,7 +32,7 @@ public interface FindDao {
      * @param find 物品
      * @return 返回true上传成功 false上传失败
      */
-    boolean addFinds(@Param("find") Find find);
+    boolean addFinds(@Param("find") Find find,@Param("userId") String userId);
 
     Find lookFind(@Param("findId") int findId);
     /**

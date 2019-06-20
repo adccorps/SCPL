@@ -31,8 +31,6 @@
 <div class="container mt-5">
     <div class="col">
         <div class="row"><%--border pt-1 pb-1--%>
-            <%--<div class="col-2"></div>
-            <div class="col-10">${post.postTitle}</div>--%>
             <div class="col-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -67,7 +65,7 @@
             </div>
         </div>
         <div class="reply"></div>
-        <%--<s:if test="!post.replies.isEmpty()"> &lt;%&ndash; TODO 改为Ajax渲染 &ndash;%&gt;
+        <%--<s:if test="!post.replies.isEmpty()"> &lt;%&ndash;  改为Ajax渲染 &ndash;%&gt;
             <s:iterator value="post.replies">
                 <div class="row border replies pt-3 pb-3 ml-0 mr-0">
                     <div class="col-2 border-right">
@@ -195,7 +193,7 @@
                 if (oldPage !== newPage) { // 非首次渲染
                   $('.post').remove();
                 }
-                <%-- TODO Ajax渲染 --%>
+                <%-- Ajax渲染 --%>
                 var $reply = $('.reply');
                 $reply.html('');
                 $.each(result.replies, function (index, reply) {
@@ -237,6 +235,10 @@
                   $reply.append($repliesBody);
                 });
                 $(window).resize();
+                $('img').on('load', function () {
+                  $(window).resize();
+                });
+                $('html,body').scrollTop(0);
               }
             });
           }
@@ -251,7 +253,7 @@
 
       var $userHeight = [];
       $('.content').parent().parent().each(function (index, item) {
-        $(item).children(':even').each(function (index, item) {
+        $(item).children(':first-child').each(function (index, item) {
           var total = 0;
           $(item).children().each(function (index, item) {
             total += $(item).height();
@@ -269,7 +271,7 @@
         $contentHeight.push(total);
       });
 
-      $.each($contentHeight, function (index) {
+      $.each($userHeight, function (index) {
         if ($contentHeight[index] < $userHeight[index]) {
           $('.content').eq(index).css({
             minHeight: $userHeight[index]
@@ -280,7 +282,7 @@
     $(window).resize();
 
     var replyId = null;
-    $('.reply-href').on('click', function () {
+    $(document).on('click', '.reply-href', function () {
       var $col_10 = $(this).parent().parent();
       var username = $col_10.parent().children(':first-child').children(':last-child').text().trim();
       replyId = $col_10.children(":first-child").data('replyId');
@@ -306,7 +308,7 @@
     var $confirmMsg = $('#confirm-modal .modal-body p');
     var $confirmOk = $('#confirm-modal .ok');
 
-    $('.replies .delete').on('click', function () {
+    $(document).on('click', '.replies .delete', function () {
       replyId = $(this).parent().parent().children(":first-child").data('replyId');
       $confirmMsg.html('确定要删除这条评论吗？');
       $confirm.modal();
@@ -336,7 +338,7 @@
       });
     });
 
-    $('.post .delete').on('click', function () {
+    $(document).on('click', '.post .delete', function () {
       $confirmMsg.html('确定要删除这个帖子吗？');
       $confirm.modal();
       $confirmOk.one('click', function () {
@@ -377,16 +379,16 @@
     // editor.customConfig.uploadImgServer = 'localhost:8081/ImgServer/upload';
     editor.create();
 
-    $('.post .modify').on('click', function () {
+    $(document).on('click', '.post .modify', function () {
       window.location.href = "${pageContext.servletContext.contextPath}/post/modify/" + postId;
     });
 
-    $('.replies .modify').on('click', function () { // TODO
+    $(document).on('click', '.replies .modify', function () {
       replyId = $(this).parent().parent().children(":first-child").data('replyId');
       window.location.href = "${pageContext.servletContext.contextPath}/reply/modify/" + replyId;
     });
 
-    $('.publish').on('click', function () {
+    $(document).on('click', '.publish', function () {
       var tip = !editor.txt.text() && '内容不能为空';
       if (!editor.txt.text()) {
         showTip({
@@ -406,6 +408,10 @@
         type: 'POST',
         data: data,
         success: function (result, status, xhr) {
+          if (result.code === -10) {
+            window.location.href = result.action;
+            return;
+          }
           showTip({
             body: $tipMsg,
             modal: $tip,

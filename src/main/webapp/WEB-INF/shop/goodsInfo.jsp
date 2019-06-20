@@ -8,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+
 <html>
 <head>
     <meta http-equiv="content-language" content="zh-CN" />
@@ -16,9 +17,10 @@
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet" />
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.servletContext.contextPath}/js/shop/shop.js"></script>
+    <%--<script src="${pageContext.servletContext.contextPath}/js/shop/shop.js"></script>--%>
 <script>
     $(function () {
+
 
         $("#buyIron").click(function () {
             $.ajax({
@@ -26,9 +28,13 @@
                 Type:"post",
                 dataType:"json",
                 data:{
-                    "goods.goods":"${goods.goods}"
+                    "goods.goodsId":"${goods.goodsId}"
                 },
                 success:function (datas) {
+                    if (datas.code === -10) {
+                        window.location.href = datas.action;
+                        return;
+                    }
                     console.log(datas);
                     if (datas.shopError!=0){
                         var $modalBody = $('.modal-body p');
@@ -43,6 +49,40 @@
                 }
             })
         })
+
+        /**
+         * 图片路径分割
+         * */
+        function splitPicURL(pic){
+            var picArr;
+            picArr= pic.split(",");
+            return picArr;
+        }
+
+       var goodsPicArr=splitPicURL($("#getPicURL").val());
+//        console.log(goodsPicArr.length);
+
+        if (goodsPicArr.length -1 === 1){
+            $("#picBox").append(
+           " <img src='"+goodsPicArr[0]+ "' style='width:100%; height:100%; background-color: #95999c'>"
+            )
+        }else{
+            $("#carouselControls").attr("style","display:block");
+            $(".carousel-inner").append(
+                "<div class='carousel-item active'>"+
+               " <img class='d-block w-100' src='"+goodsPicArr[0] +"' style='width:100%; height: 90%; background-color: #95999c'>"
+                +"</div>"
+            )
+            for (var n=1;n<goodsPicArr.length -1;n++){
+            $(".carousel-inner").append(
+                "<div class='carousel-item '>"+
+                " <img class='d-block w-100' src='"+goodsPicArr[n] +"' style='width:100%;height: 90%; background-color: #95999c'>"
+                +"</div>"
+            )
+            }
+        }
+
+
     })
 </script>
     <title>Title</title>
@@ -55,8 +95,23 @@
 
 <div class="container" >
     <jsp:include page="shop_header.jsp"></jsp:include>
-    <div class="float-left col-md-5 mt-5 ml-5 "  >
-        <img src="${goods.goodsPic}" style="width: 98%; background-color: #95999c">
+    <div class="float-left col-md-6 "  id="picBox"  style=" background-color: #95999c;height: 28.8rem">
+        <input type="hidden" value="${goods.goodsPic}" id="getPicURL" >
+        <%--<input type="hidden" value="http://10.2.16.131/images/afc868e5c8ea90e1c8b260a865a6a7fb.jpg,http://10.2.16.131/images/afc868e5c8ea90e1c8b260a865a6a7fb.jpg,http://10.2.16.131/images/afc868e5c8ea90e1c8b260a865a6a7fb.jpg," id="getPicURL" >--%>
+        <div id="carouselControls" class="carousel slide" data-ride="carousel" style="display: none">
+            <div class="carousel-inner">
+
+            </div>
+            <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true" ></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
     </div>
 
     <div  class="col-md-5 float-left mt-4 pl-5" >

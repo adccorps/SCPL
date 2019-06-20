@@ -6,7 +6,6 @@ package web.sontan.model;
 public class Order {
     private String orderId;
     private Goods goods;
-    private Integer orderStatus;
     private User seller;
     private User buyer;
 
@@ -24,14 +23,6 @@ public class Order {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
-    }
-
-    public Integer getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(Integer orderStatus) {
-        this.orderStatus = orderStatus;
     }
 
     public User getSeller() {

@@ -30,9 +30,18 @@ public class PostService {
         return postDao.findById(postId);
     }
 
+    public List<Post> findAll(String orderType) {
+        return postDao.findAll(orderType);
+    }
+
     public List<Post> findAll(int pageNum, String orderType) {
         PageHelper.startPage(pageNum, 10);
-        return postDao.findAll(orderType);
+        return this.findAll(orderType);
+    }
+
+    public List<Post> findByString(int pageNum, String query, String orderType) {
+        PageHelper.startPage(pageNum, 10);
+        return postDao.findByString(query, orderType);
     }
 
     public boolean addPost(Post post) {
