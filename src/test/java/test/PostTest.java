@@ -11,6 +11,7 @@ import web.sontan.model.Post;
 import web.sontan.model.Reply;
 import web.sontan.model.VO.PostVO;
 import web.sontan.service.PostService;
+import web.sontan.utils.sql.OrderType;
 
 import java.util.Arrays;
 import java.util.List;
@@ -66,6 +67,14 @@ public class PostTest {
             if (reply.getPrevious() != null) {
                 System.out.println(reply.getPrevious());
             }
+        }
+    }
+
+    @Test
+    public void test4() {
+        List<Post> byUserId = postService.findByUserId(1, "92aa2e75ba6f413888bebf0392baab17", OrderType.DESC);
+        for (Post post : byUserId) {
+            System.out.println(post);
         }
     }
 

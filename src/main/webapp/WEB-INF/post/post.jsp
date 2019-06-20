@@ -8,13 +8,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="h-100">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta http-equiv="content-language" content="zh-CN" />
-    <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>${post.postTitle} - 帖子</title>
+    <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>校园生活</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css">
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet" />
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
@@ -22,6 +22,9 @@
     <script src="${pageContext.servletContext.contextPath}/js/utils/tips.js"></script>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/post.css">
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap-paginator.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/preview.css">
+    <script src="${pageContext.servletContext.contextPath}/js/preview.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/EmojiCharString.min.js"></script>
 </head>
 <body>
 <jsp:include page="../header/header.jsp">
@@ -43,7 +46,7 @@
         </div>
         <div class="row border post pt-3 pb-3 ml-0 mr-0">
             <div class="col-2 border-right">
-                <img class="rounded-lg" src="${post.user.userAvatar}"
+                <img class="rounded-lg user-avatar" src="${post.user.userAvatar}"
                      alt="test" /> <%-- ${post.user.userAvatar} --%>
                 <hr>
                 <div class="mr-0 ml-0 text-center">
@@ -113,8 +116,11 @@
             </s:iterator>
         </s:if>--%>
         <div class="d-none border-top bg-white fixed-bottom">
-            <div class="row mt-3 ml-0 mr-0 pl-3">
-                回复：@<span class="username"></span>
+            <div class="row mt-3 ml-0 mr-0 pl-3 pr-3 justify-content-between">
+                <div>回复：@<span class="username"></span></div>
+                <button type="button" class="close text-danger" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="row mt-3 ml-0 mr-0">
                 <div class="col-12 editor" spellcheck="false"></div>
@@ -173,81 +179,89 @@
 
     postId = href.substr(slashIndex + 1, 32);
 
-    $.ajax({
-      url: '${pageContext.servletContext.contextPath}/reply/page/1/' + postId,
-      type: 'GET',
-      success: function (result, status, xhr) {
-        $('.page').bootstrapPaginator({
-          language: "chinese",
-          currentPage: 1,
-          totalPages: result.totalPages,
-          onPageChanged: function (e, oldPage, newPage) {
-            if (oldPage !== newPage && newPage === 1) {
-              window.location.reload();
-              return;
+    $('.page').bootstrapPaginator({
+      language: "chinese",
+      currentPage: 1,
+      totalPages: 1,
+      onPageChanged: function (e, oldPage, newPage) {
+        if (oldPage !== newPage && newPage === 1) {
+          window.location.reload();
+          return;
+        }
+        $.ajax({
+          url: '${pageContext.servletContext.contextPath}/reply/page/' + newPage + '/' + postId,
+          type: 'GET',
+          success: function (result, status, xhr) {
+            var target = $(e.currentTarget);
+            var options = { currentPage: newPage };
+            if (result.totalPages !== target.bootstrapPaginator('getOption').totalPages) {
+              result.totalPages = result.totalPages || 1;
+              options['totalPages'] = result.totalPages;
             }
-            $.ajax({
-              url: '${pageContext.servletContext.contextPath}/reply/page/' + newPage + '/' + postId,
-              type: 'GET',
-              success: function (result, status, xhr) {
-                if (oldPage !== newPage) { // 非首次渲染
-                  $('.post').remove();
-                }
-                <%-- Ajax渲染 --%>
-                var $reply = $('.reply');
-                $reply.html('');
-                $.each(result.replies, function (index, reply) {
-                  var $repliesBody = $('<div class="row border replies pt-3 pb-3 ml-0 mr-0"></div>');
-                  var $leftBody = $('<div class="col-2 border-right"></div>');
-                  var $avatar = $('<img class="rounded-lg" src="' + reply.user.userAvatar + '" alt="avatar" /><hr><div class="mr-0 ml-0 text-center">' + reply.user.userName + '</div>');
-                  $leftBody.append($avatar);
-                  $repliesBody.append($leftBody);
-                  var $rightBody = $('<div class="col-10"></div>');
-                  var status = '';
-                  var content = '';
-                  var operational = '';
-                  if (reply.replyStatus !== 2) {
-                    status = ' data-reply-id="' + reply.replyId + '"';
-                    if (reply.previous.replyId) {
-                      content += '<blockquote class="previous">';
-                      if (!reply.previous.replyContent || reply.previous.replyStatus === 2) {
-                        content += '<div class="alert alert-danger" role="alert">评论已被删除</div>';
-                      } else {
-                        content += '<div>回复：@' + reply.previous.user.userName + '&nbsp;&nbsp;' + reply.previous.replyTime.substr(0, 19) + '</div>' + reply.previous.replyContent;
-                      }
-                      content += '</blockquote>';
-                    }
-                    content += reply.replyContent;
-                    operational += '<hr><div class="text-right text-secondary"><a class="reply-href" href="javascript:void(0)">回复</a>&nbsp;&nbsp;';
-                    if ('${user.userId}' === reply.user.userId) {
-                      operational += '<a href="javascript:void(0)" class="modify">修改</a>&nbsp;&nbsp;<a href="javascript:void(0)" class="delete">删除</a>&nbsp;&nbsp;';
-                    }
-                    operational += reply.replyTime.substr(0, 19);
-                    operational += '</div>';
+            target.bootstrapPaginator('setOptions', options);
+            if (oldPage !== newPage) { // 非首次渲染
+              $('.post').remove();
+            }
+            <%-- Ajax渲染 --%>
+            var $reply = $('.reply');
+            $reply.html('');
+            $.each(result.replies, function (index, reply) {
+              var $repliesBody = $('<div class="row border replies pt-3 pb-3 ml-0 mr-0"></div>');
+              var $leftBody = $('<div class="col-2 border-right"></div>');
+              var $avatar = $('<img class="rounded-lg user-avatar" src="' + reply.user.userAvatar + '" alt="avatar" /><hr><div class="mr-0 ml-0 text-center">' + reply.user.userName + '</div>');
+              $leftBody.append($avatar);
+              $repliesBody.append($leftBody);
+              var $rightBody = $('<div class="col-10"></div>');
+              var status = '';
+              var content = '';
+              var operational = '';
+              if (reply.replyStatus !== 2) {
+                status = ' data-reply-id="' + reply.replyId + '"';
+                if (reply.previous.replyId) {
+                  content += '<blockquote class="previous">';
+                  if (!reply.previous.replyContent || reply.previous.replyStatus === 2) {
+                    content += '<div class="alert alert-danger" role="alert">评论已被删除</div>';
                   } else {
-                    content = '<div class="alert alert-danger" role="alert">评论已被删除</div>';
+                    content += '<div>回复：@' + reply.previous.user.userName + '&nbsp;&nbsp;' + reply.previous.replyTime.substr(0, 19) + '</div>' + reply.previous.replyContent;
                   }
-                  var $contentBody = $('<div class="content" ' + status + '></div>');
-                  $contentBody.append($(content));
-                  $rightBody.append($contentBody);
-                  $rightBody.append($(operational));
-                  $repliesBody.append($rightBody);
-                  $reply.append($repliesBody);
-                });
-                $(window).resize();
-                $('img').on('load', function () {
-                  $(window).resize();
-                });
-                $('html,body').scrollTop(0);
+                  content += '</blockquote>';
+                }
+                content += reply.replyContent;
+                operational += '<hr><div class="text-right text-secondary"><a class="reply-href" href="javascript:void(0)">回复</a>&nbsp;&nbsp;';
+                if ('${user.userId}' === reply.user.userId) {
+                  operational += '<a href="javascript:void(0)" class="modify">修改</a>&nbsp;&nbsp;<a href="javascript:void(0)" class="delete">删除</a>&nbsp;&nbsp;';
+                }
+                operational += reply.replyTime.substr(0, 19);
+                operational += '</div>';
+              } else {
+                content = '<div class="alert alert-danger" role="alert">评论已被删除</div>';
               }
+              var $contentBody = $('<div class="content" ' + status + '></div>');
+              $contentBody.append($(content));
+              $rightBody.append($contentBody);
+              $rightBody.append($(operational));
+              $repliesBody.append($rightBody);
+              $reply.append($repliesBody);
+            });
+            $(window).resize();
+            $('.user-avatar').on('load', function () {
+              $(window).resize();
+            });
+            $('html,body').scrollTop(0);
+            new Preview({
+              imgWrap: '.col-10 img'
             });
           }
         });
       }
     });
 
+    new Preview({
+      imgWrap: '.col-10 img'
+    });
+
     $(window).resize(function () {
-      $('.container img').css({
+      $('.container .user-avatar').css({
         width: $('.container .col-2').width()
       });
 
@@ -291,7 +305,7 @@
       if (prevId === replyId) {
         $editor.toggleClass('d-none');
       } else {
-        var $username = $editor.children(":first-child").children('.username');
+        var $username = $editor.children(":first-child").find('.username');
         $username.html(username);
         $editor.data('replyId', replyId);
         $editor.removeClass('d-none');
@@ -330,7 +344,7 @@
                 });
               },
               hidden: function () {
-                window.location.replace("${pageContext.servletContext.contextPath}/post");
+                window.location.replace("${pageContext.servletContext.contextPath}/post/view/" + postId);
               }
             });
           }
@@ -370,13 +384,21 @@
     var $tip = $('#tip-modal');
     var $tipMsg = $('#tip-modal .modal-body p');
 
+    $(document).on('click', '.close.text-danger', function () {
+      if (!replyId) {
+        $('.reply-href').eq(0).click();
+      } else {
+        $('.content[data-reply-id="' + replyId + '"]').parent().children(':last-child').children('.reply-href').click();
+      }
+    });
+
     ushareEditor.prototype.serialize = function (name) {
       return name + '=' + this.txt.html();
     };
     var editor = new ushareEditor('.editor');
     editor.customConfig.height = '250px';
-    // 配置服务器端地址
-    // editor.customConfig.uploadImgServer = 'localhost:8081/ImgServer/upload';
+    editor.customConfig.uploadImgServer = 'http://10.2.16.131:8080/UploadImg/upload';
+    editor.customConfig.uploadFileName = 'files';
     editor.create();
 
     $(document).on('click', '.post .modify', function () {
@@ -389,20 +411,36 @@
     });
 
     $(document).on('click', '.publish', function () {
-      var tip = !editor.txt.text() && '内容不能为空';
-      if (!editor.txt.text()) {
+      var tip = '';
+      var flag = true;
+      var text = editor.txt.text();
+      var minContent = 15;
+      if (new EmojiCharString(text.replace(/&nbsp;/g, "").trim()).length < minContent) {
+        flag = false;
+        tip = '内容至少要' + minContent + '个字(不包括图片)';
+      }
+      if (!text.replace(/&nbsp;/g, "").trim()) {
+        flag = false;
+        tip = '内容不能为空';
+      }
+      if (!flag) {
         showTip({
-          body: $modalBody,
+          body: $tipMsg,
           modal: $tip,
           tip: tip,
           lazy: true
         });
         return;
       }
-      var content = editor.serialize('reply.replyContent');
-      var data = 'reply.post.postId=' + postId + '&' + content;
-      data = replyId ? (data + '&reply.previous.replyId=' + replyId) : data;
+      // var content = editor.serialize('reply.replyContent');
+      // var data = 'reply.post.postId=' + postId + '&' + content;
+      // data = replyId ? (data + '&reply.previous.replyId=' + replyId) : data;
       // console.log(editor.txt.text()); // 判断空(注意空格为&nbsp;)
+      var data = {
+        'reply.replyContent': editor.txt.html(),
+        'reply.post.postId': postId
+      };
+      replyId && (data['reply.previous.replyId'] = replyId);
       $.ajax({
         url: '${pageContext.servletContext.contextPath}/reply/reply_add',
         type: 'POST',

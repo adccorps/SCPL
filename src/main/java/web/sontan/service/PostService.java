@@ -58,4 +58,9 @@ public class PostService {
         return postDao.updatePost(post);
     }
 
+    public List<Post> findByUserId(int pageNum, String userId, String orderType) {
+        PageHelper.startPage(pageNum, 10);
+        return postDao.findByUserId(userId, orderType);
+    }
+
 }

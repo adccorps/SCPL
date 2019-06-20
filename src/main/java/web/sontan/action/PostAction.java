@@ -17,6 +17,7 @@ import web.sontan.service.PostService;
 import web.sontan.utils.sql.OrderType;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -95,13 +96,6 @@ public class PostAction extends ActionSupport implements SessionAware {
 
     @Route(value = "/post")
     public String viewIndex() {
-        /*
-            默认为1
-         */
-        int pageNum = 1;
-        this.posts = postService.findAll(pageNum, OrderType.DESC);
-        PageInfo<Post> postPageInfo = new PageInfo<>(this.posts);
-        this.totalPages = postPageInfo.getPages();
         return Results.jsp("/WEB-INF/post/index.jsp");
     }
 
@@ -128,6 +122,18 @@ public class PostAction extends ActionSupport implements SessionAware {
         PageInfo<Post> postPageInfo = new PageInfo<>(this.posts);
         this.totalPages = postPageInfo.getPages();
         return Results.json().done();
+    }
+
+    @Route(value = "/user/page/{pageNum}", method = {MethodType.GET}, interceptors = {"nologinJSON"})
+    public String myPost() {
+        /*
+            获取所有发过的贴子(分页)
+         */
+        User user = (User) session.get("user");
+        this.posts = postService.findByUserId(pageNum, user.getUserId(), OrderType.DESC);
+        PageInfo<Post> postPageInfo = new PageInfo<>(this.posts);
+        this.totalPages = postPageInfo.getPages();
+        return "json";
     }
 
     public int getTotalPages() {

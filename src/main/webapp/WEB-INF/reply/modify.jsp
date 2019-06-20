@@ -20,6 +20,7 @@
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/utils/tips.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/EmojiCharString.min.js"></script>
 </head>
 <body>
 <jsp:include page="../header/header.jsp">
@@ -65,6 +66,8 @@
     return name + '=' + this.txt.html();
   };
   var editor = new ushareEditor('.editor');
+  editor.customConfig.uploadImgServer = 'http://10.2.16.131:8080/UploadImg/upload';
+  editor.customConfig.uploadFileName = 'files';
   // 配置服务器端地址
   // editor.customConfig.uploadImgServer = '/upload';
   // 将图片大小限制为 3M
@@ -74,12 +77,36 @@
   editor.create();
 
   $('.modify').on('click', function (e) {
-    var content = editor.serialize('reply.replyContent');
-    var data = 'reply.replyId=' + replyId + '&' + content;
+    var tip = '';
+    var flag = true;
+    var text = editor.txt.text();
+    var minContent = 15;
+    if (new EmojiCharString(text.replace(/&nbsp;/g, "").trim()).length < minContent) {
+      flag = false;
+      tip = '内容至少要' + minContent + '个字(不包括图片)';
+    }
+    if (!text.replace(/&nbsp;/g, "").trim()) {
+      flag = false;
+      tip = '内容不能为空';
+    }
+    if (!flag) {
+      showTip({
+        body: $modalBody,
+        modal: $tip,
+        tip: tip,
+        lazy: true
+      });
+      return;
+    }
+    // var content = editor.serialize('reply.replyContent');
+    // var data = 'reply.replyId=' + replyId + '&' + content;
     $.ajax({
       url: '${pageContext.servletContext.contextPath}/reply/reply_modify',
       type: 'POST',
-      data: data,
+      data: {
+        'reply.replyId': replyId,
+        'reply.replyContent': editor.txt.html()
+      },
       success: function (result) {
         showTip({ // 1. 弹出tip-modal
           body: $modalBody,

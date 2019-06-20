@@ -37,7 +37,7 @@ public class ReplyAction extends ActionSupport implements SessionAware {
     private String replyId;
     private int pageNum;
     private String postId;
-    private int totalPages;
+    private Integer totalPages;
 
     private Map<String, Object> session;
     private List<Reply> replies;
@@ -95,12 +95,10 @@ public class ReplyAction extends ActionSupport implements SessionAware {
         if (this.pageNum < 1) {
             this.pageNum = 1;
         }
-        if (this.pageNum == 1) { // 第一页（服务器端渲染）才返回页数
-            this.totalPages = 1;
-            int count = replyService.count(this.postId);
-            if (count > 9) {
-                this.totalPages += (int) Math.ceil((count - 9) / 10.0); // 页数
-            }
+        this.totalPages = 1;
+        int count = replyService.count(this.postId);
+        if (count > 9) {
+            this.totalPages += (int) Math.ceil((count - 9) / 10.0); // 页数
         }
         this.replies = replyService.findLimit(this.pageNum, this.postId); // 该页的回复
         return Results.json().done();
@@ -167,11 +165,11 @@ public class ReplyAction extends ActionSupport implements SessionAware {
         this.replies = replies;
     }
 
-    public int getTotalPages() {
+    public Integer getTotalPages() {
         return totalPages;
     }
 
-    public void setTotalPages(int totalPages) {
+    public void setTotalPages(Integer totalPages) {
         this.totalPages = totalPages;
     }
 }
