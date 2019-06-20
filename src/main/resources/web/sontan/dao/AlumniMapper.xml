@@ -10,8 +10,6 @@
     <result property="content" column="content"/>
     <result property="state" column="state"/>
     <association property="user" resultMap="web.sontan.dao.UserDao.userMap">
-      <!--<id property="userId" column="user_id"/>
-      <result property="userName" column="user_name"/>-->
     </association>
     <association property="collections" javaType="collections">
       <id property="collectionId" column="collection_id"/>
@@ -49,26 +47,59 @@
       WHERE d.state='1' AND d.dynamic_id  IN(SELECT dynamic_id FROM xy_collection WHERE user_id=#{userId} AND state='1') GROUP BY c.collection_date DESC;
     </select>
 
-  <update id="deleteMyCircle">
+  <update id="deleteMyCircle"><!--删除自己的动态-->
         UPDATE xy_dynamic SET state='0' WHERE dynamic_id=#{dynamicId} AND user_id = #{userId};
     </update>
 
-  <update id="deleteCollection">
-        UPDATE xy_collection SET state='0' WHERE dynamic_id=#{dynamicId} AND user_id = #{userId};
-    </update>
-
-  <insert id="addMyCircle">
+  <insert id="addMyCircle"><!--增加动态-->
         INSERT INTO xy_dynamic(user_id,pic_count,pics_address,content) values(#{userId},#{picCount},#{pics},#{content}) ;
     </insert>
 
-  <insert id="addMyCircleNopic">
+  <insert id="addMyCircleNopic"><!--增加动态的图片地址-->
         INSERT INTO xy_dynamic(user_id,content) values(#{userId},#{content}) ;
-    </insert>
+   </insert>
 
 
-  <insert id="addCollections">
-        INSERT INTO xy_collection(user_id,dynamic_id) values(#{userId},#{dynamicId}) ;
+    <select id="allCollection" resultType="int"><!--查看是否已经收藏-->
+        SELECT dynamic_id FROM xy_collection WHERE user_id=#{userId} AND state='1';
+    </select>
+   <select id="isCollections" resultType="string"><!--检查是否已经被收藏-->
+        SELECT state FROM xy_collection  WHERE user_id=#{userId} AND dynamic_id=#{dynamicId};
+   </select>
+  <insert id="addCollections"><!--增加收藏-->
+        INSERT INTO xy_collection(user_id,dynamic_id) values(#{userId},#{dynamicId});
     </insert>
+    <update id="changeCollection"><!--修改为收藏状态-->
+        UPDATE xy_collection SET state='1' WHERE dynamic_id=#{dynamicId} AND user_id = #{userId};
+    </update>
+    <update id="deleteCollection"><!--删除自己的收藏-->
+        UPDATE xy_collection SET state='0' WHERE dynamic_id=#{dynamicId} AND user_id = #{userId};
+    </update>
+
+
+    <select id="allLikes" resultType="int"><!--所有被点赞的动态号-->
+        SELECT dynamic_id FROM xy_likes WHERE user_id=#{userId} AND state='1';
+    </select>
+    <select id="isLikes" resultType="string"><!--查询是否已经点赞-->
+        SELECT state FROM xy_likes WHERE user_id=#{userId} AND dynamic_id=#{dynamicId};
+    </select>
+    <insert id="addLikes"><!--增加点赞-->
+        INSERT INTO xy_likes(user_id,dynamic_id) values(#{userId},#{dynamicId}) ;
+    </insert>
+    <update id="add"><!--修改为点赞状态-->
+        UPDATE xy_likes SET state='1' WHERE dynamic_id=#{dynamicId} AND user_id = #{userId};
+    </update>
+    <update id="deleteLikes"><!--修改为未点赞状态-->
+        UPDATE xy_likes SET state='0' WHERE dynamic_id=#{dynamicId} AND user_id = #{userId};
+    </update>
+    <select id="likes" resultType="string"><!--查询所有点赞的用户-->
+        SELECT u.user_name
+		FROM xy_likes l
+        INNER JOIN xy_user u ON l.user_id = u.user_id
+        WHERE dynamic_id=#{dynamicId} AND l.state='1';
+    </select>
+
+
 
   <resultMap id="commentMap" type="Comment">
     <id property="commentId" column="comment_id"/>
@@ -78,13 +109,13 @@
     <result property="userName" column="user_name"/>
   </resultMap>
 
-  <select id="findAllComment" resultMap="commentMap">
+  <select id="findAllComment" resultMap="commentMap"><!--查询评论-->
         SELECT c.comment_id,u.user_name,c.comment_date,c.comment_content FROM xy_comment c
         INNER JOIN xy_user u ON c.user_id = u.user_id
         WHERE dynamic_id=#{dynamicId} ORDER BY comment_date;
     </select>
 
-  <insert id="addComment">
+  <insert id="addComment"><!--增加评论-->
         INSERT INTO xy_comment(user_id,dynamic_id,comment_content,comment_date) values(#{userId},#{dynamicId},#{commentText},#{nowdate}) ;
     </insert>
 

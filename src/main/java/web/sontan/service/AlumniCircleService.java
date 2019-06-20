@@ -55,9 +55,7 @@ public class AlumniCircleService {
         return alumniCircleDao.deleteMyCircle(dynamicId, userId);
     }
 
-    public int deleteCollection(int dynamicId, String userId) {
-        return alumniCircleDao.deleteCollection(dynamicId, userId);
-    }
+
 
     public int addMyCircle(String userId, String pics, int picCount, String content) {
         return alumniCircleDao.addMyCircle(userId, pics, picCount, content);
@@ -71,7 +69,38 @@ public class AlumniCircleService {
         return alumniCircleDao.addComment(userId, dynamicId, commentText, nowdate);
     }
 
+    public List<Integer> allCollection(String userId) {
+        return alumniCircleDao.allCollection(userId);
+    }
+    public String isCollections(String userId, int dynamicId) {
+        return alumniCircleDao.isCollections(userId, dynamicId);
+    }
     public int addCollections(String userId, int dynamicId) {
         return alumniCircleDao.addCollections(userId, dynamicId);
+    }
+    public int changeCollection(String userId, int dynamicId) {
+        return alumniCircleDao.changeCollection(userId, dynamicId);
+    }
+    public int deleteCollection(String userId,int dynamicId) {
+        return alumniCircleDao.deleteCollection(userId,dynamicId);
+    }
+    public List<String> likes(int dynamicId) {
+        return alumniCircleDao.likes(dynamicId);
+    }
+
+    public List<Integer> allLikes(String userId) {
+        return alumniCircleDao.allLikes(userId);
+    }
+    public String isLikes(String userId, int dynamicId) {
+        return alumniCircleDao.isLikes(userId, dynamicId);
+    }
+    public int addLikes(String userId, int dynamicId) {
+        return alumniCircleDao.addLikes(userId, dynamicId);
+    }
+    public int deleteLikes(String userId, int dynamicId) {
+        return alumniCircleDao.deleteLikes(userId, dynamicId);
+    }
+    public int add(String userId, int dynamicId){
+        return alumniCircleDao.add(userId, dynamicId);
     }
 }

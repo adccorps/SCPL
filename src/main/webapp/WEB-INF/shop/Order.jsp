@@ -16,7 +16,20 @@
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet" />
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(function () {
+            /*$("#orderOperation>a").click(function () {
+                var $modalBody = $('.modal-body p');
+                var $tip = $('#tip-modal');
+                $modalBody.html("请确定是否要执行此操作");
+                $tip.modal();
+                $tip.on('hidden.bs.modal', function (e) {
+                    $modalBody.html('');
+                });
+            })*/
+        })
 
+    </script>
 </head>
 <body>
 <jsp:include page="../header/header.jsp">
@@ -27,7 +40,6 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">orderId</th>
             <th scope="col">商品</th>
             <th scope="col">价格</th>
             <th scope="col">商品状态</th>
@@ -38,13 +50,30 @@
         <s:iterator value="orderList" var="od" status="order">
         <tr>
             <th scope="row"><s:property value="#order.index"/></th>
-            <td><s:property value="#od.goods.goodsName"></s:property> </td>
+            <td>
+                <a href="getGoodsInfo.action?goods.goodsId=<s:property value='#od.goods.goodsId'></s:property>">
+                    <s:property value="#od.goods.goodsName"></s:property></a> </td>
+            <td><s:property value="#od.goods.goodsPrice"></s:property> </td>
+            <td>
+                <s:if test="#od.goods.goodsStatus == 0">已取消订单</s:if>
+                <s:if test="#od.goods.goodsStatus == 1">商品运送中</s:if>
+                <s:if test="#od.goods.goodsStatus == 2">确认收货</s:if>
+            </td>
+
+            <td id="orderOperation">
+                <s:if test="#od.goods.goodsStatus == 1">
+                    <a href="orderCompletion.action?goods.goodsId=<s:property value='#od.goods.goodsId'></s:property>">
+                        确认收货</a>
+                    <a href="orderCancel.action?goods.goodsId=<s:property value='#od.goods.goodsId'></s:property>">
+                        取消订单</a>
+                </s:if>
+            </td>
         </tr>
         </s:iterator>
         </tbody>
     </table>
 </div>
-
+<jsp:include page="../components/tipModal.jsp"></jsp:include>
 
 </body>
 </html>

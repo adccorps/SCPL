@@ -17,7 +17,7 @@
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet" />
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.servletContext.contextPath}/js/shop/goodsValidation.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/shop/goods.js"></script>
 </head>
 <body>
 <jsp:include page="../header/header.jsp">
@@ -43,9 +43,8 @@
                 <label for="goodsPrice">商品价格</label>
                 <input type="text" class="form-control "  name="goods.goodsPrice" id="goodsPrice" placeholder="商品价格" value="" required>
                 <div class="valid-feedback">
-                    Looks good!
                 </div>
-                <div class="invalid-feedback">lohkjlkj</div>
+                <div class="invalid-feedback">请在价格区间0-99999中输入</div>
             </div>
         </div>
 
@@ -71,16 +70,22 @@
                 <textarea class="form-control" name="goods.goodsDesc" id="goodsDesc" rows="3"></textarea>
             </div>
         </div>
-        <div class="form-row">
+        <div class="form-row" id="picRow">
             <div class="form-group">
                 <label for="goodsPic">上传商品图片</label><br>
-                <input type="file" name="goods.goodsPic" class="form-control-file" id="goodsPic" style="display: none">
+                <input type="file" name="goods.goodsPic" class="form-control-file" id="goodsPic" multiple style="display: none">
                 <button  id="sumbitPic" type="button">上传图片</button>
+
             </div>
-            <img src="#" id="showPic" class="col-5 float-left  ">
+        <div id="picShow" class="col-md-12 ">
+
         </div>
-        <button class="btn btn-primary" type="submit">Submit form</button>
+
+        </div>
+        <button class="btn btn-primary" id="formSm" type="submit">提交</button>
     </form>
+
+    <jsp:include page="../components/tipModal.jsp"></jsp:include>
 </div>
 </body>
 </html>

@@ -49,13 +49,11 @@ public class ReplyAction extends ActionSupport implements SessionAware {
         boolean flag = replyService.addReply(this.reply);
         code = flag ? 1 : -1;
         tip = flag ? "回复成功" : "回复失败";
-        return flag ? "json" : "";
+        return "json";
     }
 
     public String modify() {
-        if (!isMatchedUser()) {
-            return "json";
-        }
+        if (!isMatchedUser()) return "json";
         boolean flag = replyService.modifyReply(reply);
         code = flag ? 1 : -1;
         tip = flag ? "修改成功" : "修改失败";
@@ -64,14 +62,11 @@ public class ReplyAction extends ActionSupport implements SessionAware {
     }
 
     public String delete() {
-        if (!isMatchedUser()) {
-            code = -2;
-            return "json";
-        }
+        if (!isMatchedUser()) return "json";
         boolean flag = replyService.deleteReply(reply);
         code = flag ? 1 : -1;
         tip = flag ? "删除成功" : "删除失败";
-        return flag ? "json" : "";
+        return "json";
     }
 
     private boolean isMatchedUser() {
@@ -86,10 +81,8 @@ public class ReplyAction extends ActionSupport implements SessionAware {
     }
 
     @Route(value = "/reply/modify/{replyId}", interceptors = {"nologinRedirect"})
-    public String viewModify() { // TODO 可能不会使用单独页面的修改方式
+    public String viewModify() {
         this.reply = replyService.findById(replyId);
-        /*JSONObject jsonObject = new JSONObject(this.reply);
-        return Results.json().done();*/
         User user = (User) session.get("user");
         if (!this.reply.getUser().getUserId().equals(user.getUserId())) {
             return Results.jsp("/WEB-INF/404.jsp");

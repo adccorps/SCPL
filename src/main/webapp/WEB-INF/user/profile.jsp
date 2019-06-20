@@ -31,8 +31,8 @@
         <div class="row">
             <div class="col-3 text-center col-offset-2">
                 <div class="list-group">
-                    <a class="list-group-item list-group-item-action active" href="#">个人信息设置</a>
-                    <a class="list-group-item list-group-item-action" href="#">...</a>
+                    <a class="list-group-item list-group-item-action active" href="javascript:void(0)">个人信息设置</a>
+                    <a class="list-group-item list-group-item-action" href="javascript:void(0)">...</a>
                 </div>
             </div>
             <div class="col-9">
@@ -356,12 +356,12 @@
       <%--new Base64('.avatar-hook', '.toggle-avatar'); // &lt;%&ndash; base64.js待修改 &ndash;%&gt;--%>
     });
 
-    $('.update').on('click', function (e) { // <%-- TODO 待续 --%>
+    $('.update').on('click', function (e) {
       var index = $('.update').index($(this));
       // 更新使用ajax????
       // 使用ajax更新用户信息后需要更新页面上用户的信息，使用WebSocket通知用户手动刷新页面????，或者用jQuery直接修改????，或者客户端重定向????
       switch (index) {
-        case 0: // <%-- 头像  --%> <%-- TODO 等图片服务器 --%>
+        case 0: // <%-- 头像  --%>
           // 1. 用户点击保存后，(是否要判断图片是否已经改变????)通过ajax上传到服务器
           var formData = new FormData();
           var files = $('.avatar-hook')[0].files[0];
@@ -402,7 +402,7 @@
           break;
         case 2: // 密码
           var flag = true;
-          $('#password-modal input[required]').each(function (index, target) { // <%-- TODO 提示用户要输入 --%>
+          $('#password-modal input[required]').each(function (index, target) {
             var $this = $(target);
             if ($this.val().trim() === '') {
               $false($this.next(), $this, '请输入' + $('label[for=' + $this.attr('id') + ']').text().replace('：', ''));

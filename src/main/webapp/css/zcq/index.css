@@ -23,6 +23,9 @@ a{
 .refresh{
     margin-bottom: 20px;
 }
+.row-top{
+    margin-bottom: 10px;
+}
 .card-body-main{
     width:690px;
 }
@@ -63,3 +66,7 @@ a{
      margin-top: 2px;
      width:100px;
  }
+.this-page{
+    background-color: #e9ecef;
+    border:2px solid #93b5ec;
+}

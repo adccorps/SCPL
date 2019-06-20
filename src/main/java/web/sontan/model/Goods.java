@@ -13,6 +13,15 @@ public class Goods {
     private String goodsPic;
     private String goodsType;
     private User seller;
+    private Integer goodsStatus;
+
+    public Integer getGoodsStatus() {
+        return goodsStatus;
+    }
+
+    public void setGoodsStatus(Integer goodsStatus) {
+        this.goodsStatus = goodsStatus;
+    }
 
     public User getSeller() {
         return seller;

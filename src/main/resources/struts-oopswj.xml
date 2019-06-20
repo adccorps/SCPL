@@ -1,52 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE struts PUBLIC
-    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
-    "http://struts.apache.org/dtds/struts-2.5.dtd">
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
-  <package name="shop" namespace="/shop" extends="nologin" strict-method-invocation="false">
+    <package name="shop" namespace="/shop" extends="nologin" strict-method-invocation="false">
 
-    <global-results>
-      <result name="json" type="json"/>
-    </global-results>
+        <global-results>
+            <result name="json" type="json"/>
+        </global-results>
 
-    <action name="viewIndex" class="shopAction" method="viewIndex">
-      <result>/WEB-INF/shop/index.jsp</result>
-    </action>
+        <action name="viewIndex" class="shopAction" method="viewIndex">
+            <result>/WEB-INF/shop/index.jsp</result>
+        </action>
 
-    <action name="viewAdd" class="shopAction" method="viewAdd">
-      <interceptor-ref name="nologinRedirect"/>
-      <result>/WEB-INF/shop/addGoods.jsp</result>
-    </action>
+        <action name="viewAdd" class="shopAction" method="viewAdd">
+            <interceptor-ref name="nologinRedirect"/>
+            <result>/WEB-INF/shop/addGoods.jsp</result>
+        </action>
 
-    <action name="addGoods" class="shopAction" method="addGoods">
-      <interceptor-ref name="nologinRedirect"/>
-      <result name="addSuccerss">/WEB-INF/shop/index.jsp</result>
-    </action>
+        <action name="addGoods" class="shopAction" method="addGoods">
+            <interceptor-ref name="nologinJSON"/>
+            <!--<result name="addSuccerss">/WEB-INF/shop/index.jsp</result>-->
+        </action>
 
-    <action name="getGoodsInfo" class="shopAction" method="getGoodsInfo">
-      <result name="success">/WEB-INF/shop/goodsInfo.jsp</result>
-    </action>
+        <action name="getGoodsInfo" class="shopAction" method="getGoodsInfo">
+            <result name="success">/WEB-INF/shop/goodsInfo.jsp</result>
+        </action>
 
-    <action name="buyGoods" class="shopAction" method="buyGoods">
-      <interceptor-ref name="nologinRedirect"/>
-    </action>
+        <action name="buyGoods" class="shopAction" method="buyGoods">
+            <interceptor-ref name="nologinJSON"/>
+        </action>
 
-    <action name="queryGoods" class="shopAction" method="queryGoods">
-    </action>
+        <action name="queryGoods" class="shopAction" method="queryGoods">
+        </action>
 
-    <action name="findGoodsByType" class="shopAction" method="findGoodsByType">
-    </action>
+        <action name="findGoodsByType" class="shopAction" method="findGoodsByType">
+        </action>
 
-    <action name="findGoodsByName" class="shopAction" method="findGoodsByName">
-    </action>
+        <action name="findGoodsByName" class="shopAction" method="findGoodsByName">
+        </action>
 
-    <action name="checkOrder" class="shopAction" method="checkOrder">
-      <interceptor-ref name="nologinRedirect"/>
-      <result name="success">/WEB-INF/shop/Order.jsp</result>
-    </action>
+        <action name="checkOrder" class="shopAction" method="checkOrder">
+            <interceptor-ref name="nologinRedirect"/>
+            <result name="success">/WEB-INF/shop/myGoods.jsp</result>
+        </action>
+
+        <action name="checkBuy" class="shopAction" method="checkBuy">
+            <interceptor-ref name="nologinRedirect"/>
+            <result name="success">/WEB-INF/shop/Order.jsp</result>
+        </action>
+
+        <action name="viewModify" class="shopAction" method="viewModify">
+            <result name="success">/WEB-INF/shop/modify.jsp</result>
+        </action>
+
+        <action name="orderCompletion" class="shopAction" method="orderCompletion">
+            <result name="success" type="chain">checkBuy</result>
+            <result name="error">checkBuy.action?shopError=-3</result>
+        </action>
+        <action name="orderCancel" class="shopAction" method="orderCancel">
+            <result name="success" type="chain">checkBuy</result>
+            <result name="error">checkBuy.action?shopError=-3</result>
+        </action>
+
+        <action name="updateGoods" class="shopAction" method="updateGoods">
+            <interceptor-ref name="nologinJSON"/>
+        </action>
+
+        <action name="change" class="shopAction" method="goodsChange">
+            <interceptor-ref name="nologinJSON"/>
+            <result name="success" type="chain">checkOrder</result>
+        </action>
 
 
-  </package>
+    </package>
 </struts>
