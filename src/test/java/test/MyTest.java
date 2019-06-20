@@ -10,6 +10,7 @@ import utils.TextUtils;
 /*import web.sontan.dao.AlumniCircleDao;
 import web.sontan.model.Dynamic;*/
 import web.sontan.model.User;
+import web.sontan.service.FindService;
 import web.sontan.service.UserService;
 
 import java.io.*;
@@ -29,6 +30,9 @@ public class MyTest {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FindService findService;
 
     /*@Autowired
     private AlumniCircleDao alumniCircleDao;*/
@@ -122,5 +126,10 @@ public class MyTest {
             System.out.println(dynamic.toString());
         }
     }*/
+
+    @Test
+    public void test2132() {
+        findService.findAllFinds(1);
+    }
 
 }

@@ -220,24 +220,41 @@ public class ShopAction extends ActionSupport implements SessionAware {
         String new_desc=goods.getGoodsDesc();
         BigDecimal new_price=goods.getGoodsPrice();
 
-        StringBuffer curPic=new StringBuffer();
-        for (int i = 0; i < files.length; i++) {
-            System.out.println(files[i]);
-            curPic = curPic.append(files[i]);
-            curPic.append(",");
-        }
+            StringBuffer curPic = new StringBuffer();
+            for (int i = 0; i < files.length; i++) {
+                System.out.println(files[i]);
+                curPic = curPic.append(files[i]);
+                curPic.append(",");
+            }
+            System.out.println(curPic.toString());
+
+
+
         goods= ShopService.findGoodsById(goods.getGoodsId());
         //设置修改后的值
         goods.setGoodsName(new_name);
-        goods.setGoodsPic(curPic.toString());
         goods.setGoodsDesc(new_desc);
         goods.setGoodsPrice(new_price);
+        goods.setGoodsPic(curPic.toString());
 
        boolean flag= ShopService.modifyGoods(goods);
         if (flag==true){
             tip = "修改成功";
         }
         return "json";
+    }
+
+    public String goodsChange(){
+        goods= ShopService.findGoodsById(goods.getGoodsId());
+
+        if(goods.getGoodsStatus()==0){
+            goods.setGoodsStatus(3);
+        }else{
+            goods.setGoodsStatus(0);
+        }
+        ShopService.modifyGoods(goods);
+
+        return SUCCESS;
     }
 
     /**

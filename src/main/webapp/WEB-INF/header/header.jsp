@@ -31,8 +31,8 @@
                 <li class="nav-item ${param.shopActive}">
                     <a class="nav-link" href="${pageContext.servletContext.contextPath}/shop/viewIndex">二手市场</a>
                 </li>
-                <li class="nav-item ${param.shiwuxunwuActive}">
-                    <a class="nav-link" href="javascript:void(0)">失物寻物</a>
+                <li class="nav-item ${param.findActive}">
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/find/findIndex">失物寻物</a>
                 </li>
             </ul>
             <s:if test="#session.user!=null">

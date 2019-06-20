@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.sontan.dao.FindDao">
+    <resultMap id="findList" type="Find">
+        <id property="findId" column="find_id"></id>
+        <result property="title" column="find_title"></result>
+        <result property="type" column="find_type"></result>
+        <result property="picUrl" column="find_picUrl"></result>
+        <result property="date" column="find_date"></result>
+        <result property="adders" column="find_adder"></result>
+        <result property="desc" column="find_desc"></result>
+        <result property="name" column="find_name"></result>
+        <result property="mobile" column="find_mobile"></result>
+        <result property="status" column="find_status"></result>
+<!--        <result property="up.userId" column="find_up_userId"></result>-->
+<!--        <result property="op.userId" column="find_op_userId"></result>-->
+        <association property="up" javaType="user">
+            <id property="userId" column="find_up_userId"/>
+            <result property="userName" column="up_name"/>
+            <result property="userAvatar" column="up_avatar"/>
+        </association>
+        <association property="op" javaType="user">
+            <id property="userId" column="find_op_userId"/>
+            <result property="userName" column="op_name"/>
+            <result property="userAvatar" column="op_avatar"/>
+        </association>
+    </resultMap>
+
+<!--    <select id="findPage" resultMap="findList">&lt;!&ndash;进入首页显示各种类型的find物品&ndash;&gt;-->
+<!--        SELECT up.user_name up_name,op.user_name op_name,up.user_avatar up_avatar,op.user_avatar op_avatar,f.* FROM xy_find_goods f LEFT JOIN xy_user up ON up.user_id=f.find_up_userId LEFT JOIN xy_user op ON op.user_id=f.find_op_userId-->
+<!--    </select>-->
+
+    <select id="findAllFinds" resultMap="findList"><!--进入首页显示各种类型的find物品-->
+        SELECT find_id,find_status,find_title,find_adder,find_date,find_desc FROM xy_find_goods
+    </select>
+    <select id="findFinds" resultMap="findList"><!--显示Lost类型的find物品(0)-->
+        SELECT find_id,find_status,find_title,find_adder,find_date,find_desc FROM xy_find_goods WHERE find_status=#{view}
+    </select>
+
+    <insert id="addFinds"><!--上传-->
+        INSERT INTO xy_find_goods(find_status,find_title,find_type,find_date,find_adder,find_mobile,find_name,find_desc,find_picUrl,find_up_userId)
+         VALUES ( #{find.status}, #{find.title}, #{find.type}, #{find.date},#{find.adders},#{find.mobile},#{find.name},#{find.desc},#{find.picUrl},#{userId})
+    </insert>
+
+    <insert id="lookFind"><!--点击单个信息显示的-->
+        SELECT * FROM xy_find_goods WHERE find_id=#{find.findId}
+    </insert>
+
+    <update id="modifyFindToPeriod"><!--进入公示-->
+        UPDATE  xy_find_goods SET find_status=2 WHERE find_id=#{find.findId}
+    </update>
+
+    <update id="modifyPeriodToEnd"><!--公示时期到后-->
+        UPDATE  xy_find_goods SET find_status=3 WHERE find_id=#{find.findId}
+    </update>
+
+    <select id="ShowUserFind" resultMap="findList"><!--显示用户发布的find物品-->
+        SELECT find_id FROM xy_find_goods WHERE find_up_userId=#{user.userId}
+    </select>
+    <select id="ShowUserOp" resultMap="findList"><!--显示用户有关的find物品-->
+        SELECT find_id FROM xy_find_goods WHERE find_op_userId=#{user.userId}
+    </select>
+</mapper>
