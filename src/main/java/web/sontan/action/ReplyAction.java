@@ -85,7 +85,7 @@ public class ReplyAction extends ActionSupport implements SessionAware {
         return true;
     }
 
-    @Route(value = "/reply/modify/{replyId}", interceptors = {"nologin"})
+    @Route(value = "/reply/modify/{replyId}", interceptors = {"nologinRedirect"})
     public String viewModify() { // TODO 可能不会使用单独页面的修改方式
         this.reply = replyService.findById(replyId);
         /*JSONObject jsonObject = new JSONObject(this.reply);

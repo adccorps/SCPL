@@ -51,21 +51,31 @@
   <package name="nologin" extends="json-default" abstract="true" strict-method-invocation="false">
     <interceptors>
       <interceptor name="interceptor" class="web.sontan.interceptor.NoLogin"/>
-      <interceptor-stack name="nologin">
+      <interceptor-stack name="nologinRedirect">
         <interceptor-ref name="defaultStack"/>
+        <interceptor-ref name="interceptor"/>
+      </interceptor-stack>
+
+      <interceptor name="jsonInterceptor" class="web.sontan.interceptor.NoLoginJSON"/>
+      <interceptor-stack name="nologinJSON">
+        <interceptor-ref name="jsonInterceptor"/>
         <interceptor-ref name="interceptor"/>
       </interceptor-stack>
     </interceptors>
 
     <global-results>
       <result name="login" type="redirect">/login?error=-1</result>
+      <result name="json" type="json"/>
+      <result name="nologinJSON" type="redirectAction">noLogin</result>
     </global-results>
+
+    <action name="noLogin" class="noLoginAction"/>
   </package>
 
   <package name="user" namespace="/user" extends="nologin">
 
     <action name="profile">
-      <interceptor-ref name="nologin"/>
+      <interceptor-ref name="nologinRedirect"/>
       <result>/WEB-INF/user/profile.jsp</result>
     </action>
 
@@ -73,8 +83,6 @@
 
   <include file="struts-snoopyaquarius.xml"/>
   <include file="struts-oopswj.xml"/>
-=======
   <include file="struts-task.xml"/>
->>>>>>> Add task module
   <include file="struts-zcq.xml"/>
 </struts>

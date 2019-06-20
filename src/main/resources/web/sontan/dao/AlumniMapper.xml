@@ -1,97 +1,91 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="web.sontan.dao.AlumniCircleDao">
-    <resultMap id="userMap" type="Dynamic">
-        <id property="dynamicId" column="dynamic_id"/>
-        <result property="date" column="date"/>
-        <result property="likes" column="likes"/>
-        <result property="picCount" column="pic_count"/>
-        <result property="picAddress" column="pics_address"/>
-        <result property="content" column="content"/>
-        <result property="state" column="state"/>
-        <association property="user" resultMap="web.sontan.dao.UserDao.userMap">
-            <!--<id property="userId" column="user_id"/>
-            <result property="userName" column="user_name"/>-->
-        </association>
-        <association property="collections" javaType="collections">
-            <id property="collectionId" column="collection_id"/>
-            <result property="collectionDate" column="collection_date"/>
-            <result property="userId" column="user_id"/>
-            <result property="dynamicId" column="dynamic_id"/>
-            <result property="state" column="state"/>
-        </association>
-        <collection property="comment" resultMap="web.sontan.dao.UserDao.userMap"/>
-    </resultMap>
-    <select id="findAllCircle" resultMap="userMap"><!--首次进入朋友圈查到最新的十条朋友圈-->
+  <resultMap id="userMap" type="Dynamic">
+    <id property="dynamicId" column="dynamic_id"/>
+    <result property="date" column="date"/>
+    <result property="likes" column="likes"/>
+    <result property="picCount" column="pic_count"/>
+    <result property="picAddress" column="pics_address"/>
+    <result property="content" column="content"/>
+    <result property="state" column="state"/>
+    <association property="user" resultMap="web.sontan.dao.UserDao.userMap">
+      <!--<id property="userId" column="user_id"/>
+      <result property="userName" column="user_name"/>-->
+    </association>
+    <association property="collections" javaType="collections">
+      <id property="collectionId" column="collection_id"/>
+      <result property="collectionDate" column="collection_date"/>
+      <result property="userId" column="user_id"/>
+      <result property="dynamicId" column="dynamic_id"/>
+      <result property="state" column="state"/>
+    </association>
+    <collection property="comment" resultMap="web.sontan.dao.UserDao.userMap"/>
+  </resultMap>
+  <select id="findAllCircle" resultMap="userMap"><!--首次进入朋友圈查到最新的十条朋友圈-->
       SELECT u.user_id,u.user_name,u.user_avatar,d.dynamic_id,d.date,d.comment_count,d.pics_address,d.content,d.likes,d.pic_count,d.state
       FROM xy_user u INNER JOIN xy_dynamic d
-      ON d.user_id=u.user_id WHERE d.state=&apos;1&apos; ORDER BY d.date DESC limit 3 ;
+      ON d.user_id=u.user_id WHERE d.state='1' ORDER BY d.date DESC limit 3
     </select>
-    <select id="findLoadMore" resultMap="userMap"><!--查看更多校友圈-->
+  <select id="findLoadMore" resultMap="userMap"><!--查看更多校友圈-->
         SELECT u.user_id,u.user_name,u.user_avatar,d.dynamic_id,d.date,d.comment_count,d.pics_address,d.content,d.likes,d.pic_count,d.state
         FROM xy_user u INNER JOIN xy_dynamic d
-        ON d.user_id=u.user_id  WHERE d.dynamic_id &lt; #{param1} AND d.state=&apos;1&apos; ORDER BY d.date DESC limit 3 ;
+        ON d.user_id=u.user_id  WHERE d.dynamic_id &lt; #{param1} AND d.state='1' ORDER BY d.date DESC limit 3 ;
     </select>
-    <select id="findRefresh" resultMap="userMap"><!--查看最新的校友圈-->
+  <select id="findRefresh" resultMap="userMap"><!--查看最新的校友圈-->
         SELECT u.user_id,u.user_name,u.user_avatar,d.dynamic_id,d.date,d.comment_count,d.pics_address,d.content,d.likes,d.pic_count,d.state
         FROM xy_user u INNER JOIN xy_dynamic d
-        ON d.user_id=u.user_id  WHERE d.dynamic_id &gt; #{param1} AND d.state=&apos;1&apos; ORDER BY d.date DESC ;
+        ON d.user_id=u.user_id  WHERE d.dynamic_id &gt; #{param1} AND d.state='1' ORDER BY d.date DESC ;
     </select>
-    <select id="findMyCircle" resultMap="userMap"><!--首次进入自己的动态查到最新的十条朋友圈-->
+  <select id="findMyCircle" resultMap="userMap"><!--首次进入自己的动态查到最新的十条朋友圈-->
         SELECT u.user_id,u.user_name,u.user_avatar,d.dynamic_id,d.date,d.comment_count,d.pics_address,d.content,d.likes,d.pic_count,d.state
         FROM xy_user u INNER JOIN xy_dynamic d
-        ON d.user_id=u.user_id AND d.user_id=#{param1} WHERE d.state=&apos;1&apos; ORDER BY d.date DESC limit 3 ;
+        ON d.user_id=u.user_id AND d.user_id=#{param1} WHERE d.state='1' ORDER BY d.date DESC limit 3 ;
     </select>
 
-    <select id="findCollectionDynamic" resultMap="userMap"><!--查看收藏的动态-->
+  <select id="findCollectionDynamic" resultMap="userMap"><!--查看收藏的动态-->
       SELECT u.user_id,u.user_name,u.user_avatar,d.user_id,d.dynamic_id,d.date,d.comment_count,d.pics_address,d.content,d.likes,d.pic_count,d.state,c.collection_date,c.state
       FROM xy_user u INNER JOIN xy_dynamic d ON u.user_id=d.user_id INNER JOIN xy_collection c ON c.dynamic_id=d.dynamic_id
-      WHERE d.state=&apos;1&apos; AND d.dynamic_id  IN(SELECT dynamic_id FROM xy_collection WHERE user_id=#{userId} AND state=&apos;1&apos;) GROUP BY c.collection_date DESC;
+      WHERE d.state='1' AND d.dynamic_id  IN(SELECT dynamic_id FROM xy_collection WHERE user_id=#{userId} AND state='1') GROUP BY c.collection_date DESC;
     </select>
 
-    <update id="deleteMyCircle">
-        UPDATE xy_dynamic SET state=&apos;0&apos; WHERE dynamic_id=#{dynamicId} AND user_id = #{userId};
+  <update id="deleteMyCircle">
+        UPDATE xy_dynamic SET state='0' WHERE dynamic_id=#{dynamicId} AND user_id = #{userId};
     </update>
 
-    <update id="deleteCollection">
-        UPDATE xy_collection SET state=&apos;0&apos; WHERE dynamic_id=#{dynamicId} AND user_id = #{userId};
+  <update id="deleteCollection">
+        UPDATE xy_collection SET state='0' WHERE dynamic_id=#{dynamicId} AND user_id = #{userId};
     </update>
 
-    <insert id="addMyCircle">
+  <insert id="addMyCircle">
         INSERT INTO xy_dynamic(user_id,pic_count,pics_address,content) values(#{userId},#{picCount},#{pics},#{content}) ;
     </insert>
 
-    <insert id="addMyCircleNopic">
+  <insert id="addMyCircleNopic">
         INSERT INTO xy_dynamic(user_id,content) values(#{userId},#{content}) ;
     </insert>
 
 
-
-    <insert id="addCollections">
+  <insert id="addCollections">
         INSERT INTO xy_collection(user_id,dynamic_id) values(#{userId},#{dynamicId}) ;
     </insert>
 
+  <resultMap id="commentMap" type="Comment">
+    <id property="commentId" column="comment_id"/>
+    <result property="dynamicId" column="dynamic_id"/>
+    <result property="date" column="comment_date"/>
+    <result property="commentContent" column="comment_content"/>
+    <result property="userName" column="user_name"/>
+  </resultMap>
 
-
-    <resultMap id="commentMap" type="Comment">
-        <id property="commentId" column="comment_id"/>
-        <result property="dynamicId" column="dynamic_id"/>
-        <result property="date" column="comment_date"/>
-        <result property="commentContent" column="comment_content"/>
-        <result property="userName" column="user_name"/>
-    </resultMap>
-
-    <select id="findAllComment" resultMap="commentMap">
+  <select id="findAllComment" resultMap="commentMap">
         SELECT c.comment_id,u.user_name,c.comment_date,c.comment_content FROM xy_comment c
         INNER JOIN xy_user u ON c.user_id = u.user_id
         WHERE dynamic_id=#{dynamicId} ORDER BY comment_date;
     </select>
 
-    <insert id="addComment">
+  <insert id="addComment">
         INSERT INTO xy_comment(user_id,dynamic_id,comment_content,comment_date) values(#{userId},#{dynamicId},#{commentText},#{nowdate}) ;
     </insert>
-
-
-
 
 </mapper>

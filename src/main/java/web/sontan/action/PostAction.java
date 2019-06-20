@@ -40,6 +40,7 @@ public class PostAction extends ActionSupport implements SessionAware {
     private String tip;
     private int pageNum;
     private int totalPages;
+    private String query;
 
     private List<Post> posts;
 
@@ -82,7 +83,7 @@ public class PostAction extends ActionSupport implements SessionAware {
         return flag ? "json" : "";
     }
 
-    @Route(value = "/post/modify/{postId}", interceptors = {"nologin"})
+    @Route(value = "/post/modify/{postId}", interceptors = {"nologinRedirect"})
     public String viewModify() {
         this.post = postService.findById(postId);
         User user = (User) session.get("user");
@@ -98,7 +99,7 @@ public class PostAction extends ActionSupport implements SessionAware {
             默认为1
          */
         int pageNum = 1;
-        this.posts = postService.findAll(pageNum, OrderType.DESC); // TODO 分页
+        this.posts = postService.findAll(pageNum, OrderType.DESC);
         PageInfo<Post> postPageInfo = new PageInfo<>(this.posts);
         this.totalPages = postPageInfo.getPages();
         return Results.jsp("/WEB-INF/post/index.jsp");
@@ -116,6 +117,16 @@ public class PostAction extends ActionSupport implements SessionAware {
     @Route(value = "/post/page/{pageNum}", method = {MethodType.GET})
     public String pagination() {
         this.posts = postService.findAll(pageNum, OrderType.DESC);
+        PageInfo<Post> postPageInfo = new PageInfo<>(this.posts);
+        this.totalPages = postPageInfo.getPages();
+        return Results.json().done();
+    }
+
+    @Route(value = "/post/{query}/page/{pageNum}", method = {MethodType.GET})
+    public String search() {
+        this.posts = postService.findByString(pageNum, query, OrderType.DESC);
+        PageInfo<Post> postPageInfo = new PageInfo<>(this.posts);
+        this.totalPages = postPageInfo.getPages();
         return Results.json().done();
     }
 
@@ -178,5 +189,13 @@ public class PostAction extends ActionSupport implements SessionAware {
 
     public void setTip(String tip) {
         this.tip = tip;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
     }
 }

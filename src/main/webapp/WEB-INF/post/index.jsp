@@ -37,34 +37,42 @@
                 </nav>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 text-right">
+        <div class="row justify-content-between">
+            <div class="col-6">
+                <div class="form-inline mt-2 ml-4 mt-md-0">
+                    <input class="form-control mr-sm-2 search-input" type="text" placeholder="请输入搜索内容"
+                           aria-label="Search">
+                    <button class="btn btn-outline-primary my-2 my-sm-0 search" type="submit">搜索</button>
+                </div>
+            </div>
+            <div class="col-2">
                 <a href="${pageContext.servletContext.contextPath}/post/add">
                     <button class="btn btn-primary"><b>&plus;</b>&nbsp;发布新帖</button>
                 </a>
             </div>
         </div>
-        <div class="posts">
-            <s:iterator value="posts">
-                <div class="row mt-3 mb-3 post">
-                    <div class="col-6 pl-5">
-                        <a href="${pageContext.servletContext.contextPath}/post/view/${postId}">${postTitle}</a>
-                    </div>
-                    <div class="col-3 text-center">
-                            ${user.userName}
-                    </div>
-                    <div class="col-3 text-center">
-                        <s:property value="createTime.substring(0,19)" />
-                    </div>
+        <div class="posts"></div>
+        <%--<s:iterator value="posts">
+            <div class="row mt-3 mb-3 post">
+                <div class="col-6 pl-5">
+                    <a href="${pageContext.servletContext.contextPath}/post/view/${postId}">${postTitle}</a>
                 </div>
-            </s:iterator>
-        </div>
+                <div class="col-3 text-center">
+                        ${user.userName}
+                </div>
+                <div class="col-3 text-center">
+                    <s:property value="createTime.substring(0,19)" />
+                </div>
+            </div>
+        </s:iterator>--%>
         <div class="row mt-5 justify-content-center">
             <ul class="page"></ul>
         </div>
     </div>
 </div>
 <script>
+  var $page = $('.page');
+  var query = false;
   $.fn.bootstrapPaginator.regional["chinese"] = {
     first: "首页",
     prev: "上一页",
@@ -74,41 +82,77 @@
     page: "第\${0}页"
   };
 
-  $('.page').bootstrapPaginator({
+  $page.bootstrapPaginator({
     language: "chinese",
     currentPage: 1,
-    totalPages: ${totalPages},
+    totalPages: 1,
     onPageChanged: function (e, oldPage, newPage) {
-      if (oldPage !== newPage) {
-        if (newPage !== 1) {
-          $.ajax({
-            url: '${pageContext.servletContext.contextPath}/post/page/' + newPage,
-            type: 'GET',
-            success: function (result, status, xhr) {
-              var $posts = $('.posts');
-              $posts.html('');
-              $.each(result.posts, function (index, post) {
-                var $post = $('<div class="row mt-3 mb-3 post"></div>');
-                var $postTitleBody = $('<div class="col-6 pl-5"></div>');
-                var $postTitle = $('<a href="${pageContext.servletContext.contextPath}/post/view/' + post.postId + '">' + post.postTitle + '</a>');
-                $postTitleBody.append($postTitle);
-                $post.append($postTitleBody);
-                var $postUserName = $('<div class="col-3 text-center">' + post.user.userName + '</div>');
-                $post.append($postUserName);
-                var $postCreateTime = $('<div class="col-3 text-center">' + post.createTime.substr(0, 19) + '</div>');
-                $post.append($postCreateTime);
-                $posts.append($post);
-              });
-            }
-          });
-        } else {
-          window.location.reload();
-        }
+      var url = '${pageContext.servletContext.contextPath}/post/page/' + newPage;
+      if (query) {
+        url = '${pageContext.servletContext.contextPath}/post/' + $('.search-input').val() + '/page/' + newPage;
       }
+      $.ajax({
+        url: url,
+        type: 'GET',
+        success: function (result, status, xhr) {
+          var target = $(e.currentTarget);
+          var options = { currentPage: newPage };
+          if (result.totalPages !== target.bootstrapPaginator('getOption').totalPages) {
+            result.totalPages = result.totalPages || 1;
+            options['totalPages'] = result.totalPages;
+          }
+          target.bootstrapPaginator('setOptions', options);
+          var $posts = $('.posts');
+          $posts.html('');
+          if (JSON.stringify(result.posts) === '[]') {
+            $posts.append('<div class="row align-items-center justify-content-center display-4" style="min-height: 384px"><span class="text-danger">搜索结果不存在</span></div>');
+          } else {
+            $.each(result.posts, function (index, post) {
+              var $post = $('<div class="row mt-3 mb-3 post"></div>');
+              var $postTitleBody = $('<div class="col-6 pl-5"></div>');
+              var $postTitle = $('<a href="${pageContext.servletContext.contextPath}/post/view/' + post.postId + '">' + post.postTitle + '</a>');
+              $postTitleBody.append($postTitle);
+              $post.append($postTitleBody);
+              var $postUserName = $('<div class="col-3 text-center">' + post.user.userName + '</div>');
+              $post.append($postUserName);
+              var $postCreateTime = $('<div class="col-3 text-center">' + post.createTime.substr(0, 19) + '</div>');
+              $post.append($postCreateTime);
+              $posts.append($post);
+            });
+          }
+        }
+      });
     }
   });
 
   $('.posts').css({ minHeight: '384px' });
+
+  $(function () {
+    var width = $('.search-input').css('width');
+    $(document).on('blur', '.search-input', function () {
+      var $this = $(this);
+      $this.stop();
+      $this.animate({ width: width });
+    }); // 失去焦点
+
+    $(document).on('focus', '.search-input', function () {
+      var $this = $(this);
+      $this.stop();
+      $this.animate({ width: width.replace('px', '') * 1.5 });
+    }); // 获得焦点
+
+    $(document).on('click', '.search', function () {
+      query = !!$('.search-input').val().trim();
+      $page.bootstrapPaginator('reload');
+    });
+
+    $(document).on('keydown', '.search-input', function (e) {
+      if (e.which === 13) {
+        $('.search-input').blur();
+        $('.search').click();
+      }
+    })
+  });
 
 </script>
 
