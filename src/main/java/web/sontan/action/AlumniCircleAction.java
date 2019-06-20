@@ -43,16 +43,27 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
 
     public String index() {
         System.out.println("indexAction");
+        User user = (User) session.get("user");
+        if(user!=null){
+            String userId = user.getUserId();
+            List<Integer> allLikes = alumniCircleService.allLikes(userId);
+            List<Integer> allCollection = alumniCircleService.allCollection(userId);
+            session.put("allLikes",allLikes);
+            session.put("allCollection",allCollection);
+        }
         List<Dynamic> allCircle = alumniCircleService.findAllCircle();
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpSession session = request.getSession();
         request.setAttribute("allCircleList", allCircle);
-        /*for (Dynamic dynamic : allCircle) {
+        for (Dynamic dynamic : allCircle) {
             System.out.println(dynamic.toString());
-        }*/
-        if (allCircle.size() != 0) {
+        }
+        if(allCircle.size()>0){
             session.setAttribute("max", allCircle.get(0).getDynamicId());//保存当前最新的动态的ID
             session.setAttribute("min", allCircle.get(allCircle.size() - 1).getDynamicId());//保存当前最旧的动态的ID
+        }else{
+            session.setAttribute("max", 0);//保存当前最新的动态的ID
+            session.setAttribute("min", 0);//保存当前最旧的动态的ID
         }
         //此单纯测试用
         System.out.println("最新的动态ID" + session.getAttribute("max"));
@@ -61,6 +72,8 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
     }
 
     public String loadMore() throws IOException {   //点击加载更多时，在增加十条动态
+        List<Integer> allLikes = (List<Integer>) session.get("allLikes");
+        List<Integer> allCollection = (List<Integer>) session.get("allCollection");
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpSession session = request.getSession();
         int min = (int) session.getAttribute("min");   //找到当前的最旧的动态号
@@ -69,8 +82,7 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
         if (moreCircle.size() >= 1) {
             session.setAttribute("min", moreCircle.get(moreCircle.size() - 1).getDynamicId());//保存当前最旧的动态的ID
             for (Dynamic dynamic : moreCircle) {
-                System.out.println(dynamic.toString());//测试用
-                String[] picsaddress = dynamic.getPicAddress().split(";");
+                String[] picsaddress = dynamic.getPicAddress().split(",");
                 String pics = "";
                 if (dynamic.getPicCount() == 0) {
                     pics = "";
@@ -85,7 +97,17 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
                                 "</a>";
                     }
                 }
-                str.append("<div class=\"card\" style=\"\">\n" +
+                String dianzan="zi_digg",
+                        shoucang="zi_starLine";
+                if(allLikes!=null){
+                    if(allLikes.contains(dynamic.getDynamicId())){
+                        dianzan = "zi_thumbsup";
+                    }
+                    if(allCollection.contains(dynamic.getDynamicId())){
+                        shoucang = "zi_star";
+                    }
+                }
+                str.append("<div class=\"card row-top\" style=\"\">\n" +
                         "                <div class=\"card-body card-body-main\">\n" +
                         "                    <div class=\"row\">\n" +
                         "                        <div class=\"col-6 col-sm-1\"><a href=\"#\"><img src=\"" + dynamic.getUser().getUserAvatar() + "\" alt=\"头像\" class=\"rounded-circle touxiang\"></a></div>\n" +
@@ -100,13 +122,17 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
                 str.append(
                         "                    </div>\n" +
                                 "                    <div class=\"row\">\n" +
-                                "                        <div class=\"col-12 col-sm-3\"><div class=\"zi zi_love\"></div><a href=\"#\" class=\"card-link\">" + dynamic.getLikes() + "人觉得很赞</a></div>\n" +
+                                "                        <div class=\"col-12 col-sm-3\"><div class=\"zi zi_love\"></div><a href=\"javascript:void (0);\" onclick=\"likes_show(this," + dynamic.getDynamicId() + ")\" class=\"card-link\">点赞用户</a></div>\n" +
                                 "                        <div class=\"col-12 col-sm-3\"><div class=\"zi zi_msgchat\"></div><a href=\"javascript:void(0);\" onclick=\"comment_show(this," + dynamic.getDynamicId() + ")\" class=\"card-link all-comments\">所有评论</a></div>\n" +
                                 "                        <div class=\"col-12 col-sm-2\"></div>\n" +
                                 "                        <div class=\"col-12 col-sm-1\"></div>\n" +
-                                "                        <div class=\"col-12 col-sm-1\"><a href=\"#\" class=\"alert-link dianzan\" title=\"点赞\"><i class=\"zi zi_digg\"></i></a></div><!--点赞图标-->\n" +
-                                "                        <div class=\"col-12 col-sm-1\"><a href=\"\" class=\"alert-link pinglun\"  title=\"评论\"><i class=\"zi zi_fxqp\"></i></a></div><!--评论图标-->\n" +
-                                "                        <div class=\"col-12 col-sm-1\"><a href=\"javascript:void (0);\" onclick=\"add_collection(" + dynamic.getDynamicId() + ")\" class=\"alert-link shoucang\" title=\"收藏\"><i class=\"zi zi_box\" zico=\"箱子\"></i></a></div>\n" +
+                                "                        <div class=\"col-12 col-sm-1\"><a href=\"javascript:void (0);\" onclick=\"add_likes(this," + dynamic.getDynamicId() + ")\" class=\"alert-link dianzan\" title=\"点赞\">" +
+                                "                               <i class=\"zi "+ dianzan +"\"></i>" +
+                                "                           </a></div><!--点赞图标-->\n" +
+                                "                        <div class=\"col-12 col-sm-1\"><a href=\"javascript:void (0);\" onclick=\"onclick_pl(this)\" class=\"alert-link pinglun\"  title=\"评论\"><i class=\"zi zi_fxqp\"></i></a></div><!--评论图标-->\n" +
+                                "                        <div class=\"col-12 col-sm-1\"><a href=\"javascript:void (0);\" onclick=\"add_collection(this," + dynamic.getDynamicId() + ")\" class=\"alert-link shoucang\" title=\"收藏\">" +
+                                "                               <i class=\"zi "+shoucang+"\" zico=\"箱子\"></i>" +
+                                "                          </a></div>\n" +
                                 "                    </div>\n" +
                                 "                </div>\n" +
                                 "                <div id=\"all-comment\">评论:</div>" +
@@ -155,7 +181,7 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
             for (Comment comment : allComment) {
                 System.out.println(comment.getUserName() + "(" + comment.getDate() + ")" + ":" + comment.getCommentContent());
                 str.append(" <li class=\"list-inline\">" +
-                        comment.getUserName() + "(" + comment.getDate() + ")" + ":" + comment.getCommentContent() +
+                        comment.getUserName() + "(" + comment.getDate() + ")" + " : " + comment.getCommentContent() +
                         "</li>\n");
             }
             str.append("</ul>");
@@ -171,20 +197,24 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
 
     public String publish() throws IOException {
         System.out.println("进入publilsh");
-        User user = (User) session.get("user");
-        String userId = user.getUserId();//拿到userid
-        Calendar cal = Calendar.getInstance();
-        int y = cal.get(Calendar.YEAR);
-        int m = cal.get(Calendar.MONTH);
-        int d = cal.get(Calendar.DATE);
-        int h = cal.get(Calendar.HOUR_OF_DAY);
-        int mi = cal.get(Calendar.MINUTE);
-        int s = cal.get(Calendar.SECOND);
-        String now = m + "-" + d + " " + h + ":" + mi;
-        int count = alumniCircleService.addComment(userId, dynamicId, commentText, now);
         StringBuffer str = new StringBuffer();
-        if (count > 0) {
-            str.append("<li>" + user.getUserName() + "(" + now + "):" + commentText + "</li>");
+        User user = (User) session.get("user");
+        if(user==null){
+            str.append("");
+        }else{
+            String userId = user.getUserId();//拿到userid
+            Calendar cal = Calendar.getInstance();
+            int y = cal.get(Calendar.YEAR);
+            int m = cal.get(Calendar.MONTH);
+            int d = cal.get(Calendar.DATE);
+            int h = cal.get(Calendar.HOUR_OF_DAY);
+            int mi = cal.get(Calendar.MINUTE);
+            int s = cal.get(Calendar.SECOND);
+            String now = m + "-" + d + " " + h + ":" + mi;
+            int count = alumniCircleService.addComment(userId, dynamicId, commentText, now);
+            if (count > 0) {
+                str.append("<li>" + user.getUserName() + "(" + now + "):" + commentText + "</li>");
+            }
         }
         HttpServletResponse response = ServletActionContext.getResponse();
         response.setContentType("text/json-comment-filtered;charset=utf-8");
@@ -206,7 +236,7 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
             session.setAttribute("max", moreCircle.get(0).getDynamicId());//保存当前最新的动态的ID
             for (Dynamic dynamic : moreCircle) {
                 //System.out.println(dynamic.toString());//测试用，删掉
-                String[] picsaddress = dynamic.getPicAddress().split(";");
+                String[] picsaddress = dynamic.getPicAddress().split(",");
                 String pics = "";
                 if (dynamic.getPicCount() == 0) {
                     pics = " ";
@@ -221,7 +251,7 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
                                 "</a>";
                     }
                 }
-                str.append("<div class=\"card\" style=\"\">\n" +
+                str.append("<div class=\"card row-top\" style=\"\">\n" +
                         "                <div class=\"card-body card-body-main\">\n" +
                         "                    <div class=\"row\">\n" +
                         "                        <div class=\"col-6 col-sm-1\"><a href=\"#\"><img src=\"" + dynamic.getUser().getUserAvatar() + "\" alt=\"头像\" class=\"rounded-circle touxiang\"></a></div>\n" +
@@ -236,13 +266,13 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
                 str.append(
                         "                    </div>\n" +
                                 "                    <div class=\"row\">\n" +
-                                "                        <div class=\"col-12 col-sm-3\"><div class=\"zi zi_love\"></div><a href=\"#\" class=\"card-link\">" + dynamic.getLikes() + "人觉得很赞</a></div>\n" +
+                                "                        <div class=\"col-12 col-sm-3\"><div class=\"zi zi_love\"></div><a href=\"javascript:void (0);\" onclick=\"likes_show(this," + dynamic.getDynamicId() + ")\" class=\"card-link\">点赞用户</a></div>\n" +
                                 "                        <div class=\"col-12 col-sm-3\"><div class=\"zi zi_msgchat\"></div><a href=\"#\" onclick=\"comment_show(this," + dynamic.getDynamicId() + ")\" class=\"card-link all-comments\">所有评论</a></div>\n" +
                                 "                        <div class=\"col-12 col-sm-2\"></div>\n" +
                                 "                        <div class=\"col-12 col-sm-1\"></div>\n" +
-                                "                        <div class=\"col-12 col-sm-1\"><a href=\"#\" class=\"alert-link dianzan\" title=\"点赞\"><i class=\"zi zi_digg\"></i></a></div><!--点赞图标-->\n" +
-                                "                        <div class=\"col-12 col-sm-1\"><a href=\"#\" class=\"alert-link pinglun\" title=\"评论\"><i class=\"zi zi_fxqp\"></i></a></div><!--评论图标-->\n" +
-                                "                        <div class=\"col-12 col-sm-1\"><a href=\"javascript:void (0);\" onclick=\"add_collection(" + dynamic.getDynamicId() + ")\" class=\"alert-link shoucang\" title=\"收藏\"><i class=\"zi zi_box\" zico=\"箱子\"></i></a></div>\n" +
+                                "                        <div class=\"col-12 col-sm-1\"><a href=\"javascript:void (0);\" onclick=\"add_likes(this," + dynamic.getDynamicId() + ")\" class=\"alert-link dianzan\" title=\"点赞\"><i class=\"zi zi_digg\"></i></a></div><!--点赞图标-->\n" +
+                                "                        <div class=\"col-12 col-sm-1\"><a href=\"javascript:void (0);\" onclick=\"onclick_pl(this)\" class=\"alert-link pinglun\" title=\"评论\"><i class=\"zi zi_fxqp\"></i></a></div><!--评论图标-->\n" +
+                                "                        <div class=\"col-12 col-sm-1\"><a href=\"javascript:void (0);\" onclick=\"add_collection(this," + dynamic.getDynamicId() + ")\" class=\"alert-link shoucang\" title=\"收藏\"><i class=\"zi zi_starLine\" zico=\"箱子\"></i></a></div>\n" +
                                 "                    </div>\n" +
                                 "                </div>\n" +
                                 "                <div id=\"all-comment\">评论:</div>" +
@@ -304,8 +334,7 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
         System.out.println("进入deleteCircle....");
         User user = (User) session.get("user");
         String userid = user.getUserId();//拿到userid
-        int dynamicid = Integer.parseInt(request.getParameter("dynamicid"));
-        int deletecount = alumniCircleService.deleteMyCircle(dynamicid, userid);
+        int deletecount = alumniCircleService.deleteMyCircle(dynamicId, userid);
         HttpServletResponse response = ServletActionContext.getResponse();
         response.setContentType("text/json-comment-filtered;charset=utf-8");
         PrintWriter out = response.getWriter();
@@ -324,7 +353,7 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
         System.out.println("进入deleteCollection");
         User user = (User) session.get("user");
         String userid = user.getUserId();//拿到userid
-        int deletecount = alumniCircleService.deleteCollection(dynamicId, userid);
+        int deletecount = alumniCircleService.deleteCollection(userid ,dynamicId);
         HttpServletResponse response = ServletActionContext.getResponse();
         response.setContentType("text/json-comment-filtered;charset=utf-8");
         PrintWriter out = response.getWriter();
@@ -359,16 +388,98 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
 
     public String addCollection() throws IOException {
         System.out.println("进入addCollection");
-        User user = (User) session.get("user");
-        String userId = user.getUserId();//拿到userid
-        int count = alumniCircleService.addCollections(userId, dynamicId);
+        HttpServletResponse response = ServletActionContext.getResponse();
+        response.setContentType("text/json-comment-filtered;charset=utf-8");
+        PrintWriter out = response.getWriter();
         StringBuffer str = new StringBuffer();
-        if (count > 0) {
-            str.append("success");
+        User user = (User) session.get("user");
+        if(user==null){  //用户未登录状态，不允许收藏，直接返回
+            str.append("usernull");
+            out.write(str + "");
+            out.flush();
+            out.close();
+            return SUCCESS;
+        }else{
+            String userId = user.getUserId();//拿到userid
+            String isState = alumniCircleService.isCollections(userId, dynamicId);
+            if(isState==null){ //判断是否已经收藏此动态
+                int count = alumniCircleService.addCollections(userId, dynamicId); //增加收藏
+                if (count > 0) {
+                    str.append("success");
+                }
+            }else if(isState.equals("0")){
+                int count = alumniCircleService.changeCollection(userId, dynamicId); //增加收藏
+                if (count > 0) {
+                    str.append("success");
+                }
+            }
+            else{
+                str.append("islikes");
+            }
+        }
+        out.write(str + "");
+        out.flush();
+        out.close();
+        return SUCCESS;
+    }
+
+    public String likes() throws IOException{
+        System.out.println("进入likes...");
+        StringBuffer str = new StringBuffer();
+        System.out.println(dynamicId);
+        List<String> allLikes = alumniCircleService.likes(dynamicId);
+        if (allLikes == null || allLikes.size() < 1) {
+            str.append("<p>" +
+                    "还没有任何用户点赞" +
+                    "</p>\n");
+        } else {
+            str.append("<p>");
+            for (String s : allLikes) {
+                str.append(s+"、 ");
+            }
+            str.append("</p>");
         }
         HttpServletResponse response = ServletActionContext.getResponse();
         response.setContentType("text/json-comment-filtered;charset=utf-8");
         PrintWriter out = response.getWriter();
+        out.write(str + "");
+        out.flush();
+        out.close();
+        return SUCCESS;
+    }
+
+    public String addLikes() throws IOException{
+        System.out.println("进入到addLikes中");
+        HttpServletResponse response = ServletActionContext.getResponse();
+        response.setContentType("text/json-comment-filtered;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        StringBuffer str = new StringBuffer();
+        User user = (User)session.get("user");
+        if(user == null){  //用户未登录，直接返回
+            str.append("usernull");
+        }else{ //已登录状态下
+            String userId = user.getUserId();//拿到userid
+            String isState = alumniCircleService.isLikes(userId, dynamicId);
+            if(isState==null){ //判断是否已经赞此动态
+                System.out.println(isState+"dfdfdfdf");
+                int count = alumniCircleService.addLikes(userId, dynamicId); //增加收藏
+                if (count > 0) {
+                    str.append("add");
+                }
+            }else if(isState.equals("0")){
+                System.out.println(isState+"dfdfdfdf");
+                int count = alumniCircleService.add(userId, dynamicId); //增加收藏
+                if (count > 0) {
+                    str.append("add");
+                }
+            }else if(isState.equals("1")){  //删除点赞
+                System.out.println(isState+"dfdfdfdf");
+                int count = alumniCircleService.deleteLikes(userId, dynamicId);
+                if(count > 0){
+                    str.append("delete");
+                }
+            }
+        }
         out.write(str + "");
         out.flush();
         out.close();
@@ -386,6 +497,15 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
         }
         return SUCCESS;
     }
+
+
+
+
+
+
+
+
+
 
 
     @Override
