@@ -7,8 +7,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.DigestUtils;
 import utils.TextUtils;
-import web.sontan.dao.AlumniCircleDao;
-import web.sontan.model.Dynamic;
+//import web.sontan.dao.AlumniCircleDao;
+//import web.sontan.model.Dynamic;
 import web.sontan.model.User;
 import web.sontan.service.UserService;
 
@@ -31,7 +31,7 @@ public class MyTest {
     private UserService userService;
 
     @Autowired
-    private AlumniCircleDao alumniCircleDao;
+//    private AlumniCircleDao alumniCircleDao;
 
     @Test
     public void test1() {
@@ -114,13 +114,13 @@ public class MyTest {
             e.printStackTrace();
         }
     }
-
-    @Test
-    public void test112321() {
-        List<Dynamic> allCircle = alumniCircleDao.findAllCircle();
-        for (Dynamic dynamic : allCircle) {
-            System.out.println(dynamic.toString());
-        }
-    }
+//
+//    @Test
+//    public void test112321() {
+//        List<Dynamic> allCircle = alumniCircleDao.findAllCircle();
+//        for (Dynamic dynamic : allCircle) {
+//            System.out.println(dynamic.toString());
+//        }
+//    }
 
 }

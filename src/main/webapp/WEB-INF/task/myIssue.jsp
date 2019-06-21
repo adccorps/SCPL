@@ -43,7 +43,7 @@
                             });
                             $tip.modal();
                             $tip.one('hidden.bs.modal', function (e) {
-                                window.location.replace("index");
+                                window.location.replace("${pageContext.servletContext.contextPath}/task/index");
                             });
                         }
                     }
@@ -91,7 +91,7 @@
                 >删除
                 </button>
                 <div style="padding-top:1px;float:right;font-size:12.8px ">/</div>
-                <a href="modify?taskId=${taskId}" style="text-decoration:none">
+                <a href="${pageContext.servletContext.contextPath}/task/modify?taskId=${taskId}" style="text-decoration:none">
                     <button type="button" class="btn btn-link text-muted"
                             style="padding-top:1px;float:right;font-size:12.8px "
                             <s:if test="taskStatus == -1">disabled</s:if>

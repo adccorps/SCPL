@@ -17,6 +17,7 @@
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet"/>
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/popper.min.js"></script>
     <jsp:include page="../components/tipModal.jsp"/>
     <script>
         $(function () {
@@ -44,7 +45,7 @@
                             });
                             $tip.modal();
                             $tip.one('hidden.bs.modal', function (e) {
-                                window.location.replace("index");
+                                window.location.replace("${pageContext.servletContext.contextPath}/task/index");
                             });
                         }
                     }
