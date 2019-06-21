@@ -40,7 +40,7 @@
                             dolor id nibh ultricies vehicula ut id elit.
                         </p>
                         <p>
-                            <a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a>
+                            <a class="btn btn-lg btn-primary" href="javascript:void(0)" role="button">Sign up today</a>
                         </p>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                             dolor id nibh ultricies vehicula ut id elit.
                         </p>
                         <p>
-                            <a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a>
+                            <a class="btn btn-lg btn-primary" href="javascript:void(0)" role="button">Learn more</a>
                         </p>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                             dolor id nibh ultricies vehicula ut id elit.
                         </p>
                         <p>
-                            <a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a>
+                            <a class="btn btn-lg btn-primary" href="javascript:void(0)" role="button">Browse gallery</a>
                         </p>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                     cursus magna.
                 </p>
                 <p>
-                    <a class="btn btn-secondary" href="#" role="button">View details »</a>
+                    <a class="btn btn-secondary" href="javascript:void(0)" role="button">View details »</a>
                 </p>
             </div>
             <!-- /.col-lg-4 -->
@@ -134,7 +134,7 @@
                     mauris condimentum nibh.
                 </p>
                 <p>
-                    <a class="btn btn-secondary" href="#" role="button">View details »</a>
+                    <a class="btn btn-secondary" href="javascript:void(0)" role="button">View details »</a>
                 </p>
             </div>
             <!-- /.col-lg-4 -->
@@ -154,7 +154,7 @@
                     nibh, ut fermentum massa justo sit amet risus.
                 </p>
                 <p>
-                    <a class="btn btn-secondary" href="#" role="button">View details »</a>
+                    <a class="btn btn-secondary" href="javascript:void(0)" role="button">View details »</a>
                 </p>
             </div>
             <div class="col-lg-6">
@@ -173,7 +173,7 @@
                     nibh, ut fermentum massa justo sit amet risus.
                 </p>
                 <p>
-                    <a class="btn btn-secondary" href="#" role="button">View details »</a>
+                    <a class="btn btn-secondary" href="javascript:void(0)" role="button">View details »</a>
                 </p>
             </div>
             <div class="col-lg-6">
@@ -192,7 +192,7 @@
                     nibh, ut fermentum massa justo sit amet risus.
                 </p>
                 <p>
-                    <a class="btn btn-secondary" href="#" role="button">View details »</a>
+                    <a class="btn btn-secondary" href="javascript:void(0)" role="button">View details »</a>
                 </p>
             </div>
             <!-- /.col-lg-4 -->
@@ -286,10 +286,10 @@
 
     <!-- FOOTER -->
     <footer class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
+        <p class="float-right"><a href="javascript:void(0)">Back to top</a></p>
         <p>
-            © 2017-2019 Company, Inc. · <a href="#">Privacy</a> ·
-            <a href="#">Terms</a>
+            © 2017-2019 Company, Inc. · <a href="javascript:void(0)">Privacy</a> ·
+            <a href="javascript:void(0)">Terms</a>
         </p>
     </footer>
 </main>

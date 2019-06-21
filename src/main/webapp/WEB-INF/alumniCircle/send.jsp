@@ -15,6 +15,7 @@
     <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>校友圈</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/zcq/send.css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/zico.min.css" rel="stylesheet">
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet"/>
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
@@ -33,9 +34,7 @@
                 <a href="${pageContext.servletContext.contextPath}/alumniCircle/myCircleMine.action?userId=<s:property value="#session.user.userId"/>" class="alert-link">
                     <button type="button" class="list-group-item list-group-item-action"><i class="zi zi_user"></i> 我的动态</button></a>
                 <a href="${pageContext.servletContext.contextPath}/alumniCircle/send" class="alert-link">
-                    <button type="button" class="list-group-item list-group-item-action"><i class="zi zi_camera" zico="相机"></i> 发动态</button></a>
-                <a href="${pageContext.servletContext.contextPath}/alumniCircle/message" class="alert-link">
-                    <button type="button" class="list-group-item list-group-item-action"><i class="zi zi_commentdots" zico="消息黑"></i> 消息</button></a>
+                    <button type="button" class="list-group-item list-group-item-action this-page"><i class="zi zi_camera" zico="相机"></i> 发动态</button></a>
                 <a href="${pageContext.servletContext.contextPath}/alumniCircle/findCollectionDynamicCOLL.action?userId=<s:property value="#session.user.userId"/>" class="alert-link">
                     <button type="button" class="list-group-item list-group-item-action"><i class="zi zi_box" zico="箱子"></i> 收藏</button></a>
             </div>
@@ -49,7 +48,6 @@
                               placeholder="请输入动态内容..."></textarea>
                     <div class="user-imgs">
                         <div class="uploadImgBtn" id="uploadImgBtn">
-                            <!--****************************************************-->
                             <input id="circlePic" class="uploadImg" type="file" name="file" multiple/>
                         </div>
                         <div id="picShow" class="col-md-12">

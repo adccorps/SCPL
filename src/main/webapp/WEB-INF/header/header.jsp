@@ -23,7 +23,7 @@
                     <a class="nav-link" href="${pageContext.servletContext.contextPath}/post">帖吧</a>
                 </li>
                 <li class="nav-item ${param.alumniCircleActive}">
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/alumniCircle/indexZCQ.action">校友圈</a>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/alumniCircle/indexZCQ">校友圈</a>
                 </li>
                 <li class="nav-item ${param.taskActive}">
                     <a class="nav-link" href="${pageContext.servletContext.contextPath}/task/index">任务</a>
@@ -31,8 +31,8 @@
                 <li class="nav-item ${param.shopActive}">
                     <a class="nav-link" href="${pageContext.servletContext.contextPath}/shop/viewIndex">二手市场</a>
                 </li>
-                <li class="nav-item ${param.shiwuxunwuActive}">
-                    <a class="nav-link" href="#">失物寻物</a>
+                <li class="nav-item ${param.findActive}">
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/find/findIndex">失物寻物</a>
                 </li>
             </ul>
             <s:if test="#session.user!=null">

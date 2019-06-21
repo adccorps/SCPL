@@ -38,13 +38,13 @@ public interface ShopDao {
     /**
      *  修改商品信息
      * @param goods 商品
-     * @return 返回goods 成功修改 null修改失败
+     * @return 返回true 成功修改 false修改失败
      */
-    Goods modifyGoods(@Param("goods") Goods goods);
+    boolean modifyGoods(@Param("goods") Goods goods);
 
     List<Goods> findGoodsByType(@Param("goodsType") String goodsType);
 
-    Goods findGoodsById(@Param("goodsId") Goods goodsId);
+    Goods findGoodsById(@Param("goodsId")String goodsId);
 
     boolean createOrder(@Param("order") Order order);
 
@@ -52,5 +52,5 @@ public interface ShopDao {
 
     List<Order> findUserBuyOrder(@Param("userId") String userId);
 
-    List<Order> findUserSellOrder(@Param("sellerId") String sellerId);
+    List<Goods> findUserSellOrder(@Param("sellerId") String sellerId);
 }

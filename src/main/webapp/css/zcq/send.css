@@ -70,3 +70,7 @@ a{
 #box{
     margin:50px auto; width:540px; min-height:400px; background:#FF9
 }
+.this-page{
+    background-color: #e9ecef;
+    border:2px solid #93b5ec;
+}

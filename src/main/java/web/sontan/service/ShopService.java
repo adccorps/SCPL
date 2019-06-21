@@ -1,5 +1,6 @@
 package web.sontan.service;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,20 +27,22 @@ public class ShopService {
         return shopDao.addGoods(goods);
     }
 
-    public List<Goods> queryGoods(){
+    public List<Goods> queryGoods(int pageNum){
+        PageHelper.startPage(pageNum, 12);
         return shopDao.findAllGoods();
     }
     public boolean deleteGoods(Goods goods){
         return shopDao.deleteGoods(goods);
     }
-    public Goods modifyGoods(Goods goods){
+    public boolean modifyGoods(Goods goods){
         return shopDao.modifyGoods(goods);
     }
 
-    public List<Goods> findGoodsByType(String goodsType){
+    public List<Goods> findGoodsByType(String goodsType,int pageNum){
+        PageHelper.startPage(pageNum, 12);
         return shopDao.findGoodsByType(goodsType);
     }
-    public Goods findGoodsById(Goods goodsId){
+    public Goods findGoodsById(String goodsId){
         return shopDao.findGoodsById(goodsId);
     }
 
@@ -47,7 +50,8 @@ public class ShopService {
         return  shopDao.createOrder(order);
     }
 
-    public List<Goods> findGoodsByName(String goodsName){
+    public List<Goods> findGoodsByName(String goodsName,int pageNum){
+        PageHelper.startPage(pageNum, 12);
         return shopDao.findGoodsByName(goodsName);
     }
 
@@ -55,7 +59,7 @@ public class ShopService {
         return shopDao.findUserBuyOrder(userId);
     }
 
-    public List<Order> findUserSellOrder(String sellerId){
+    public List<Goods> findUserSellOrder(String sellerId){
         return shopDao.findUserSellOrder(sellerId);
     }
 }

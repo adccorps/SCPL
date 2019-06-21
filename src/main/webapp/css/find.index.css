@@ -1,0 +1,208 @@
+.main-nav-width{
+    vertical-align: center;
+    margin-top: 20px;
+}
+.nav-li-far{
+    margin-right: 20px;
+}
+.nav-icon-li-far{
+    margin-right: 40px;
+}
+. nav-li-long_far{
+    padding-left: 1000px;
+}
+.nav_pagination{
+
+}
+.border_height{
+    height: 250px;
+    margin-top: 5px;
+}
+.table_top{
+    margin-top: 40px;
+}
+.test{
+
+
+}
+
+@media (max-width: 979px) {
+    body {
+        padding-top: 0px;
+    }
+}
+
+#components {
+    min-height: 500px;
+}
+
+#target fieldset {
+    border: 1px solid #ccc;
+    min-height: 200px;
+    padding: 5px;
+    padding-bottom: 30px;
+}
+
+.component {
+    cursor: pointer;
+}
+
+input {
+    cursor: pointer;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.popover {
+    z-index: 9999999;
+}
+.popover .control-group {
+    cursor: default;
+}
+
+.popover input {
+    cursor: text;
+}
+
+.temp{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    position: absolute;
+    z-index: 999999;
+    top: 0;
+    overflow-x: hidden;
+    left: 0;
+}
+
+.temp form {
+    padding: 8px 4px;
+    border: 1px dotted #ccc;
+    position: absolute;
+    background: white;
+    box-shadow: 0px 0px 30px #999;
+    -webkit-transition: -webkit-transform 0.1s ease-out;
+    overflow: hidden;
+}
+
+#render{
+    min-height: 500px;
+    font-family: monospace;
+}
+
+/* Popovers now are appended to their parent rather
+than to the body/main document as they once were.
+We need to over-ride some inherited stuff.. */
+form .popover .controls {
+    margin-left: 0;
+}
+
+form .popover .control-label {
+    text-align: left;
+}
+
+form .popover form {
+    width: 224px;
+}
+
+.popover-content form .btn{
+    margin-right: 10px
+}
+
+.target:after{
+    float:left;
+    content: " ";
+    height: 77px;
+    margin-top: 3px;
+    background: #f0f0f0;
+    width: 100%;
+    border: 1px dashed #ccc;
+}
+
+#target, #input, #radioscheckboxes, #select, #buttons {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#target fieldset{
+    width: 100%;
+    overflow: hidden;
+}
+.uploadImgBtn {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    position: relative;
+    background: url("../../assets/img/add.jpg") no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+.uploadImgBtn .uploadImg {
+    position: absolute;
+    right: 0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+.pic{
+    width: 100px;
+    height: 100px;
+}
+.pic img {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+a{
+    text-decoration: none;
+}
+.nav{
+    text-align: center;
+    margin: 0 auto;
+    padding:0;
+    margin-top:50px;
+    margin-bottom: 50px;
+}
+.bt{
+    width:200px;
+}
+.main{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #ededed;
+}
+.send-message{
+    margin-top: 20px;
+}
+.user-imgs{
+    width:540px;
+    height:auto;
+    margin: 20px 50px;
+}
+#picShow{
+    /*width: 310px;*/
+    height:auto;
+}
+#sumbitPic{
+    margin-top: 5px;
+}
+.float-left{
+    float: left;
+}
+.choose-file{
+    width: 200px;
+}
+#box{
+    margin:50px auto; width:540px; min-height:400px; background:#FF9
+}
