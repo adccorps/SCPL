@@ -8,7 +8,7 @@
   <constant name="struts.objectFactory" value="spring"/>
   <constant name="struts.freeroute.controllerPackage" value="web.sontan.action"/>
   <constant name="struts.freeroute.controllerSuffixes" value="Action, Controller"/>
-  <!--<constant name="struts.devMode" value="true"/>-->
+  <constant name="struts.devMode" value="true"/>
 
   <package name="default" namespace="/" strict-method-invocation="false" extends="json-default">
     <interceptors>

@@ -65,6 +65,11 @@
                 </div>
             </div>
         </s:iterator>--%>
+        <div class="text-center loading text-primary">
+            <div class="spinner-border m-5 p-5" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
         <div class="row mt-5 justify-content-center">
             <ul class="page"></ul>
         </div>
@@ -103,7 +108,11 @@
           }
           target.bootstrapPaginator('setOptions', options);
           var $posts = $('.posts');
+          var $loading = $('.loading');
+          $posts.fadeOut();
           $posts.html('');
+          $posts.hide();
+          $loading.show();
           if (JSON.stringify(result.posts) === '[]') {
             var notFound = $('<div class="row align-items-center justify-content-center display-4"><span class="text-danger">搜索结果不存在</span></div>');
             notFound.css({ minHeight: $posts.css('min-height') });
@@ -121,8 +130,10 @@
               $post.append($postCreateTime);
               $posts.append($post);
             });
-            $('.posts').css({ minHeight: $('.post').outerHeight() * 10 + ($('.post').css("margin-top").replace("px", "") - 0) * 9 });
+            // $('.posts').css({ minHeight: $('.post').outerHeight() * 10 + ($('.post').css("margin-top").replace("px", "") - 0) * 9 });
           }
+          $loading.fadeOut();
+          $posts.fadeIn(300);
         }
       });
     }

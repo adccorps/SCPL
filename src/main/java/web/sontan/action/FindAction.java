@@ -151,11 +151,11 @@ public class FindAction extends ActionSupport {
     }
 
     public String testadd() {
-        System.out.println("null:" + find);
+        System.out.println("null:" + find.getTitle());
         return "json";
     }
 
-    @Route(value = "/post/{query}/page/{pageNum}", method = {MethodType.GET})
+    @Route(value = "/find/{query}/page/{pageNum}", method = {MethodType.GET})
     public String search() {
        // this.posts = postService.findByString(pageNum, query, OrderType.DESC);
       //  PageInfo<Post> postPageInfo = new PageInfo<>(this.posts);
