@@ -45,7 +45,7 @@
                             });
                             $tip.modal();
                             $tip.one('hidden.bs.modal', function (e) {
-                                window.location.replace("${pageContext.servletContext.contextPath}/task/index");
+                                window.location.replace("${pageContext.servletContext.contextPath}/task/myAccept?taskRecipient=${user.userId}");
                             });
                         }
                     }
