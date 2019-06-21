@@ -55,7 +55,7 @@
                 $.ajax({
                     url: '${pageContext.servletContext.contextPath}/task/add/task_modify',
                     type: 'POST',
-                    data: data,
+                    data: data+"&task.taskId=${task.taskId}",
                     success: function (result, status, xhr) {
                         if (result.code !== 1) {
                             $modalBody.html(result.tip);
@@ -160,8 +160,8 @@
         <div class="form-row">
             <div class="col">
                 <label for="message">备注</label>
-                <textarea class="form-control" id="message" rows="3" name="task.taskMessage"
-                          value="${task.taskMessage}"></textarea>
+                <textarea class="form-control" id="message" rows="3"
+                          name="task.taskMessage">${task.taskMessage}</textarea>
             </div>
         </div>
     </form>

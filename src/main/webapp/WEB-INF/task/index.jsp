@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css">
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet"/>
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
-    <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/popper.min.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
     <jsp:include page="../components/tipModal.jsp"/>
     <script>
         $(function () {
