@@ -71,8 +71,8 @@
     </select>
 
     <select id="findUserBuyOrder"   resultMap="orderMap">
- SELECT o.*,g.goods_id,g.goods_name,g.goods_price,g.goods_status FROM xy_order o LEFT JOIN xy_goods g ON g.goods_id=o.goods_id
-         WHERE o.buyer_id=#{userId}    </select>
+ SELECT  g.goods_id,g.goods_name,g.goods_price,g.goods_status,o.* FROM xy_order o LEFT JOIN xy_goods g ON g.goods_id=o.goods_id
+         WHERE o.buyer_id=#{userId}   </select>
 
     <select id="findUserSellOrder"  resultMap="goodsList">
         SELECT * FROM  xy_goods   WHERE seller_id=#{sellerId}
