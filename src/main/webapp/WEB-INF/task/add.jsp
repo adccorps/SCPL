@@ -29,6 +29,7 @@
                     $("#size").attr("hidden", false)
                 }
             });
+
             $('.publish').on('click', function (e) {
                 e.preventDefault();  //阻止元素发生默认的行为
                 var $tip = $('#tip-modal');
@@ -50,6 +51,12 @@
                     return;
                 }
 
+                var moneyReg = /[1-9]\d*/;
+                var flag = moneyReg.test($money.val());
+                if (!flag) {
+                    $false($money.next(), $money, '只能输入数字');
+                    return;
+                }
 
                 var data = $('form').serialize();
                 $.ajax({
@@ -156,7 +163,7 @@
             </div>
             <div class="col">
                 <label for="money">费用</label>
-                <input type="text" class="form-control" id="money" name="task.taskMoney" required>
+                <input type="text" class="form-control money" id="money" name="task.taskMoney" required>
                 <div class="invalid-feedback"></div>
             </div>
         </div>

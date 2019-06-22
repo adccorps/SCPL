@@ -15,18 +15,32 @@
             <interceptor-ref name="nologinJSON"></interceptor-ref>
         </action>
 
-
-        <action name="findIndex" class="findAction" method="indexShowView">
-            <result>/WEB-INF/find/indexView.jsp</result>
+        <action name="toend" class="findAction" method="toend">
+            <interceptor-ref name="nologinJSON"></interceptor-ref>
         </action>
 
+        <action name="yijian" class="findAction" method="toend">
+            <interceptor-ref name="nologinJSON"></interceptor-ref>
+        </action>
+        <action name="changeStatus" class="findAction" method="changeStatus">
+            <interceptor-ref name="nologinJSON"></interceptor-ref>
+        </action>
+
+        <action name="findIndex" class="findAction" method="indexShowView">
+            <result name="admin">/WEB-INF/find/adminIndex.jsp</result>
+            <result name="success">/WEB-INF/find/indexView.jsp</result>
+        </action>
+
+        <action name="findMain" class="findAction" method="lookFind">
+            <result >/WEB-INF/find/findMain.jsp</result>
+        </action>
 
         <action name="findFindView" class="findAction" method="showView">
             <result>/WEB-INF/find/findView.jsp</result>
         </action>
 
-        <action name="findPersonal" class="findAction" method="showView">
-            <result>/WEB-INF/find/personalView.jsp</result>
+        <action name="findPersonal" class="findAction" method="personal">
+            <result>/WEB-INF/find/findView.jsp</result>
         </action>
 
         <action name="findFromView" class="findAction" method="showView">
@@ -34,11 +48,9 @@
         </action>
 
         <action name="addFrom" class="findAction" method="addFind">
-            <result>/WEB-INF/find/personalView.jsp</result>
         </action>
-        
-        <action name="test" class="findAction" method="testadd">
-            <result>/WEB-INF/find/personalView.jsp</result>
+
+        <action name="addSing" class="findAction" method="addSing">
         </action>
 
     </package>

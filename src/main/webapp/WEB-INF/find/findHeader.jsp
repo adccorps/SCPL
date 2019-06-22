@@ -32,8 +32,8 @@
 
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="快捷搜索物品关键字" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+                <input class="form-control mr-sm-2 search-input" type="search" placeholder="快捷搜索物品关键字" aria-label="Search" id="search">
+                <button class="btn btn-outline-success my-2 my-sm-0 search" type="button" id="search-input">搜索</button>
             </form>
         </div>
     </nav>

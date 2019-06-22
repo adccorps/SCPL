@@ -1,36 +1,33 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 臻
-  Date: 2019/6/5
-  Time: 21:27
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<jsp:include page="../header/header.jsp">
+    <jsp:param name="findActive" value="active" />
+</jsp:include>
 
-<%--<table class="table table-hover table_top">--%>
-<%--    <thead>--%>
-<%--    <tr>--%>
-<%--            <th scope="col">类型</th>--%>
-<%--            <th scope="col">物品</th>--%>
-<%--            <th scope="col">地点</th>--%>
-<%--            <th scope="col">发布时间</th>--%>
-<%--            <th scope="col">具体信息</th>--%>
-<%--        </tr>--%>
-<%--    </thead>--%>
-<%--</table>--%>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="zh-CN" />
+    <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>寻物界面首页</title>
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/find.index.css">
+    <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet" />
+    <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
 
+</body>
+</html>
+
+
+<div class="container">
     <div class="CwzView">
     </div>
+    <script src="${pageContext.servletContext.contextPath}/js/bootstrap-paginator.min.js"></script>
+    <ul class="page"></ul>
+</div>
 
-
-
-
-
-
-<script src="${pageContext.servletContext.contextPath}/js/bootstrap-paginator.min.js"></script>
-
-<ul class="page"></ul>
 
 <script>
     var $page = $('.page');
@@ -66,7 +63,7 @@
                     }
                     target.bootstrapPaginator('setOptions', options);
                     var $posts = $('.CwzView'); // class
-                   $posts.html('');
+                    $posts.html('');
                     if (JSON.stringify(result.posts) === '[]') { // 未找到
                         $posts.append('<div class="row align-items-center justify-content-center display-4" style="min-height: 384px"><span class="text-danger">搜索结果不存在</span></div>');
                     } else if (result.Status == 0) {             //首页全部
@@ -75,7 +72,7 @@
                         });
                     } else (JSON.stringify())
                     {             //寻物
-                        let DivBody ="xx";
+                        let DivBody ="";
                         let Context = "<table class=\"table table-hover table_top\">\n" +
                             "    <thead>\n" +
                             "    <tr>\n" +
@@ -89,8 +86,8 @@
                             "    </thead>\n" +
                             "<tobdy>";
                         $.each(result.findList, function (index, find) {
-                            if(find.status==0){
-                                DivBody=("<tr><th scope='row' style='color: red'>丢失</th><td>" +
+                            if(find.status==-1){
+                                DivBody=("<tr><th scope='row' style='color: red'>异议</th><td>" +
                                     find.title + "</td><td>" +
                                     find.type + "</td><td>" +
                                     find.date + "</td><td>" +
@@ -98,35 +95,6 @@
                                     "<a href=${pageContext.servletContext.contextPath}/find/findMain?find_id="+find.findId+"> <img src='${pageContext.servletContext.contextPath}/assets/img/xiangqing.png' style='width:20px;height:20px'/></a>"
                                     + "</td></tr>"+" "
                                 );
-                            }
-                            else if(find.status==1){
-                                DivBody=("<tr><th scope='row' style='color: green'>拾取</th><td>" +
-                                    find.title + "</td><td>" +
-                                    find.type + "</td><td>" +
-                                    find.date + "</td><td>" +
-                                    find.adders + "</td><td>" +
-                                    "<a href=${pageContext.servletContext.contextPath}/find/findMain?find_id="+find.findId+"> <img src='${pageContext.servletContext.contextPath}/assets/img/xiangqing.png' style='width:20px;height:20px'/></a>"
-                                    + "</td></tr>"+" "
-                                );
-                            }
-                            else if(find.status==2){
-                                DivBody=("<tr><th scope='row' style='color: #FFCC00'>公示</th><td>" +
-                                find.title + "</td><td>" +
-                                find.type + "</td><td>" +
-                                find.date + "</td><td>" +
-                                find.adders + "</td><td>" +
-                                "<a href=${pageContext.servletContext.contextPath}/find/findMain?find_id="+find.findId+"> <img src='${pageContext.servletContext.contextPath}/assets/img/xiangqing.png' style='width:20px;height:20px'/></a>"
-                                + "</td></tr>"+" "
-                            );}
-                            else if(find.status==3){
-                            DivBody=("<tr><th scope='row' style='color: blue'>完成</th><td>" +
-                                find.title + "</td><td>" +
-                                find.type + "</td><td>" +
-                                find.date + "</td><td>" +
-                                find.adders + "</td><td>" +
-                                "<a href=${pageContext.servletContext.contextPath}/find/findMain?find_id="+find.findId+"> <img src='${pageContext.servletContext.contextPath}/assets/img/xiangqing.png' style='width:20px;height:20px'/></a>"
-                                + "</td></tr>"+" "
-                            );
                             }
 
                             Context=Context.concat(DivBody)

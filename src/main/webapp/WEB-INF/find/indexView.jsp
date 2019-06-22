@@ -23,11 +23,11 @@
         <div style="width:100%;height: 240px;">
             <img src="${pageContext.servletContext.contextPath}/assets/img/lost.jpg" style="width:45%;height: 250px;">
             <div style="width:52%;float:right ">
-                asdfansiofasdhiopfjnasd
-                asdfansiofasdhiopfjnasd
-                asdfansiofasdhiopfjnasd
-                asdfansiofasdhiopfjnasda
-
+                <p class="text-info text-lg-left" style="font-size: 25px" >平台规则：</p><br>
+                <p style="font-size: 18px">捡到物品之后可以在此平台发布你的物品信息<br>
+                失去物品之后也可以在此平台发布你的失物信息<br>
+                若发现自己的物品可以与发布者联系，然后物品进入公示期<br>
+                若发现公示期的物品是自己的，可以发起异议由管理员进行审核<br>
 
             </div>
         </div>

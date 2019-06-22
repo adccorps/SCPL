@@ -61,18 +61,18 @@
     </select>
 
     <select id="findGoodsByType" resultMap="goodsList">
-        SELECT * FROM xy_goods WHERE goods_type=#{goodsType}
+        SELECT * FROM xy_goods WHERE goods_type=#{goodsType} and goods_status =0
     </select>
     <select id="findGoodsById" resultMap="goodsList">
         SELECT * FROM xy_goods g LEFT JOIN xy_user u ON  g.seller_id=u.user_id WHERE goods_id=#{goodsId}
     </select>
     <select id="findGoodsByName" resultType="web.sontan.model.Goods" resultMap="goodsList">
-        SELECT * FROM xy_goods WHERE goods_name LIKE "%" #{goodsName}"%"
+        SELECT * FROM xy_goods WHERE goods_status =0 AND goods_name LIKE "%" #{goodsName}"%"
     </select>
 
     <select id="findUserBuyOrder"   resultMap="orderMap">
- SELECT o.*,g.goods_id,g.goods_name,g.goods_price,g.goods_status FROM xy_order o LEFT JOIN xy_goods g ON g.goods_id=o.goods_id
-         WHERE o.buyer_id=#{userId}    </select>
+ SELECT  g.goods_id,g.goods_name,g.goods_price,g.goods_status,o.* FROM xy_order o LEFT JOIN xy_goods g ON g.goods_id=o.goods_id
+         WHERE o.buyer_id=#{userId}   </select>
 
     <select id="findUserSellOrder"  resultMap="goodsList">
         SELECT * FROM  xy_goods   WHERE seller_id=#{sellerId}

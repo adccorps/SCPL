@@ -1,7 +1,7 @@
 package web.sontan.model;
 
 public class Find {
-    private String findId;
+    private Integer findId;
     private Integer status;
     private String title;
     private String type;
@@ -11,22 +11,20 @@ public class Find {
     private String mobile;
     private String picUrl;
     private String adders;
-    private User up;
-    private User op;
 
-    public String getFindId() {
+    public Integer getFindId() {
         return findId;
     }
 
-    public void setFindId(String findId) {
+    public void setFindId(Integer findId) {
         this.findId = findId;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -109,4 +107,8 @@ public class Find {
     public void setOp(User op) {
         this.op = op;
     }
+
+    private User up;
+    private User op;
+
 }

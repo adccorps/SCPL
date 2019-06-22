@@ -44,6 +44,7 @@
                 <td><s:property value="#goods.goodsPrice"></s:property> </td>
                 <td >
                     <s:if test="#goods.goodsStatus == 0">出售中</s:if>
+                    <s:if test="#goods.goodsStatus == -1">出售中</s:if>
                     <s:if test="#goods.goodsStatus == 1">交易中</s:if>
                     <s:if test="#goods.goodsStatus == 2">交易完成</s:if>
                     <s:if test="#goods.goodsStatus == 3">已下架</s:if>

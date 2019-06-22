@@ -23,31 +23,51 @@
 
 
         $("#buyIron").click(function () {
-            $.ajax({
-                url:"buyGoods.action",
-                Type:"post",
-                dataType:"json",
-                data:{
-                    "goods.goodsId":"${goods.goodsId}"
-                },
-                success:function (datas) {
-                    if (datas.code === -10) {
-                        window.location.href = datas.action;
-                        return;
-                    }
-                    console.log(datas);
-                    if (datas.shopError!=0){
-                        var $modalBody = $('.modal-body p');
-                        var $tip = $('#tip-modal');
-                        $modalBody.html(datas.tip);
-                        $tip.modal();
-                        $tip.on('hidden.bs.modal', function (e) {
-                            $modalBody.html('');
-                        });
-                    }
 
-                }
+            var $modalBody = $('.modal-body p');
+            var $tip = $('#tip-modal');
+            $modalBody.html("是否确定购买此商品");
+            $tip.modal();
+            var flag =0;
+            $(".modal-footer>button").click(function () {
+                $tip.on('hidden.bs.modal', function (e) {
+                    if (flag==0){
+                        $.ajax({
+                            url:"buyGoods.action",
+                            Type:"post",
+                            dataType:"json",
+                            data:{
+                                "goods.goodsId":"${goods.goodsId}"
+                            },
+                            success:function (datas) {
+                                if (datas.code === -10) {
+                                    window.location.href = datas.action;
+                                    return;
+                                }
+                                console.log(datas);
+
+
+                                if (datas.shopError!=0){
+                                    var $modalBody = $('.modal-body p');
+                                    var $tip = $('#tip-modal');
+                                    $modalBody.html(datas.tip);
+                                    $tip.modal();
+                                    $tip.on('hidden.bs.modal', function (e) {
+                                        $modalBody.html('');
+                                    });
+                                }
+
+
+                            }
+                        })
+                        flag++;
+                    }
+                });
+
+
             })
+
+
         })
 
         /**
