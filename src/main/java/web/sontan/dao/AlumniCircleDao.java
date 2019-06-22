@@ -41,7 +41,7 @@ public interface AlumniCircleDao {
 
     int deleteMyCircle(@Param("dynamicId") int dynamicId, @Param("userId") String userId);
 
-    int deleteCollection(@Param("dynamicId") int dynamicId, @Param("userId") String userId);
+
 
     int addMyCircle(@Param("userId") String userId, @Param("pics") String pics, @Param("picCount") int picCount, @Param("content") String content);
 
@@ -49,6 +49,20 @@ public interface AlumniCircleDao {
 
     int addComment(@Param("userId") String userId, @Param("dynamicId") int dynamicId, @Param("commentText") String commentText, @Param("nowdate") String nowdate);
 
+
+    List<Integer> allCollection(@Param("userId") String userId);
+    String isCollections(@Param("userId") String userId, @Param("dynamicId") int dynamicId);
+    int changeCollection(@Param("userId") String userId, @Param("dynamicId") int dynamicId);
+    int deleteCollection( @Param("userId") String userId , @Param("dynamicId") int dynamicId);
     int addCollections(@Param("userId") String userId, @Param("dynamicId") int dynamicId);
+    List<String> likes(@Param("dynamicId") int dynamicId);
+
+    List<Integer> allLikes(@Param("userId") String userId);
+    String isLikes(@Param("userId") String userId, @Param("dynamicId") int dynamicId);
+    int addLikes(@Param("userId") String userId, @Param("dynamicId") int dynamicId);
+    //修改为未赞状态
+    int deleteLikes(@Param("userId") String userId, @Param("dynamicId") int dynamicId);
+    //修改为点赞状态
+    int add(@Param("userId") String userId, @Param("dynamicId") int dynamicId);
 }
 

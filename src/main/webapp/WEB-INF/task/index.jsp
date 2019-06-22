@@ -10,58 +10,58 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="content-language" content="zh-CN" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="content-language" content="zh-CN"/>
     <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>任务首页</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css">
-    <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet" />
+    <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet"/>
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/popper.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
-    <jsp:include page="../components/tipModal.jsp" />
+    <jsp:include page="../components/tipModal.jsp"/>
     <script>
-      $(function () {
-        $('.accept').on('click', function (e) {
-          var $tip = $('#tip-modal');
-          var $modalBody = $('.modal-body p');
+        $(function () {
+            $('.accept').on('click', function (e) {
+                var $tip = $('#tip-modal');
+                var $modalBody = $('.modal-body p');
 
 
-          var taskId = $(this).parent().parent().data('taskId');
-          var data = 'task.taskId=' + taskId;
-          $.ajax({
-            url: '${pageContext.servletContext.contextPath}/task/add/task_accept',
-            type: 'POST',
-            data: data,
-            success: function (result, status, xhr) {
-              if (result.code !== 1) {
-                $modalBody.html(result.tip);
-                $tip.modal();
-              } else {
-                $modalBody.html('接受成功');
-                $tip.one('shown.bs.modal', function (e) {
-                  setTimeout(function () {
-                    $tip.modal('hide');
-                  }, 3000);
+                var taskId = $(this).parent().parent().data('taskId');
+                var data = 'task.taskId=' + taskId;
+                $.ajax({
+                    url: '${pageContext.servletContext.contextPath}/task/add/task_accept',
+                    type: 'POST',
+                    data: data,
+                    success: function (result, status, xhr) {
+                        if (result.code !== 1) {
+                            $modalBody.html(result.tip);
+                            $tip.modal();
+                        } else {
+                            $modalBody.html('接受成功');
+                            $tip.one('shown.bs.modal', function (e) {
+                                setTimeout(function () {
+                                    $tip.modal('hide');
+                                }, 3000);
+                            });
+                            $tip.modal();
+                            $tip.one('hidden.bs.modal', function (e) {
+                                window.location.replace("${pageContext.servletContext.contextPath}/task/myAccept?taskRecipient=${user.userId}");
+                            });
+                        }
+                    }
                 });
-                $tip.modal();
-                $tip.one('hidden.bs.modal', function (e) {
-                  window.location.replace("index");
-                });
-              }
-            }
-          });
-        });
-      })
+            });
+        })
     </script>
 </head>
 <body>
 <jsp:include page="../header/header.jsp">
-    <jsp:param name="taskActive" value="active" />
+    <jsp:param name="taskActive" value="active"/>
 </jsp:include>
 
 <div class="container">
     <div class="dropdown mt-4">
-        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+        <button class=" btn  btn-primary  dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
             操作
         </button>
@@ -84,15 +84,15 @@
     <div class="card-deck  mt-5"></s:if>
         <div class="card" data-task-id="${taskId}">
             <div class="card-body">
-                <h5 class="card-title">姓名：<s:property value="user.userName" /><br></h5>
+                <h5 class="card-title">姓名：<s:property value="user.userName"/><br></h5>
                 <p class="card-text">
-                    电话：<s:property value="user.userPhone" /><br>
-                    地址：<s:property value="user.userAddress" /><br>
-                    公司/商家：<s:property value="taskCompany" /><br>
-                    数量：<s:property value="taskQuantity" /><br>
-                    <s:if test="taskType==0">大小：<s:property value="taskSize" /><br></s:if>
-                    费用：<s:property value="taskMoney" /><br>
-                    备注信息：<s:property value="taskMessage" /><s:if test="taskMessage==null">无</s:if>
+                    电话：<s:property value="user.userPhone"/><br>
+                    地址：<s:property value="user.userAddress"/><br>
+                    公司/商家：<s:property value="taskCompany"/><br>
+                    数量：<s:property value="taskQuantity"/><br>
+                    <s:if test="taskType==0">大小：<s:property value="taskSize"/><br></s:if>
+                    费用：<s:property value="taskMoney"/><br>
+                    备注信息：<s:property value="taskMessage"/><s:if test="taskMessage==null">无</s:if>
                 </p>
             </div>
             <div class="card-footer">
