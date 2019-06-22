@@ -23,43 +23,43 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light main-nav-width ">
 
-            <a class="navbar-brand nav-icon-li-far" href="${pageContext.servletContext.contextPath}/find/findIndex"><button type="button" class="btn btn-danger"><-返回</button></a>
+            <a class="navbar-brand nav-icon-li-far" href="${pageContext.servletContext.contextPath}/find/findIndex"><button type="button" class="btn btn-warning"><-返回</button></a>
         </nav>
     </div>
 
-    <form class="form-horizontal"  action="${pageContext.servletContext.contextPath}/find/test.action">
+    <div class="form-horizontal" >
             <link href="${pageContext.servletContext.contextPath}/css/find_cwz.css" rel="stylesheet" />
             <!-- Form Name -->
-            <legend>Form Name</legend>
+            <legend>失物/招领信息表单</legend>
 
             <!-- Multiple Radios (inline) -->
 
             <div class="control-group">
-                <label class="control-label" >发布类型：</label>
-                <div class="controls">
+                <label class="control-label" ><p style="font-size:20px">发布类型：</p></label>
+                <div class="controls" >
                     <label class="radio inline" for="multipleradiosinline-0-0">
                         <input name="find.status" id="multipleradiosinline-0-0" type="radio" checked="checked" value="0">
-                        失物启事
+                        <p style="font-size:20px">失物启事</p>
                     </label>
                     <label class="radio inline" for="multipleradiosinline-0-1">
                         <input name="find.status" id="multipleradiosinline-0-1" type="radio" value="1">
-                        招领启事
+                        <p style="font-size:20px">招领启事</p>
                     </label>
                 </div>
             </div>
 
             <!-- Text input-->
             <div class="control-group">
-                <label class="control-label" for="textinput-1">发布标题：</label>
+                <label class="control-label" for="textinput-1"><p style="font-size:20px">发布标题：</p></label>
                 <div class="controls">
-                    <input name="find.title" class="input-xlarge" id="textinput-1" type="text" placeholder="25字内（如：寻找/拾到身份证）">
+                    <input name="find.title" class="input-xlarge" id="textinput-1" type="text" style="height:40px" placeholder="25字内（如：寻找/拾到身份证）">
 
                 </div>
             </div>
 
             <!-- Select Basic -->
             <div class="control-group">
-                <label class="control-label" for="selectbasic-0">物品类型：</label>
+                <label class="control-label" for="selectbasic-0"><p style="font-size:20px">物品类型：</p></label>
                 <div class="controls">
                     <select name="find.type" class="input-xlarge" id="selectbasic-0">
                         <option value="钱包/钥匙">钱包/钥匙</option>
@@ -76,43 +76,43 @@
 
             <!-- Text input-->
             <div class="control-group">
-                <label class="control-label" for="textinput-5">丢失/拾取时间：</label>
+                <label class="control-label" for="textinput-5"><p style="font-size:20px">丢失/拾取时间：</p></label>
                 <div class="controls">
-                    <input name="find.date" value="" class="input-xlarge" id="textinput-5" type="text" placeholder="">
+                    <input name="find.date" value="" class="input-xlarge" id="textinput-5" type="text"  style="height:40px"  placeholder="">
 
                 </div>
             </div>
 
             <!-- Text input-->
             <div class="control-group">
-                <label class="control-label" for="textinput-4">丢失/拾取地点：</label>
+                <label class="control-label" for="textinput-4"><p style="font-size:20px">丢失/拾取地点：</p></label>
                 <div class="controls">
-                    <input name="find.adders"  value="" class="input-xlarge" id="textinput-4" type="text" placeholder="（如：松田 操场）">
+                    <input name="find.adders"  value="" class="input-xlarge" id="textinput-4" type="text" style="height:40px"  placeholder="（如：松田 操场）">
 
                 </div>
             </div>
 
             <!-- Text input-->
             <div class="control-group">
-                <label class="control-label" for="textinput-2">联系手机：</label>
+                <label class="control-label" for="textinput-2"><p style="font-size:20px">联系手机：</p></label>
                 <div class="controls">
-                    <input name="find.mobile" value="" class="input-xlarge" id="textinput-2" type="text" placeholder="11位手机号码">
+                    <input name="find.mobile" value="" class="input-xlarge" id="textinput-2" type="text"   style="height:40px"  placeholder="11位手机号码">
 
                 </div>
             </div>
 
             <!-- Text input-->
             <div class="control-group">
-                <label class="control-label" for="textinput-3">联系人：</label>
+                <label class="control-label" for="textinput-3"><p style="font-size:20px">联系人：</p></label>
                 <div class="controls">
-                    <input name="find.name"  value="" class="input-xlarge" id="textinput-3" type="text" placeholder="名字">
+                    <input name="find.name"  value="" class="input-xlarge" id="textinput-3" type="text" placeholder="名字"  style="height:40px" >
 
                 </div>
             </div>
 
             <!-- File Button -->
             <div class="control-group">
-                <label class="control-label" >物品图片：</label>
+                <label class="control-label" ><p style="font-size:20px">物品图片：</p></label>
                 <div class="user-imgs" style="padding-top: 5px;padding-left: 120px">
                     <div class="uploadImgBtn" id="uploadImgBtn">
                         <!--****************************************************-->
@@ -126,23 +126,30 @@
 
             <!-- Textarea -->
             <div class="control-group">
-                <label class="control-label" for="textarea-0">详细描述：</label>
-                <div class="controls">
-                    <textarea name="find.desc"   value="" id="textarea-0">300字内（如：在食堂丢失名字为xxx的身份证 / 在操场中央捡到一个名字为xxx的学生证）</textarea>
+                <label class="control-label" for="textarea-0"><p style="font-size:20px">详细描述：</p></label>
+                <div class="controls" >
+                    <textarea name="find.desc"   rows="6"cols="50" style="width:400px; height:200px;font-size:18px" value="" id="textarea-0" placeholder="300字内（如：在食堂丢失名字为xxx的身份证 / 在操场中央捡到一个名字为xxx的学生证）"></textarea>
                 </div>
             </div>
-
-            <!-- Button (Double) -->
-            <div class="control-group">
-                <label class="control-label" for="doublebutton-1"></label>
-                <div class="controls">
-                    <button name="doublebutton-1" class="btn btn-success" id="doublebutton-1">发布</button>
-                    <button name="doublebutton2-1" class="btn btn-danger" id="doublebutton2-1">重置</button>
-                </div>
-            </div>
-            <button id="formSm" type="submit" class="btn btn-primary btn-lg btn-block send-message">发表</button>
-    </form>
+    <div >
+        <button id="formSm" type="button" style="width:25%"class="btn btn-primary   btn-lg ">发表</button>
+        <button name="doublebutton2-1"  style="width:25%" class="btn  btn-danger btn-lg" id="restart">重置</button>
+    </div>
+    </div>
     <script>
+
+        $("#restart").click(function(){
+            $("#textinput-1").html("");
+            $("#textinput-2").html("");
+            $("#textinput-3").html("");
+            $("#textinput-4").html("");
+            $("#textinput-5").html("");
+            $("#textinput-6").html("");
+            $("#textinput-7").html("");
+            $("#textinput-8").html("");
+        });
+
+
         /*
          * 移除图片,并移除显示
          * */
@@ -195,45 +202,44 @@
                     var formData = new FormData();
                     formData.append("find.status",$("input[type='radio']:checked").val());//单选框的值
                     formData.append("find.title", $("#textinput-1").val());
+                    formData.append("find.type",$("#selectbasic-0").val());
                     formData.append("find.date", $("#textinput-5").val());
                     formData.append("find.adders",  $("#textinput-4").val());
                     formData.append("find.mobile", $("#textinput-2").val());
                     formData.append("find.name", $("#textinput-3").val());
+                    formData.append("find.desc",$("#textarea-0").val() );
                     if (datas.error === 0) {
                         // $.ajax()  无错误才上传到后台 append表单数据进formdata
                         formData.append("files", datas.data);;
                         // console.log($("#goodsName").val());
                         $.ajax({
-                            url: "${pageContext.servletContext.contextPath}/find/test.action",
+                            url: "${pageContext.servletContext.contextPath}/find/addFrom.action",
                             type: 'POST',
                             data: formData,
                             cache: false,
                             contentType: false,
                             processData: false,
                             success: function (successData) {
-                                console.log(successData);
-                                //成功之后需要跳转
-                                <%--if (da.shopError === 0) {--%>
-                                <%--    $('.modal-footer>button').click(function () {--%>
-                                <%--        window.location.replace("${pageContext.servletContext.contextPath}/find/findIndex");--%>
-                                <%--    })--%>
-                                <%--}--%>
-
+                                alert("成功")
+                                setTimeout(function(){
+                                    window.location.href="${pageContext.servletContext.contextPath}/find/findPersonal.action";
+                                },900);
                             }
 
                         })
                     }else if(datas.error === -1){ //无图片
-                        console.log(formData);
                         $.ajax({
-                            url: '${pageContext.servletContext.contextPath}/find/test.action',
-                            data: formData,
+                            url: '${pageContext.servletContext.contextPath}/find/addSing.action',
                             type: 'POST',
+                            data: formData,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
                             success: function (m) {
-                                $modalBody.html('发送成功！');
-                                $tip.modal();
+                                alert("成功")
                                 setTimeout(function(){
-                                    window.location.href="${pageContext.servletContext.contextPath}/find/test.action";
-                                },1500);
+                                    window.location.href="${pageContext.servletContext.contextPath}/find/findPersonal.action";
+                                },900);
                                 console.log(m);
                             }
                         });
@@ -256,6 +262,11 @@
             }
             return url;
         }
+
+        if(window.location.search === "?err=-1"){
+            alert("信息填写有误，请重新填写")
+        }
+
     </script>
 </div>
 </body>

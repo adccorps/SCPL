@@ -8,6 +8,7 @@ import web.sontan.dao.FindDao;
 import web.sontan.model.Find;
 
 
+
 import java.util.List;
 /**
  * Created by 臻少 on 2019/6/6.
@@ -27,6 +28,10 @@ public class FindService {
         return findDao.findAllFinds();
     }
 
+    public List<Find> findBySearch(int pageNum, String query, String orderType) { //模糊查找
+        PageHelper.startPage(pageNum, 10);
+        return findDao.findBySearch(query, orderType);
+    }
 
 
     public List<Find> findFinds(int pageNum,int view){                            //查找不同类型：0/1/2/3
@@ -35,16 +40,21 @@ public class FindService {
     }
 
 
-//    public List<Find> findSuccessFinds( int status){return findDao.findSuccessFinds(status);}    //查找3类型：成功案例
-//    public List<Find> findGoodsByName(String Search){return  findDao.findGoodsByName(Search);}  //模糊查找
-
     public boolean addFinds(Find find,String userId){return  findDao.addFinds(find,userId);}
-    public Find lookFind(int findId){return  findDao.lookFind(findId);}
-    public boolean modifyFindToPeriod(int findId){return findDao.modifyFindToPeriod(findId);}
-    public boolean modifyPeriodToEnd( int findId){return findDao.modifyPeriodToEnd(findId);}
+    public List<Find> lookFind(Integer findId){return  findDao.lookFind(findId);}
 
-    public List<Find> ShowUserFind( String userId){return  findDao.ShowUserFind(userId);}//查找用户发布的
-    public List<Find> ShowUserOp( String userId){return findDao.ShowUserOp(userId);}//查找用户有关的
+    public boolean modifyPeriodToEnd( Integer findId,String userId){
+        return findDao.modifyPeriodToEnd(findId,userId);}//捡到的-》公示
 
+    public boolean TOend( Integer findId,String userId){
+        return findDao.TOend(findId,userId);}//发布的-》完成
+
+    public boolean yijian( Integer findId,String userId){
+        return findDao.yijian(findId,userId);}//公示-》意见
+
+    public List<Find> ShowUserOp(int pageNum,String userId){                           //查找用户有关的
+        PageHelper.startPage(pageNum, 10);
+        return findDao.ShowUserOp(userId);
+    }
 
 }
