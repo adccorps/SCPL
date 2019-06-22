@@ -200,7 +200,7 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
         StringBuffer str = new StringBuffer();
         User user = (User) session.get("user");
         if(user==null){
-            str.append("");
+            str.append("usernull");
         }else{
             String userId = user.getUserId();//拿到userid
             Calendar cal = Calendar.getInstance();
