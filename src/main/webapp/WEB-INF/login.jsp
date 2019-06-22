@@ -32,7 +32,7 @@
                 <div class="mb-3">
                     <label for="userPhone">手机号</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="userPhone" name="user.userPhone" placeholder="手机号"
+                        <input type="number" class="form-control" id="userPhone" name="user.userPhone" placeholder="手机号"
                                required><%-- valid验证成功  invalid验证失败 --%>
                         <div class="invalid-feedback"></div>
                         <%-- valid-feedback验证成功  invalid-feedback验证失败 --%>

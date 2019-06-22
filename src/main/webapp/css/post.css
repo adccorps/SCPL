@@ -18,5 +18,30 @@ blockquote:not(.previous) {
     border-left: 6px solid #b4b4b4;
     word-break: break-word;
     /*font-weight: 400;*/
+}
 
+.content {
+    word-wrap: break-word;
+}
+
+.hidden {
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.post table, .reply table {
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+.post table td, .post table th, .reply table td, .reply table th {
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 3px 5px;
+}
+
+.post table th, .reply table th {
+    border-bottom: 2px solid #ccc;
+    text-align: center;
 }

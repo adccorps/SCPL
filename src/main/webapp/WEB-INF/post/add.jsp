@@ -20,6 +20,7 @@
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/utils/tips.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/EmojiCharString.min.js"></script>
 </head>
 <body>
 <jsp:include page="../header/header.jsp">
@@ -63,9 +64,9 @@
   var $tip = $('#tip-modal');
   var $modalBody = $('.modal-body p');
 
-  ushareEditor.prototype.serialize = function (name) {
-    return name + '=' + this.txt.html();
-  };
+  // ushareEditor.prototype.serialize = function (name) {
+  //   return name + '="' + this.txt.html() + '"';
+  // };
   var editor = new ushareEditor('.editor');
   // 配置服务器端地址
   editor.customConfig.uploadImgServer = 'http://10.2.16.131:8080/UploadImg/upload';
@@ -79,13 +80,27 @@
   $('.publish').on('click', function (e) {
     var $title = $('#title');
     var tip = '';
-    if (!$title.val()) {
+    var flag = true;
+    var text = editor.txt.text();
+    var maxTitle = 50;
+    if (new EmojiCharString($title.val().trim()).length > maxTitle) {
+      flag = false;
+      tip = '标题最多只能' + maxTitle + '个字';
+    }
+    var minContent = 15;
+    if (new EmojiCharString(text.replace(/&nbsp;/g, "").trim()).length < minContent) {
+      flag = false;
+      tip = '内容至少要' + minContent + '个字(不包括图片)';
+    }
+    if (!$title.val().trim()) {
+      flag = false;
       tip = '标题不能为空';
     }
-    if (!editor.txt.text()) {
+    if (!text.replace(/&nbsp;/g, "").trim()) {
+      flag = false;
       tip = '内容不能为空';
     }
-    if (!editor.txt.text() || !$title.val()) {
+    if (!flag) {
       showTip({
         body: $modalBody,
         modal: $tip,
@@ -94,15 +109,18 @@
       });
       return;
     }
-    var title = $title.serialize();
-    var content = editor.serialize('post.postContent');
-    var data = title + '&' + content;
-    console.log(editor.txt.text()); // 判断空(注意空格为&nbsp;)
-    // return;
+    // var title = $title.serialize();
+    // var content = editor.serialize('post.postContent');
+    // var data = title + '&' + content;
+    // console.log(content); // 判断空(注意空格为&nbsp;)
+    // // return;
     $.ajax({
       url: '${pageContext.servletContext.contextPath}/post/post_add',
       type: 'POST',
-      data: data,
+      data: {
+        'post.postTitle': $title.val(),
+        'post.postContent': editor.txt.html()
+      },
       success: function (result, status, xhr) {
         showTip({ // 1. 弹出tip-modal
           body: $modalBody,

@@ -46,4 +46,6 @@ public interface PostDao {
     boolean updatePost(@Param("post") Post post);
 
     List<Post> findByString(@Param("query") String query, @Param("orderType") String orderType);
+
+    List<Post> findByUserId(@Param("userId") String userId, @Param("orderType") String orderType);
 }

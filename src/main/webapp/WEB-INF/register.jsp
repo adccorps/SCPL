@@ -61,7 +61,7 @@
                 </div>
 
                 <button class="btn btn-primary btn-lg btn-block mb-3" type="submit">注册</button>
-                <p class="border rounded-lg bg-white text-lg-center p-2 text-center font-weight-bold mb-0">已经有帐号？<a
+                <p class="border rounded-lg bg-white text-lg-center p-2 text-center font-weight-bold">已经有帐号？<a
                         href="${pageContext.servletContext.contextPath}/login">去登录 &gt; </a></p>
             </form>
         </div>

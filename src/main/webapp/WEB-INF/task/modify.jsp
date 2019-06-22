@@ -50,7 +50,12 @@
                     return;
                 }
 
-
+                var moneyReg = /[1-9]\d*/;
+                var flag = moneyReg.test($money.val());
+                if (!flag) {
+                    $false($money.next(), $money, '只能输入数字');
+                    return;
+                }
                 var data = $('form').serialize();
                 $.ajax({
                     url: '${pageContext.servletContext.contextPath}/task/add/task_modify',
