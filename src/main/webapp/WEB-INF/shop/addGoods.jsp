@@ -35,7 +35,7 @@
                 <label for="goodsName">商品名称</label>
                 <input type="text" class="form-control " name="goods.goodsName" id="goodsName" placeholder="商品名称" value="" required>
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">输入不得为空</div>
+                <div class="invalid-feedback">输入名称长度在0-25之间</div>
             </div>
         </div>
         <div class="form-row">

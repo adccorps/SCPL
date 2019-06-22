@@ -114,6 +114,15 @@ $(function () {
             processData: false,
             success: function (datas) {
                 console.log(datas);
+                if (datas.error === -1){
+                    var $modalBody = $('.modal-body p');
+                    var $tip = $('#tip-modal');
+                    $modalBody.html("请至少上传一张图片");
+                    $tip.modal();
+                    $tip.on('hidden.bs.modal', function (e) {
+                        $modalBody.html('');
+                    });
+                }
                 if (datas.error === 0) {
                     // $.ajax()  无错误才上传到后台 append表单数据进formdata
                     var formData = new FormData();
