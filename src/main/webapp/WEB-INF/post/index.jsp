@@ -114,7 +114,8 @@
           $posts.hide();
           $loading.show();
           if (JSON.stringify(result.posts) === '[]') {
-            var notFound = $('<div class="row align-items-center justify-content-center display-4"><span class="text-danger">搜索结果不存在</span></div>');
+            var tip = result.query ? '搜索结果不存在' : '还没有人发过帖子哦，来<a href="${pageContext.servletContext.contextPath}/post/add">发布帖子</a>吧！';
+            var notFound = $('<div class="row mt-5 mb-5 align-items-center justify-content-center display-4"><span class="text-danger">' + tip + '</span></div>');
             notFound.css({ minHeight: $posts.css('min-height') });
             $posts.append(notFound);
           } else {
