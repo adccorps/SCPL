@@ -65,7 +65,7 @@ public class ShopAction extends ActionSupport implements SessionAware {
      * 上传商品信息
      */
     public String addGoods() {
-      //  System.out.println(goods.getGoodsName());
+//        System.out.println(goods.getGoodsName());
         StringBuffer curPic=new StringBuffer();
         for (int i = 0; i < files.length; i++) {
             System.out.println(files[i]);

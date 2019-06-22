@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import web.sontan.model.Find;
 import web.sontan.model.Order;
+import web.sontan.model.Post;
 
 import java.util.List;
 
@@ -33,19 +34,21 @@ public interface FindDao {
      * @return 返回true上传成功 false上传失败
      */
     boolean addFinds(@Param("find") Find find,@Param("userId") String userId);
+    List<Find> findBySearch(@Param("query") String query, @Param("orderType") String orderType);
 
-    Find lookFind(@Param("findId") int findId);
+    List<Find> lookFind(@Param("findId") int findId);
     /**
      *  修改物品品类型（status：0，1，2，3之间的转换）
      */
-    boolean modifyFindToPeriod(@Param("findId") int findId);
-    boolean modifyPeriodToEnd(@Param("findId") int findId);
+    //boolean modifyFindToPeriod(@Param("findId") int findId);
+    boolean TOend(@Param("findId") int findId,@Param("userId") String userId);
+    boolean modifyPeriodToEnd(@Param("findId") int findId,@Param("userId") String userId);
+    boolean yijian(@Param("findId") int findId,@Param("userId") String userId);
     //------------------end--------------------//
 
 
 
     //------------------用户模块--------------------//
-    List<Find> ShowUserFind(@Param("userId") String userId);//查找用户发布的
     List<Find> ShowUserOp(@Param("userId") String userId);//查找用户有关的
 
     //------------------end--------------------//

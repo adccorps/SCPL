@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="web.sontan.dao.FindDao">
+<mapper  namespace="web.sontan.dao.FindDao">
     <resultMap id="findList" type="Find">
         <id property="findId" column="find_id"></id>
         <result property="title" column="find_title"></result>
@@ -29,35 +29,71 @@
 <!--    <select id="findPage" resultMap="findList">&lt;!&ndash;进入首页显示各种类型的find物品&ndash;&gt;-->
 <!--        SELECT up.user_name up_name,op.user_name op_name,up.user_avatar up_avatar,op.user_avatar op_avatar,f.* FROM xy_find_goods f LEFT JOIN xy_user up ON up.user_id=f.find_up_userId LEFT JOIN xy_user op ON op.user_id=f.find_op_userId-->
 <!--    </select>-->
-
+    <select id="findBySearch" resultMap="findList">
+        <bind name="pattern" value="'%' + query + '%'"/>
+        SELECT * FROM xy_find_goods  WHERE find_title  LIKE  #{pattern} OR find_desc LIKE  #{pattern}
+    </select>
     <select id="findAllFinds" resultMap="findList"><!--进入首页显示各种类型的find物品-->
-        SELECT find_id,find_status,find_title,find_adder,find_date,find_desc FROM xy_find_goods
+        SELECT find_id,find_status,find_title,find_adder,find_date,find_type FROM xy_find_goods WHERE find_status!=3 and find_status!=-1
     </select>
     <select id="findFinds" resultMap="findList"><!--显示Lost类型的find物品(0)-->
-        SELECT find_id,find_status,find_title,find_adder,find_date,find_desc FROM xy_find_goods WHERE find_status=#{view}
+        SELECT find_id,find_status,find_title,find_adder,find_date,find_type FROM xy_find_goods WHERE find_status=#{view}
     </select>
+
 
     <insert id="addFinds"><!--上传-->
-        INSERT INTO xy_find_goods(find_status,find_title,find_type,find_date,find_adder,find_mobile,find_name,find_desc,find_picUrl,find_up_userId)
-         VALUES ( #{find.status}, #{find.title}, #{find.type}, #{find.date},#{find.adders},#{find.mobile},#{find.name},#{find.desc},#{find.picUrl},#{userId})
+        INSERT INTO xy_find_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            find_status,
+            find_title,
+            find_type,
+            find_date,
+            find_adder,
+            find_mobile,
+            find_name,
+            find_up_userId,
+            <if test="#{find.picUrl}!= null">
+                find_picUrl,
+            </if>
+            <if test="#{find.desc}!= null">
+                find_desc,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            #{find.status},
+            #{find.title},
+            #{find.type},
+            #{find.date},
+            #{find.adders},
+            #{find.mobile},
+            #{find.name},
+            #{userId},
+            <if test="#{find.picUrl} != null">
+                #{find.picUrl},
+            </if>
+            <if test="#{find.desc}!= null">
+                #{find.desc},
+            </if>
+        </trim>
     </insert>
 
-    <insert id="lookFind"><!--点击单个信息显示的-->
-        SELECT * FROM xy_find_goods WHERE find_id=#{find.findId}
-    </insert>
-
-    <update id="modifyFindToPeriod"><!--进入公示-->
-        UPDATE  xy_find_goods SET find_status=2 WHERE find_id=#{find.findId}
-    </update>
-
-    <update id="modifyPeriodToEnd"><!--公示时期到后-->
-        UPDATE  xy_find_goods SET find_status=3 WHERE find_id=#{find.findId}
-    </update>
-
-    <select id="ShowUserFind" resultMap="findList"><!--显示用户发布的find物品-->
-        SELECT find_id FROM xy_find_goods WHERE find_up_userId=#{user.userId}
+    <select id="lookFind" resultMap="findList"><!--点击单个信息显示的-->
+        SELECT * FROM xy_find_goods WHERE find_id=#{findId}
     </select>
+
+    <update id="TOend"><!--公示完成-->
+        UPDATE  xy_find_goods SET find_status=3 WHERE find_id=#{findId}
+    </update>
+
+    <update id="modifyPeriodToEnd"><!--更改为-->
+        UPDATE  xy_find_goods SET find_status=2,find_op_userId=#{userId} WHERE find_id=#{findId}
+    </update>
+
+    <update id="yijian"><!--更改为-->
+        UPDATE  xy_find_goods SET find_status=-1,find_op_userId=#{userId} WHERE find_id=#{findId}
+    </update>
+
     <select id="ShowUserOp" resultMap="findList"><!--显示用户有关的find物品-->
-        SELECT find_id FROM xy_find_goods WHERE find_op_userId=#{user.userId}
+         SELECT find_id,find_status,find_title,find_adder,find_date,find_type FROM xy_find_goods WHERE find_op_userId=#{userId} OR find_Up_userId=#{userId}
     </select>
 </mapper>

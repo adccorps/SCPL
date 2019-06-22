@@ -18,15 +18,20 @@
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
     <script>
         $(function () {
-            /*$("#orderOperation>a").click(function () {
+            $("#orderOperation>a").click(function (e) {
+                e.preventDefault();
+                var cur=$(this).attr("href");
+                console.log(cur);
                 var $modalBody = $('.modal-body p');
+
                 var $tip = $('#tip-modal');
                 $modalBody.html("请确定是否要执行此操作");
                 $tip.modal();
                 $tip.on('hidden.bs.modal', function (e) {
                     $modalBody.html('');
+                    location.href=cur;
                 });
-            })*/
+            })
         })
 
     </script>
