@@ -40,10 +40,12 @@
         </action>
 
         <action name="findPersonal" class="findAction" method="personal">
+            <interceptor-ref name="nologinRedirect"/>
             <result>/WEB-INF/find/findView.jsp</result>
         </action>
 
         <action name="findFromView" class="findAction" method="showView">
+            <interceptor-ref name="nologinRedirect"/>
             <result>/WEB-INF/find/findFromView.jsp</result>
         </action>
 

@@ -114,6 +114,7 @@
             </s:iterator>
             </s:else>
             <button type="button" class="btn btn-primary btn-lg btn-block load-more" id="load-more">查看更多消息</button>
+                <p class="text-center font-weight-bold" style="margin-top: 10px;"><a class="back-top" href="javascript:void(0)">回到顶部</a></p>
         </div>
     </div>
 </div>
@@ -127,6 +128,13 @@
         });
         $("#refresh").click(function(){
             refresh();
+        });
+        $(document).on('click', '.back-top', function () {
+            var $html_body = $('html,body');
+            $html_body.stop();
+            $html_body.animate({
+                scrollTop: 0
+            }, 500);
         });
     });
 
