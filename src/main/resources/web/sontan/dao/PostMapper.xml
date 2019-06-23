@@ -71,16 +71,20 @@
   </update>
 
   <select id="findById" resultMap="postVoMap">
-    SELECT p.*, u.user_id, u.user_avatar, u.user_name FROM xy_post p LEFT JOIN xy_user u on p.user_id = u.user_id WHERE post_id=#{postId} AND post_status!=2
+    SELECT p.*, u.user_id, u.user_avatar, u.user_name FROM xy_post p LEFT JOIN xy_user u ON p.user_id = u.user_id WHERE post_id=#{postId} AND post_status!=2
   </select>
 
   <select id="findAll" resultMap="postMap">
-    SELECT p.*, u.user_id, u.user_avatar, u.user_name FROM xy_post p LEFT JOIN xy_user u on p.user_id=u.user_id WHERE post_status!=2 ORDER BY p.create_time ${orderType}
+    SELECT p.*, u.user_id, u.user_avatar, u.user_name FROM xy_post p LEFT JOIN xy_user u ON p.user_id=u.user_id WHERE post_status!=2 ORDER BY p.create_time ${orderType}
   </select>
 
   <select id="findByString" resultMap="postMap">
     <bind name="pattern" value="'%' + query + '%'"/>
-    SELECT p.*, u.user_id, u.user_avatar, u.user_name FROM xy_post p LEFT JOIN xy_user u on p.user_id=u.user_id WHERE post_status!=2 AND p.post_title LIKE #{pattern} ORDER BY p.create_time ${orderType}
+    SELECT p.*, u.user_id, u.user_avatar, u.user_name FROM xy_post p LEFT JOIN xy_user u ON p.user_id=u.user_id WHERE post_status!=2 AND p.post_title LIKE #{pattern} ORDER BY p.create_time ${orderType}
+  </select>
+
+  <select id="findByUserId" resultMap="postMap">
+    SELECT p.post_id, p.post_title, p.post_content FROM xy_post p LEFT JOIN xy_user u ON p.user_id=u.user_id WHERE p.post_status!=2 AND u.user_id=#{userId} ORDER BY p.create_time ${orderType}
   </select>
 
 </mapper>

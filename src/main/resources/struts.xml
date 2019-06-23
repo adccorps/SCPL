@@ -79,6 +79,11 @@
       <result>/WEB-INF/user/profile.jsp</result>
     </action>
 
+    <action name="myPost">
+      <interceptor-ref name="nologinRedirect"/>
+      <result>/WEB-INF/post/myPost.jsp</result>
+    </action>
+
   </package>
 
   <include file="struts-findcwz.xml"/>

@@ -19,7 +19,6 @@
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet">
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.bundle.min.js"></script>
-    <%--<script src="${pageContext.servletContext.contextPath}/js/utils/base64.js"></script>--%>
     <script src="${pageContext.servletContext.contextPath}/js/utils/core.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/utils/tips.js"></script>
 </head>
@@ -29,12 +28,9 @@
 <div class="container">
     <div class="col mt-5">
         <div class="row">
-            <div class="col-3 text-center col-offset-2">
-                <div class="list-group">
-                    <a class="list-group-item list-group-item-action active" href="javascript:void(0)">个人信息设置</a>
-                    <a class="list-group-item list-group-item-action" href="javascript:void(0)">...</a>
-                </div>
-            </div>
+            <jsp:include page="../components/userNav.jsp">
+                <jsp:param name="profileActive" value="active" />
+            </jsp:include>
             <div class="col-9">
                 <ul class="list-group">
                     <li class="list-group-item">
@@ -353,7 +349,6 @@
           });*/
         }
       }
-      <%--new Base64('.avatar-hook', '.toggle-avatar'); // &lt;%&ndash; base64.js待修改 &ndash;%&gt;--%>
     });
 
     $('.update').on('click', function (e) {

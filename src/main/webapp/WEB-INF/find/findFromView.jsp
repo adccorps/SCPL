@@ -131,9 +131,9 @@
                     <textarea name="find.desc"   rows="6"cols="50" style="width:400px; height:200px;font-size:18px" value="" id="textarea-0" placeholder="300字内（如：在食堂丢失名字为xxx的身份证 / 在操场中央捡到一个名字为xxx的学生证）"></textarea>
                 </div>
             </div>
-    <div >
-        <button id="formSm" type="button" style="width:25%"class="btn btn-primary   btn-lg ">发表</button>
-        <button name="doublebutton2-1"  style="width:25%" class="btn  btn-danger btn-lg" id="restart">重置</button>
+    <div style="padding-bottom: 20px">
+        <button id="formSm" type="button" style="width:25%;height: 40px;font-size: 15px"class="btn btn-primary   btn-lg ">发表</button>
+        <button name="doublebutton2-1"  style="width:25%;height: 40px;font-size: 15px" class="btn  btn-danger btn-lg" id="restart">重置</button>
     </div>
     </div>
     <script>

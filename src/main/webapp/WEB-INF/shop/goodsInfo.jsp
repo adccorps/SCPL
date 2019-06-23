@@ -160,7 +160,7 @@
     </div>
 
 
-        <div class="col-10 float-left mt-5 ml-5 h-25 border"  >
+        <div class="col-10 float-left mt-5 ml-5 h-25 border"  style="padding-top: 8px" >
             <b>卖家商品介绍:</b><br>
             <p class="text-break">${goods.goodsDesc}</p>
         </div>

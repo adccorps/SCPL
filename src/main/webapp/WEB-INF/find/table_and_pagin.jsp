@@ -20,17 +20,15 @@
 <%--    </thead>--%>
 <%--</table>--%>
 
-    <div class="CwzView">
-    </div>
-
-
-
-
+<div class="CwzView">
+</div>
 
 
 <script src="${pageContext.servletContext.contextPath}/js/bootstrap-paginator.min.js"></script>
 
-<ul class="page"></ul>
+<div class="row mt-5 justify-content-center">
+    <ul class="page"></ul>
+</div>
 
 <script>
     var $page = $('.page');
@@ -66,17 +64,17 @@
                     }
                     target.bootstrapPaginator('setOptions', options);
                     var $posts = $('.CwzView'); // class
-                   $posts.html('');
-                    if (JSON.stringify(result.posts) === '[]') { // 未找到
-                        $posts.append('<div class="row align-items-center justify-content-center display-4" style="min-height: 384px"><span class="text-danger">搜索结果不存在</span></div>');
+                    $posts.html('');
+                    if (JSON.stringify(result.findList) === '[]') { // 未找到
+                        $posts.html('');
+                        $posts.append('<div class="row align-items-center justify-content-center display-4" style="min-height: 304px"><span class="text-danger">搜索结果不存在</span></div>');
                     } else if (result.Status == 0) {             //首页全部
                         $.each(result.findList, function (index, find) {
                             $posts.append('<div>' + find.findId + '</div>');
                         });
-                    } else (JSON.stringify())
-                    {             //寻物
-                        let DivBody ="xx";
-                        let Context = "<table class=\"table table-hover table_top\">\n" +
+                    } else {             //寻物
+                        var DivBody = "";
+                        var Context = "<table class=\"table table-hover table_top\">\n" +
                             "    <thead>\n" +
                             "    <tr>\n" +
                             "            <th scope=\"col\">类型</th>\n" +
@@ -89,51 +87,46 @@
                             "    </thead>\n" +
                             "<tobdy>";
                         $.each(result.findList, function (index, find) {
-                            if(find.status==0){
-                                DivBody=("<tr><th scope='row' style='color: red'>丢失</th><td>" +
+                            if (find.status == 0) {
+                                DivBody = ("<tr><th scope='row' style='color: red'>丢失</th><td>" +
                                     find.title + "</td><td>" +
                                     find.type + "</td><td>" +
                                     find.date + "</td><td>" +
                                     find.adders + "</td><td>" +
-                                    "<a href=${pageContext.servletContext.contextPath}/find/findMain?find_id="+find.findId+"> <img src='${pageContext.servletContext.contextPath}/assets/img/xiangqing.png' style='width:20px;height:20px'/></a>"
-                                    + "</td></tr>"+" "
+                                    "<a href=${pageContext.servletContext.contextPath}/find/findMain?find_id=" + find.findId + "> <img src='${pageContext.servletContext.contextPath}/assets/img/xiangqing.png' style='width:20px;height:20px'/></a>"
+                                    + "</td></tr>" + " "
                                 );
-                            }
-                            else if(find.status==1){
-                                DivBody=("<tr><th scope='row' style='color: green'>拾取</th><td>" +
+                            } else if (find.status == 1) {
+                                DivBody = ("<tr><th scope='row' style='color: green'>拾取</th><td>" +
                                     find.title + "</td><td>" +
                                     find.type + "</td><td>" +
                                     find.date + "</td><td>" +
                                     find.adders + "</td><td>" +
-                                    "<a href=${pageContext.servletContext.contextPath}/find/findMain?find_id="+find.findId+"> <img src='${pageContext.servletContext.contextPath}/assets/img/xiangqing.png' style='width:20px;height:20px'/></a>"
-                                    + "</td></tr>"+" "
+                                    "<a href=${pageContext.servletContext.contextPath}/find/findMain?find_id=" + find.findId + "> <img src='${pageContext.servletContext.contextPath}/assets/img/xiangqing.png' style='width:20px;height:20px'/></a>"
+                                    + "</td></tr>" + " "
+                                );
+                            } else if (find.status == 2) {
+                                DivBody = ("<tr><th scope='row' style='color: #FFCC00'>公示</th><td>" +
+                                    find.title + "</td><td>" +
+                                    find.type + "</td><td>" +
+                                    find.date + "</td><td>" +
+                                    find.adders + "</td><td>" +
+                                    "<a href=${pageContext.servletContext.contextPath}/find/findMain?find_id=" + find.findId + "> <img src='${pageContext.servletContext.contextPath}/assets/img/xiangqing.png' style='width:20px;height:20px'/></a>"
+                                    + "</td></tr>" + " "
+                                );
+                            } else if (find.status == 3) {
+                                DivBody = ("<tr><th scope='row' style='color: blue'>完成</th><td>" +
+                                    find.title + "</td><td>" +
+                                    find.type + "</td><td>" +
+                                    find.date + "</td><td>" +
+                                    find.adders + "</td><td>" +
+                                    "<a href=${pageContext.servletContext.contextPath}/find/findMain?find_id=" + find.findId + "> <img src='${pageContext.servletContext.contextPath}/assets/img/xiangqing.png' style='width:20px;height:20px'/></a>"
+                                    + "</td></tr>" + " "
                                 );
                             }
-                            else if(find.status==2){
-                                DivBody=("<tr><th scope='row' style='color: #FFCC00'>公示</th><td>" +
-                                find.title + "</td><td>" +
-                                find.type + "</td><td>" +
-                                find.date + "</td><td>" +
-                                find.adders + "</td><td>" +
-                                "<a href=${pageContext.servletContext.contextPath}/find/findMain?find_id="+find.findId+"> <img src='${pageContext.servletContext.contextPath}/assets/img/xiangqing.png' style='width:20px;height:20px'/></a>"
-                                + "</td></tr>"+" "
-                            );}
-                            else if(find.status==3){
-                            DivBody=("<tr><th scope='row' style='color: blue'>完成</th><td>" +
-                                find.title + "</td><td>" +
-                                find.type + "</td><td>" +
-                                find.date + "</td><td>" +
-                                find.adders + "</td><td>" +
-                                "<a href=${pageContext.servletContext.contextPath}/find/findMain?find_id="+find.findId+"> <img src='${pageContext.servletContext.contextPath}/assets/img/xiangqing.png' style='width:20px;height:20px'/></a>"
-                                + "</td></tr>"+" "
-                            );
-                            }
-
-                            Context=Context.concat(DivBody)
-
-                            //console.log(DivBody)
+                            Context = Context.concat(DivBody)
                         });
-                        Context=Context.concat("</tobdy></table>")
+                        Context = Context.concat("</tobdy></table>")
                         $posts.append(Context)
                     }
                 }

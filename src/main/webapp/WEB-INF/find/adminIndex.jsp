@@ -70,10 +70,10 @@
                         $.each(result.findList, function (index, find) {
                             $posts.append('<div>' + find.findId + '</div>');
                         });
-                    } else (JSON.stringify())
+                    } else
                     {             //寻物
-                        let DivBody ="";
-                        let Context = "<table class=\"table table-hover table_top\">\n" +
+                        var DivBody ="";
+                        var Context = "<table class=\"table table-hover table_top\">\n" +
                             "    <thead>\n" +
                             "    <tr>\n" +
                             "            <th scope=\"col\">类型</th>\n" +

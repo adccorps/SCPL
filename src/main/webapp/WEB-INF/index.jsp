@@ -5,6 +5,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="referrer" content="no-referrer">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta http-equiv="content-language" content="zh-CN" />
     <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>主页</title>
@@ -15,7 +16,7 @@
 </head>
 <body>
 <jsp:include page="header/header.jsp">
-    <jsp:param name="indexActive" value="active"/>
+    <jsp:param name="indexActive" value="active" />
 </jsp:include>
 
 <main role="main">
@@ -23,15 +24,14 @@
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <%--<li data-target="#myCarousel" data-slide-to="2"></li>--%>
+            <%--<li data-target="#myCarousel" data-slide-to="3"></li>--%>
+            <%--<li data-target="#myCarousel" data-slide-to="4"></li>--%>
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                     preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                    <rect width="100%" height="100%" fill="#777"></rect>
-                </svg> <%-- 使用img --%>
-                <div class="container">
+                <img src="http://10.2.16.131/images/ce9ca152ea3c81359d097f3666b4fb93.jpg" alt="" /> <%-- 使用img --%>
+                <%--<div class="container">
                     <div class="carousel-caption text-left">
                         <h1>Example headline.</h1>
                         <p>
@@ -43,14 +43,11 @@
                             <a class="btn btn-lg btn-primary" href="javascript:void(0)" role="button">Sign up today</a>
                         </p>
                     </div>
-                </div>
+                </div>--%>
             </div>
-            <div class="carousel-item">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                     preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                    <rect width="100%" height="100%" fill="#777"></rect>
-                </svg> <%-- 使用img --%>
-                <div class="container">
+            <%--<div class="carousel-item">
+                <img src="http://10.2.16.131/images/ce9ca152ea3c81359d097f3666b4fb93.jpg" alt="" /> &lt;%&ndash; 使用img &ndash;%&gt;
+                &lt;%&ndash;<div class="container">
                     <div class="carousel-caption">
                         <h1>Another example headline.</h1>
                         <p>
@@ -62,14 +59,11 @@
                             <a class="btn btn-lg btn-primary" href="javascript:void(0)" role="button">Learn more</a>
                         </p>
                     </div>
-                </div>
-            </div>
+                </div>&ndash;%&gt;
+            </div>--%>
             <div class="carousel-item">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                     preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                    <rect width="100%" height="100%" fill="#777"></rect>
-                </svg> <%-- 使用img --%>
-                <div class="container">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ36Vu-0zRhsDnYPJQH8hYdA_GB17eNdVdhpTELeFCqqD8T9I5" alt="" /> <%-- 使用img --%>
+                <%--<div class="container">
                     <div class="carousel-caption text-right">
                         <h1>One more for good measure.</h1>
                         <p>
@@ -81,16 +75,48 @@
                             <a class="btn btn-lg btn-primary" href="javascript:void(0)" role="button">Browse gallery</a>
                         </p>
                     </div>
-                </div>
+                </div>--%>
             </div>
+            <%--<div class="carousel-item">
+                <img src="http://10.2.16.131/images/ce9ca152ea3c81359d097f3666b4fb93.jpg" alt="" /> &lt;%&ndash; 使用img &ndash;%&gt;
+                &lt;%&ndash;<div class="container">
+                    <div class="carousel-caption text-right">
+                        <h1>One more for good measure.</h1>
+                        <p>
+                            Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                            Donec id elit non mi porta gravida at eget metus. Nullam id
+                            dolor id nibh ultricies vehicula ut id elit.
+                        </p>
+                        <p>
+                            <a class="btn btn-lg btn-primary" href="javascript:void(0)" role="button">Browse gallery</a>
+                        </p>
+                    </div>
+                </div>&ndash;%&gt;
+            </div>--%>
+            <%--<div class="carousel-item">
+                <img src="http://10.2.16.131/images/ce9ca152ea3c81359d097f3666b4fb93.jpg" alt="" /> &lt;%&ndash; 使用img &ndash;%&gt;
+                &lt;%&ndash;<div class="container">
+                    <div class="carousel-caption text-right">
+                        <h1>One more for good measure.</h1>
+                        <p>
+                            Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                            Donec id elit non mi porta gravida at eget metus. Nullam id
+                            dolor id nibh ultricies vehicula ut id elit.
+                        </p>
+                        <p>
+                            <a class="btn btn-lg btn-primary" href="javascript:void(0)" role="button">Browse gallery</a>
+                        </p>
+                    </div>
+                </div>&ndash;%&gt;
+            </div>--%>
         </div>
         <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
+            <span class="sr-only">上一个</span>
         </a>
         <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
+            <span class="sr-only">下一个</span>
         </a>
     </div>
 
@@ -104,7 +130,8 @@
                     <title>Placeholder</title>
                     <rect width="100%" height="100%" fill="#777"></rect>
                     <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                </svg> <%-- 使用img --%>
+                </svg>
+                <%-- 使用img --%>
                 <%--<img width="140" src="" height="140" />--%> <%-- test --%>
                 <h2>Heading</h2>
                 <p>
@@ -125,7 +152,8 @@
                     <title>Placeholder</title>
                     <rect width="100%" height="100%" fill="#777"></rect>
                     <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                </svg> <%-- 使用img --%>
+                </svg>
+                <%-- 使用img --%>
                 <h2>Heading</h2>
                 <p>
                     Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
@@ -145,7 +173,8 @@
                     <title>Placeholder</title>
                     <rect width="100%" height="100%" fill="#777"></rect>
                     <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                </svg> <%-- 使用img --%>
+                </svg>
+                <%-- 使用img --%>
                 <h2>Heading</h2>
                 <p>
                     Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
@@ -164,7 +193,8 @@
                     <title>Placeholder</title>
                     <rect width="100%" height="100%" fill="#777"></rect>
                     <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                </svg> <%-- 使用img --%>
+                </svg>
+                <%-- 使用img --%>
                 <h2>Heading</h2>
                 <p>
                     Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
@@ -183,7 +213,8 @@
                     <title>Placeholder</title>
                     <rect width="100%" height="100%" fill="#777"></rect>
                     <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                </svg> <%-- 使用img --%>
+                </svg>
+                <%-- 使用img --%>
                 <h2>Heading</h2>
                 <p>
                     Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
@@ -249,7 +280,8 @@
                     <title>Placeholder</title>
                     <rect width="100%" height="100%" fill="#eee"></rect>
                     <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-                </svg> <%-- 使用img --%>
+                </svg>
+                <%-- 使用img --%>
             </div>
         </div>
 
@@ -274,7 +306,8 @@
                     <title>Placeholder</title>
                     <rect width="100%" height="100%" fill="#eee"></rect>
                     <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-                </svg> <%-- 使用img --%>
+                </svg>
+                <%-- 使用img --%>
             </div>
         </div>
 
@@ -286,12 +319,23 @@
 
     <!-- FOOTER -->
     <footer class="container">
-        <p class="float-right"><a href="javascript:void(0)">Back to top</a></p>
+        <p class="float-right"><a class="back-top" href="javascript:void(0)">回到顶部</a></p>
         <p>
-            © 2017-2019 Company, Inc. · <a href="javascript:void(0)">Privacy</a> ·
-            <a href="javascript:void(0)">Terms</a>
+            © 2019 Company, Inc.<%-- · <a href="javascript:void(0)">隐私</a> ·
+            <a href="javascript:void(0)">Terms</a>--%>
         </p>
     </footer>
 </main>
+<script>
+  $(function () {
+    $(document).on('click', '.back-top', function () {
+      var $html_body = $('html,body');
+      $html_body.stop();
+      $html_body.animate({
+        scrollTop: 0
+      }, 500);
+    });
+  });
+</script>
 </body>
 </html>
