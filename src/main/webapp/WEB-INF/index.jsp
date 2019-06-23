@@ -24,91 +24,15 @@
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
-            <%--<li data-target="#myCarousel" data-slide-to="2"></li>--%>
-            <%--<li data-target="#myCarousel" data-slide-to="3"></li>--%>
-            <%--<li data-target="#myCarousel" data-slide-to="4"></li>--%>
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="http://10.2.16.131/images/ce9ca152ea3c81359d097f3666b4fb93.jpg" alt="" /> <%-- 使用img --%>
-                <%--<div class="container">
-                    <div class="carousel-caption text-left">
-                        <h1>Example headline.</h1>
-                        <p>
-                            Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                            Donec id elit non mi porta gravida at eget metus. Nullam id
-                            dolor id nibh ultricies vehicula ut id elit.
-                        </p>
-                        <p>
-                            <a class="btn btn-lg btn-primary" href="javascript:void(0)" role="button">Sign up today</a>
-                        </p>
-                    </div>
-                </div>--%>
+                <img src="http://10.2.16.131/images/e005a54837c875b68ed6975b5272e7f9.jpg" alt="" /> <%-- 使用img --%>
             </div>
-            <%--<div class="carousel-item">
-                <img src="http://10.2.16.131/images/ce9ca152ea3c81359d097f3666b4fb93.jpg" alt="" /> &lt;%&ndash; 使用img &ndash;%&gt;
-                &lt;%&ndash;<div class="container">
-                    <div class="carousel-caption">
-                        <h1>Another example headline.</h1>
-                        <p>
-                            Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                            Donec id elit non mi porta gravida at eget metus. Nullam id
-                            dolor id nibh ultricies vehicula ut id elit.
-                        </p>
-                        <p>
-                            <a class="btn btn-lg btn-primary" href="javascript:void(0)" role="button">Learn more</a>
-                        </p>
-                    </div>
-                </div>&ndash;%&gt;
-            </div>--%>
             <div class="carousel-item">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ36Vu-0zRhsDnYPJQH8hYdA_GB17eNdVdhpTELeFCqqD8T9I5" alt="" /> <%-- 使用img --%>
-                <%--<div class="container">
-                    <div class="carousel-caption text-right">
-                        <h1>One more for good measure.</h1>
-                        <p>
-                            Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                            Donec id elit non mi porta gravida at eget metus. Nullam id
-                            dolor id nibh ultricies vehicula ut id elit.
-                        </p>
-                        <p>
-                            <a class="btn btn-lg btn-primary" href="javascript:void(0)" role="button">Browse gallery</a>
-                        </p>
-                    </div>
-                </div>--%>
+                <img src="http://10.2.16.131/images/4fae7ea6b08c24d99504d51c3a31bdf8.jpg" alt="" /> <%-- 使用img --%>
             </div>
-            <%--<div class="carousel-item">
-                <img src="http://10.2.16.131/images/ce9ca152ea3c81359d097f3666b4fb93.jpg" alt="" /> &lt;%&ndash; 使用img &ndash;%&gt;
-                &lt;%&ndash;<div class="container">
-                    <div class="carousel-caption text-right">
-                        <h1>One more for good measure.</h1>
-                        <p>
-                            Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                            Donec id elit non mi porta gravida at eget metus. Nullam id
-                            dolor id nibh ultricies vehicula ut id elit.
-                        </p>
-                        <p>
-                            <a class="btn btn-lg btn-primary" href="javascript:void(0)" role="button">Browse gallery</a>
-                        </p>
-                    </div>
-                </div>&ndash;%&gt;
-            </div>--%>
-            <%--<div class="carousel-item">
-                <img src="http://10.2.16.131/images/ce9ca152ea3c81359d097f3666b4fb93.jpg" alt="" /> &lt;%&ndash; 使用img &ndash;%&gt;
-                &lt;%&ndash;<div class="container">
-                    <div class="carousel-caption text-right">
-                        <h1>One more for good measure.</h1>
-                        <p>
-                            Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                            Donec id elit non mi porta gravida at eget metus. Nullam id
-                            dolor id nibh ultricies vehicula ut id elit.
-                        </p>
-                        <p>
-                            <a class="btn btn-lg btn-primary" href="javascript:void(0)" role="button">Browse gallery</a>
-                        </p>
-                    </div>
-                </div>&ndash;%&gt;
-            </div>--%>
+
         </div>
         <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -121,27 +45,39 @@
     </div>
 
     <div class="container marketing">
-        <!-- Three columns of text below the carousel -->
         <div class="row">
             <div class="col-lg-4">
                 <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
                      xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
                      role="img" aria-label="Placeholder: 140x140">
+                    <image x="0" y="0" width="100%" height="100%"
+                           xlink:href="http://10.2.16.131/images/ba697970361b521b2ae05594a5404c65.png"></image>
+                </svg>
+                <h2>帖吧</h2>
+                <p>
+                    这是一个展示自我风采，结交知音，搭建别具特色的“兴趣主题“互动平台，为校内同学提供一个表达和交流思想的自由网络空间。
+                </p >
+                <p>
+                    <a class="btn btn-secondary" href="${pageContext.servletContext.contextPath}/post" role="button">进入帖吧 »</a>
+                </p >
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                     xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
+                     role="img" aria-label="Placeholder: 140x140">
                     <title>Placeholder</title>
                     <rect width="100%" height="100%" fill="#777"></rect>
                     <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                    <image xlink:href="http://10.2.16.131/images/4b0680f5f383eccfd7fe43b8df544f00.jpg" x="0" y="0" height="100%" width="100%" />
                 </svg>
                 <%-- 使用img --%>
-                <%--<img width="140" src="" height="140" />--%> <%-- test --%>
-                <h2>Heading</h2>
+                <h2>校友圈</h2>
                 <p>
-                    Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.
-                    Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo
-                    risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo
-                    cursus magna.
+                    在这里您可以与同学、老师、朋友分享生活中的点点滴滴。赶紧与朋友来体验一下校友网吧！
                 </p>
                 <p>
-                    <a class="btn btn-secondary" href="javascript:void(0)" role="button">View details »</a>
+                    <a class="btn btn-secondary" href="${pageContext.servletContext.contextPath}/alumniCircle/indexZCQ" role="button">进入校友圈 »</a>
                 </p>
             </div>
             <!-- /.col-lg-4 -->
@@ -152,37 +88,16 @@
                     <title>Placeholder</title>
                     <rect width="100%" height="100%" fill="#777"></rect>
                     <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                </svg>
-                <%-- 使用img --%>
-                <h2>Heading</h2>
-                <p>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
-                    eget lacinia odio sem nec elit. Cras mattis consectetur purus sit
-                    amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor
-                    mauris condimentum nibh.
-                </p>
-                <p>
-                    <a class="btn btn-secondary" href="javascript:void(0)" role="button">View details »</a>
-                </p>
-            </div>
-            <!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                     xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                     role="img" aria-label="Placeholder: 140x140">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#777"></rect>
-                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                    <image xlink:href="http://10.2.16.131/images/timg.jpg" x="0" y="0" height="100%" width="100%"/>
+                    <image xlink:href="http://10.2.16.131/images/03d464349ead688888ebc2ff3f8e70ae.jpg" x="0" y="0" height="100%" width="100%"/>
                 </svg>
                 <%-- 使用img --%>
                 <h2>任务</h2>
                 <p>
                     在这里你可以通过代拿来赚外快，或者发布任务寻找代拿。赶紧来体验一下吧！
-                </p>
+                </p >
                 <p>
                     <a class="btn btn-secondary" href="${pageContext.servletContext.contextPath}/task/index" role="button">进入任务模块 »</a>
-                </p>
+                </p >
             </div>
             <div class="col-lg-6">
                 <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
@@ -191,19 +106,19 @@
                     <title>Placeholder</title>
                     <rect width="100%" height="100%" fill="#777"></rect>
                     <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                    <image xlink:href="http://10.2.16.131/images/0dcb1eb914315a3d1122fcd46a13a804.jpg" x="0" y="0" height="100%" width="100%"/>
                 </svg>
                 <%-- 使用img --%>
-                <h2>Heading</h2>
+                <h2>二手市场</h2>
                 <p>
-                    Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
-                    egestas eget quam. Vestibulum id ligula porta felis euismod semper.
-                    Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-                    nibh, ut fermentum massa justo sit amet risus.
-                </p>
+                    在这里你可以出售你闲置的物品,你也可能可以淘到你需要的物品,快进来体验一下吧
+                </p >
                 <p>
-                    <a class="btn btn-secondary" href="javascript:void(0)" role="button">View details »</a>
-                </p>
+                    <a class="btn btn-secondary" href="${pageContext.servletContext.contextPath}/shop/viewIndex" role="button">进入二手市场 »</a>
+                </p >
             </div>
+
+
             <div class="col-lg-6">
                 <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
                      xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
@@ -211,108 +126,21 @@
                     <title>Placeholder</title>
                     <rect width="100%" height="100%" fill="#777"></rect>
                     <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                    <image xlink:href="http://10.2.16.131/images/41b2d214e73bf0afe969e9541260347b.jpg" x="0" y="0" height="100%" width="100%" />
                 </svg>
-                <%-- 使用img --%>
-                <h2>Heading</h2>
+                <h2>失物招领</h2>
                 <p>
-                    Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
-                    egestas eget quam. Vestibulum id ligula porta felis euismod semper.
-                    Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-                    nibh, ut fermentum massa justo sit amet risus.
+                    无论你丢了什么，还是捡到了什么，都不妨到失物招领平台来看看或者发张告示。
+                    或许拾到物品的好心人，正在此寻找失主。
+                    或许失主正在此等待好心人的出现。
                 </p>
                 <p>
-                    <a class="btn btn-secondary" href="javascript:void(0)" role="button">View details »</a>
+                    <a class="btn btn-secondary" href="${pageContext.servletContext.contextPath}/find/findIndex" role="button">进入失物招领 »</a>
                 </p>
             </div>
             <!-- /.col-lg-4 -->
         </div>
-        <!-- /.row -->
 
-        <!-- START THE FEATURETTES -->
-
-        <hr class="featurette-divider" />
-
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">
-                    First featurette heading.
-                    <span class="text-muted">It’ll blow your mind.</span>
-                </h2>
-                <p class="lead">
-                    Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id
-                    ligula porta felis euismod semper. Praesent commodo cursus magna,
-                    vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
-                    commodo.
-                </p>
-            </div>
-            <div class="col-md-5">
-                <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-                     height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
-                     focusable="false" role="img" aria-label="Placeholder: 500x500">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#eee"></rect>
-                    <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-                </svg>
-            </div>
-        </div>
-
-        <hr class="featurette-divider" />
-
-        <div class="row featurette">
-            <div class="col-md-7 order-md-2">
-                <h2 class="featurette-heading">
-                    Oh yeah, it’s that good.
-                    <span class="text-muted">See for yourself.</span>
-                </h2>
-                <p class="lead">
-                    Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id
-                    ligula porta felis euismod semper. Praesent commodo cursus magna,
-                    vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
-                    commodo.
-                </p>
-            </div>
-            <div class="col-md-5 order-md-1">
-                <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-                     height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
-                     focusable="false" role="img" aria-label="Placeholder: 500x500">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#eee"></rect>
-                    <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-                </svg>
-                <%-- 使用img --%>
-            </div>
-        </div>
-
-        <hr class="featurette-divider" />
-
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">
-                    And lastly, this one. <span class="text-muted">Checkmate.</span>
-                </h2>
-                <p class="lead">
-                    Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id
-                    ligula porta felis euismod semper. Praesent commodo cursus magna,
-                    vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
-                    commodo.
-                </p>
-            </div>
-            <div class="col-md-5">
-                <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-                     height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
-                     focusable="false" role="img" aria-label="Placeholder: 500x500">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#eee"></rect>
-                    <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-                </svg>
-                <%-- 使用img --%>
-            </div>
-        </div>
-
-        <hr class="featurette-divider" />
-
-        <!-- /END THE FEATURETTES -->
-    </div>
     <!-- /.container -->
 
     <!-- FOOTER -->
