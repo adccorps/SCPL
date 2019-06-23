@@ -112,7 +112,7 @@
   <select id="findAllComment" resultMap="commentMap"><!--查询评论-->
         SELECT c.comment_id,u.user_name,c.comment_date,c.comment_content FROM xy_comment c
         INNER JOIN xy_user u ON c.user_id = u.user_id
-        WHERE dynamic_id=#{dynamicId} ORDER BY comment_date;
+        WHERE dynamic_id=#{dynamicId} ORDER BY comment_id ASC;
     </select>
 
   <insert id="addComment"><!--增加评论-->
