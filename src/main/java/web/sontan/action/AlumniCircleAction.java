@@ -19,10 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by 0 on 2019/5/22.
@@ -51,8 +48,12 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
             session.put("allLikes",allLikes);
             session.put("allCollection",allCollection);
         }else{
-            session.put("allLikes","");
-            session.put("allCollection","");
+            List<Integer> allLikes = new ArrayList<Integer>();
+            allLikes.add(-1);
+            List<Integer> allCollection = new ArrayList<Integer>();
+            allCollection.add(-1);
+            session.put("allLikes",allLikes);
+            session.put("allCollection",allCollection);
         }
         List<Dynamic> allCircle = alumniCircleService.findAllCircle();
         HttpServletRequest request = ServletActionContext.getRequest();
