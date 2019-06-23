@@ -42,7 +42,6 @@ public class TaskService {
     }
 
     public boolean modifyTask(Task task) {
-        task.setTaskStatus(1);
         return taskDao.updateTask(task);
     }
     public boolean acceptTask(Task task){
@@ -51,6 +50,10 @@ public class TaskService {
     }
     public boolean deleteTask(Task task) {
         task.setTaskStatus(2);
+        return taskDao.updateTask(task);
+    }
+    public boolean completeTask(Task task){
+        task.setTaskStatus(3);
         return taskDao.updateTask(task);
     }
 }

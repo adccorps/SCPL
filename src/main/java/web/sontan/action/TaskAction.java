@@ -127,6 +127,19 @@ public class TaskAction extends ActionSupport implements SessionAware {
         }
         return "json";
     }
+    public String complete(){
+        this.task.getTaskId();
+        User user = (User) session.get("user");
+        this.task.setUser(user);
+        boolean flag = taskService.completeTask(this.task);
+        if (flag) {
+            code = 1;
+        } else {
+            code = -1;
+            tip = "确认完成失败";
+        }
+        return "json";
+    }
 
     public String findAll() {
         this.list = taskService.findAll();

@@ -12,7 +12,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="content-language" content="zh-CN"/>
-    <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>我发布的任务</title>
+    <title><s:if test="#session.user!=null">${sessionScope.user.userName} | </s:if>我接受的任务</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css">
     <link href="${pageContext.servletContext.contextPath}/css/carousel.css" rel="stylesheet"/>
     <script src="${pageContext.servletContext.contextPath}/js/jquery.min.js"></script>
@@ -26,7 +26,7 @@
 <div class="container">
     <div class="row mt-4">
         <div class="col-2">
-            <a href="javascript:history.go(-1)">
+            <a href="${pageContext.servletContext.contextPath}/task/index">
                 <button class="btn btn-primary">返回</button>
             </a>
         </div>

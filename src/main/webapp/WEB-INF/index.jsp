@@ -173,17 +173,15 @@
                     <title>Placeholder</title>
                     <rect width="100%" height="100%" fill="#777"></rect>
                     <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                    <image xlink:href="http://10.2.16.131/images/timg.jpg" x="0" y="0" height="100%" width="100%"/>
                 </svg>
                 <%-- 使用img --%>
-                <h2>Heading</h2>
+                <h2>任务</h2>
                 <p>
-                    Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
-                    egestas eget quam. Vestibulum id ligula porta felis euismod semper.
-                    Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-                    nibh, ut fermentum massa justo sit amet risus.
+                    在这里你可以通过代拿来赚外快，或者发布任务寻找代拿。赶紧来体验一下吧！
                 </p>
                 <p>
-                    <a class="btn btn-secondary" href="javascript:void(0)" role="button">View details »</a>
+                    <a class="btn btn-secondary" href="${pageContext.servletContext.contextPath}/task/index" role="button">进入任务模块 »</a>
                 </p>
             </div>
             <div class="col-lg-6">

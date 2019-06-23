@@ -49,6 +49,34 @@
                     }
                 });
             });
+            $('.complete').on('click', function (e) {
+                var $tip = $('#tip-modal');
+                var $modalBody = $('.modal-body p');
+                var taskId = $(this).parent().parent().data('taskId');
+                var data = 'task.taskId=' + taskId;
+                $.ajax({
+                    url: '${pageContext.servletContext.contextPath}/task/add/task_complete',
+                    type: 'POST',
+                    data: data,
+                    success: function (result, status, xhr) {
+                        if (result.code !== 1) {
+                            $modalBody.html(result.tip);
+                            $tip.modal();
+                        } else {
+                            $modalBody.html('任务已完成');
+                            $tip.one('shown.bs.modal', function (e) {
+                                setTimeout(function () {
+                                    $tip.modal('hide');
+                                }, 3000);
+                            });
+                            $tip.modal();
+                            $tip.one('hidden.bs.modal', function (e) {
+                                window.location.replace("${pageContext.servletContext.contextPath}/task/myIssue");
+                            });
+                        }
+                    }
+                });
+            });
         })
     </script>
 </head>
@@ -59,7 +87,7 @@
 <div class="container">
     <div class="row mt-4">
         <div class="col-2">
-            <a href="javascript:history.go(-1)">
+            <a href="${pageContext.servletContext.contextPath}/task/index">
                 <button class="btn btn-primary">返回</button>
             </a>
         </div>
@@ -98,6 +126,12 @@
                     >修改
                     </button>
                 </a>
+                <s:if test="taskStatus == -1">
+                <button type="button" class="btn btn-link text-muted complete"
+                        style="padding-top:1px;float:right;font-size:12.8px "
+                >完成
+                </button>
+                </s:if>
             </div>
         </div>
         <s:if test="#st.count % 3 == 0 "></div>
