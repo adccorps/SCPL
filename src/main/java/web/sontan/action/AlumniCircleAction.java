@@ -51,7 +51,6 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
             List<Integer> allLikes = new ArrayList<Integer>();
             allLikes.add(-1);
             List<Integer> allCollection = new ArrayList<Integer>();
-            allCollection.add(-1);
             session.put("allLikes",allLikes);
             session.put("allCollection",allCollection);
         }
@@ -86,6 +85,8 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
         if (moreCircle.size() >= 1) {
             session.setAttribute("min", moreCircle.get(moreCircle.size() - 1).getDynamicId());//保存当前最旧的动态的ID
             for (Dynamic dynamic : moreCircle) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//定义要输出日期字符串的格
+                String TimeSting  = sdf.format(dynamic.getDate());
                 String[] picsaddress = dynamic.getPicAddress().split(",");
                 String pics = "";
                 if (dynamic.getPicCount() == 0) {
@@ -117,7 +118,7 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
                         "                        <div class=\"col-6 col-sm-1\"><a href=\"#\"><img src=\"" + dynamic.getUser().getUserAvatar() + "\" alt=\"头像\" class=\"rounded-circle touxiang\"></a></div>\n" +
                         "                        <div class=\"col-6 col-sm-3 user-info\">\n" +
                         "                            <a class=\"h6 font-weight-bold user-name\" href=\"${pageContext.servletContext.contextPath}/alumniCircle/myCircleMine.action?userId=" + dynamic.getUser().getUserId() + "\">" + dynamic.getUser().getUserName() + "</a><br>\n" +
-                        "                            <div class=\"time\">" + dynamic.getDate() + "</div>\n" +
+                        "                            <div class=\"time\">" + TimeSting + "</div>\n" +
                         "                        </div>\n" +
                         "                    </div>\n" +
                         "                    <p class=\"card-text\">" + dynamic.getContent() + "</p>\n" +
@@ -239,7 +240,8 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
             System.out.println(moreCircle.get(0).getDynamicId());
             session.setAttribute("max", moreCircle.get(0).getDynamicId());//保存当前最新的动态的ID
             for (Dynamic dynamic : moreCircle) {
-                //System.out.println(dynamic.toString());//测试用，删掉
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//定义要输出日期字符串的格
+                String TimeSting  = sdf.format(dynamic.getDate());
                 String[] picsaddress = dynamic.getPicAddress().split(",");
                 String pics = "";
                 if (dynamic.getPicCount() == 0) {
@@ -261,7 +263,7 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
                         "                        <div class=\"col-6 col-sm-1\"><a href=\"#\"><img src=\"" + dynamic.getUser().getUserAvatar() + "\" alt=\"头像\" class=\"rounded-circle touxiang\"></a></div>\n" +
                         "                        <div class=\"col-6 col-sm-3 user-info\">\n" +
                         "                            <a class=\"h6 font-weight-bold user-name\" href=\"${pageContext.servletContext.contextPath}/alumniCircle/myCircleMine.action?userId=" + dynamic.getUser().getUserId() + "\">" + dynamic.getUser().getUserName() + "</a><br>\n" +
-                        "                            <div class=\"time\">" + dynamic.getDate() + "</div>\n" +
+                        "                            <div class=\"time\">" + TimeSting + "</div>\n" +
                         "                        </div>\n" +
                         "                    </div>\n" +
                         "                    <p class=\"card-text\">" + dynamic.getContent() + "</p>\n" +

@@ -61,7 +61,7 @@
                             <div class="col-6 col-sm-1"><a href="#"><img src="<s:property value="#circle.user.userAvatar"/>" alt="头像" class="rounded-circle touxiang"></a></div>
                             <div class="col-6 col-sm-3 user-info">
                                 <a class="h6 font-weight-bold user-name" href="${pageContext.servletContext.contextPath}/alumniCircle/myCircleMine.action?userId=<s:property value="#circle.user.userId"/>"><s:property value="#circle.user.userName"/></a><br> <!--发动态的用户名-->
-                                <div class="time"><s:property value="#circle.date"/></div>
+                                <div class="time"><s:date name="#circle.date" format="yyyy-MM-dd HH:mm:ss" /></div>
                             </div>
                         </div>
                         <p class="card-text"><s:property value="#circle.content"/></p>
