@@ -50,6 +50,9 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
             List<Integer> allCollection = alumniCircleService.allCollection(userId);
             session.put("allLikes",allLikes);
             session.put("allCollection",allCollection);
+        }else{
+            session.put("allLikes","");
+            session.put("allCollection","");
         }
         List<Dynamic> allCircle = alumniCircleService.findAllCircle();
         HttpServletRequest request = ServletActionContext.getRequest();
@@ -267,7 +270,7 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
                         "                    </div>\n" +
                                 "                    <div class=\"row\">\n" +
                                 "                        <div class=\"col-12 col-sm-3\"><div class=\"zi zi_love\"></div><a href=\"javascript:void (0);\" onclick=\"likes_show(this," + dynamic.getDynamicId() + ")\" class=\"card-link\">点赞用户</a></div>\n" +
-                                "                        <div class=\"col-12 col-sm-3\"><div class=\"zi zi_msgchat\"></div><a href=\"#\" onclick=\"comment_show(this," + dynamic.getDynamicId() + ")\" class=\"card-link all-comments\">所有评论</a></div>\n" +
+                                "                        <div class=\"col-12 col-sm-3\"><div class=\"zi zi_msgchat\"></div><a href=\"javascript:void(0);\" onclick=\"comment_show(this," + dynamic.getDynamicId() + ")\" class=\"card-link all-comments\">所有评论</a></div>\n" +
                                 "                        <div class=\"col-12 col-sm-2\"></div>\n" +
                                 "                        <div class=\"col-12 col-sm-1\"></div>\n" +
                                 "                        <div class=\"col-12 col-sm-1\"><a href=\"javascript:void (0);\" onclick=\"add_likes(this," + dynamic.getDynamicId() + ")\" class=\"alert-link dianzan\" title=\"点赞\"><i class=\"zi zi_digg\"></i></a></div><!--点赞图标-->\n" +
@@ -311,7 +314,6 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
 
     public String myCircle() {
         HttpServletRequest request = ServletActionContext.getRequest();
-        System.out.println("进入myCircleAction....");
         if (userId == null) {
             return null;
         } else {
@@ -331,7 +333,6 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
 
     public String deleteCircle() throws IOException {
         HttpServletRequest request = ServletActionContext.getRequest();
-        System.out.println("进入deleteCircle....");
         User user = (User) session.get("user");
         String userid = user.getUserId();//拿到userid
         int deletecount = alumniCircleService.deleteMyCircle(dynamicId, userid);
@@ -350,7 +351,6 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
 
     public String deleteCollection() throws IOException {
         HttpServletRequest request = ServletActionContext.getRequest();
-        System.out.println("进入deleteCollection");
         User user = (User) session.get("user");
         String userid = user.getUserId();//拿到userid
         int deletecount = alumniCircleService.deleteCollection(userid ,dynamicId);
@@ -368,7 +368,6 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
     }
 
     public String addCircle() throws IOException {
-        System.out.println("进入addCircle");
         String userid = "";  //用户id
         String pics = "";     //图片地址
         int picCount = 0;   //图片张数
@@ -387,7 +386,6 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
     }
 
     public String addCollection() throws IOException {
-        System.out.println("进入addCollection");
         HttpServletResponse response = ServletActionContext.getResponse();
         response.setContentType("text/json-comment-filtered;charset=utf-8");
         PrintWriter out = response.getWriter();
@@ -424,7 +422,6 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
     }
 
     public String likes() throws IOException{
-        System.out.println("进入likes...");
         StringBuffer str = new StringBuffer();
         System.out.println(dynamicId);
         List<String> allLikes = alumniCircleService.likes(dynamicId);
@@ -449,7 +446,6 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
     }
 
     public String addLikes() throws IOException{
-        System.out.println("进入到addLikes中");
         HttpServletResponse response = ServletActionContext.getResponse();
         response.setContentType("text/json-comment-filtered;charset=utf-8");
         PrintWriter out = response.getWriter();
@@ -473,7 +469,6 @@ public class AlumniCircleAction extends ActionSupport implements SessionAware {
                     str.append("add");
                 }
             }else if(isState.equals("1")){  //删除点赞
-                System.out.println(isState+"dfdfdfdf");
                 int count = alumniCircleService.deleteLikes(userId, dynamicId);
                 if(count > 0){
                     str.append("delete");

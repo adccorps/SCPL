@@ -151,6 +151,7 @@
             <a href="javascript:void(0)">Terms</a>--%>
         </p>
     </footer>
+    </div>
 </main>
 <script>
   $(function () {
