@@ -17,18 +17,21 @@
             <result>/WEB-INF/alumniCircle/index.jsp</result>
         </action>
         <action name="*Mine" class="alumniCircleAction" method="{1}">
+            <interceptor-ref name="nologinRedirect"/>
             <result>/WEB-INF/alumniCircle/myCircle.jsp</result>
         </action>
         <action name="*Add" class="alumniCircleAction" method="{1}">
             <result>/WEB-INF/alumniCircle/send.jsp</result>
         </action>
         <action name="send">
+            <interceptor-ref name="nologinRedirect"/>
             <result>/WEB-INF/alumniCircle/send.jsp</result>
         </action>
         <action name="message">
             <result>/WEB-INF/alumniCircle/message.jsp</result>
         </action>
         <action name="*COLL" class="alumniCircleAction" method="{1}">
+            <interceptor-ref name="nologinRedirect"/>
             <result>/WEB-INF/alumniCircle/collection.jsp</result>
         </action>
 
