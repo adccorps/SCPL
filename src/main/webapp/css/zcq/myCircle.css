@@ -41,10 +41,13 @@ a{
     width: 90%;
 }
 #all-comment{
+    padding-top:5px;
+    padding-left:8px;
     display: none;
-    width:100%;
+    width:90%;
     height:auto;
     margin-left:20px;
+    background-color: #ededed;
 }
 .this-page{
     background-color: #e9ecef;

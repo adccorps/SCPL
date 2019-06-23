@@ -23,3 +23,12 @@ a{
 .row-top{
     margin-bottom: 10px;
 }
+#all-comment{
+    padding-top:5px;
+    padding-left:8px;
+    display: none;
+    width:90%;
+    height:auto;
+    margin-left:20px;
+    background-color: #ededed;
+}
