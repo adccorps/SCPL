@@ -6,8 +6,6 @@
 
 <struts>
   <package name="task" extends="nologin" namespace="/task" strict-method-invocation="false">
-    <default-interceptor-ref name="nologinRedirect">
-    </default-interceptor-ref>
     <global-results>
       <result name="success">/WEB-INF/task/index.jsp</result>
       <result name="json" type="json"/>
@@ -23,12 +21,15 @@
       <result name="success">/WEB-INF/task/index.jsp</result>
     </action>
     <action name="myIssue" class="taskAction" method="findByUserId">
+      <interceptor-ref name="nologinRedirect"></interceptor-ref>
       <result name="success">/WEB-INF/task/myIssue.jsp</result>
     </action>
     <action name="myAccept" class="taskAction" method="findByRecipient">
+      <interceptor-ref name="nologinRedirect"></interceptor-ref>
       <result name="success">/WEB-INF/task/myAccept.jsp</result>
     </action>
     <action name="add">
+      <interceptor-ref name="nologinRedirect"></interceptor-ref>
       <result>/WEB-INF/task/add.jsp</result>
     </action>
 
